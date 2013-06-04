@@ -1,6 +1,7 @@
 package com.hsenidmobile.recruitment.dao;
 
 import com.hsenidmobile.recruitment.model.Applicant;
+import com.hsenidmobile.recruitment.model.CvApplication;
 import junit.framework.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
@@ -16,6 +17,19 @@ public class ApplicantDaoTest extends CommonDaoTest{
         Applicant applicant =  new Applicant();
         applicant.setId(1L);
         applicant.setApplicantName("chathuranga tennakoon");
+
+        //add application one
+        CvApplication cvApplication = new CvApplication();
+        cvApplication.setId(10L);
+        cvApplication.setApplicationName("app_10");
+        applicant.addCvApplication(cvApplication);
+
+        //add application two
+        CvApplication cvApplication1 = new CvApplication();
+        cvApplication1.setId(12L);
+        cvApplication1.setApplicationName("app_12");
+        applicant.addCvApplication(cvApplication1);
+
         applicantDao.addApplicant(applicant);
 
         //select applicant by id
