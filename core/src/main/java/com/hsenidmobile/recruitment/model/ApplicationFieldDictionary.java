@@ -1,5 +1,8 @@
 package com.hsenidmobile.recruitment.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
 /**
@@ -9,19 +12,22 @@ import java.io.Serializable;
  *    each application field will be assigned under a section of the CV template.{@link CvApplicationSection}
  * </p>
  */
-public class ApplicationFieldDictionary implements Serializable {
+@Document
+public abstract class ApplicationFieldDictionary implements Serializable {
 
-    protected Long id;
+    @Id
+    protected String id;
     protected String htmlComponent;
     protected String description;
+    protected String label;
     protected boolean status;
 
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -47,5 +53,13 @@ public class ApplicationFieldDictionary implements Serializable {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

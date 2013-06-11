@@ -36,6 +36,22 @@ public class CvApplicationTemplateDaoImpl implements CvApplicationTemplateDao{
      */
     @Override
     public void update(CvApplicationTemplate cvApplicationTemplate){
-            mongoTemplate.save(cvApplicationTemplate,COLLECTION_NAME);
+        mongoTemplate.save(cvApplicationTemplate,COLLECTION_NAME);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeCvTemplate(CvApplicationTemplate cvApplicationTemplate) {
+        mongoTemplate.remove(cvApplicationTemplate,COLLECTION_NAME);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public CvApplicationTemplate findCvTemplateById(String id) {
+        return mongoTemplate.findById(id,CvApplicationTemplate.class);
     }
 }

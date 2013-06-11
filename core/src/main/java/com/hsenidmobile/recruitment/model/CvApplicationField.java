@@ -1,5 +1,8 @@
 package com.hsenidmobile.recruitment.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
 /**
@@ -9,19 +12,20 @@ import java.io.Serializable;
  *    each application field will be assigned under a section of the CV template.{@link CvApplicationSection}
  * </p>
  */
-@Deprecated
+@Document
 public class CvApplicationField implements Serializable{
 
-    private Long id;
+    @Id
+    private String id;
     private Integer priority;
     private ApplicationFieldDictionary applicationFieldDictionary;
     private boolean status;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

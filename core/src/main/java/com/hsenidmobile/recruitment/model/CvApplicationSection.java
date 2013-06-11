@@ -22,8 +22,7 @@ public class CvApplicationSection implements Serializable{
     private  CvApplicationTemplate cvApplicationTemplate;
     private boolean status;
     private Integer priority;
-//    private List<CvApplicationField> cvApplicationFieldList;
-    private List<ApplicationFieldDictionary> applicationFieldDictionaryList;
+    private List<CvApplicationField> cvApplicationFieldList;
 
 
     public CvApplicationTemplate getCvApplicationTemplate() {
@@ -42,21 +41,12 @@ public class CvApplicationSection implements Serializable{
         this.status = status;
     }
 
-//    public List<CvApplicationField> getCvApplicationFieldList() {
-//        return cvApplicationFieldList;
-//    }
-//
-//    public void setCvApplicationFieldList(List<CvApplicationField> cvApplicationFieldList) {
-//        this.cvApplicationFieldList = cvApplicationFieldList;
-//    }
-
-
-    public List<ApplicationFieldDictionary> getApplicationFieldDictionaryList() {
-        return applicationFieldDictionaryList;
+    public List<CvApplicationField> getCvApplicationFieldList() {
+        return cvApplicationFieldList;
     }
 
-    public void setApplicationFieldDictionaryList(List<ApplicationFieldDictionary> applicationFieldDictionaryList) {
-        this.applicationFieldDictionaryList = applicationFieldDictionaryList;
+    public void setCvApplicationFieldList(List<CvApplicationField> cvApplicationFieldList) {
+        this.cvApplicationFieldList = cvApplicationFieldList;
     }
 
     public Integer getPriority() {

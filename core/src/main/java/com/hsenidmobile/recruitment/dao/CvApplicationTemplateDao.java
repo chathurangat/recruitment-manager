@@ -20,4 +20,23 @@ public interface CvApplicationTemplateDao {
      */
     void update(CvApplicationTemplate cvApplicationTemplate);
 
+    /**
+     * <p>
+     *     remove the given cv template
+     * </p>
+     * @param cvApplicationTemplate as {@link CvApplicationTemplate}
+     */
+    void removeCvTemplate(CvApplicationTemplate cvApplicationTemplate);
+
+
+    /**
+     * <p>
+     *     find cv template with given id
+     * </p>
+     * @param id as {@link String}
+     * @return instance of {@link CvApplicationTemplate}
+     */
+    CvApplicationTemplate findCvTemplateById(String id);
+
+
 }
