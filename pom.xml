@@ -16,6 +16,7 @@
         <module>core</module>
         <module>recruitment-admin</module>
         <module>recruitment-web</module>
+        <module>java-oauth-lib</module>
     </modules>
 
 </project>

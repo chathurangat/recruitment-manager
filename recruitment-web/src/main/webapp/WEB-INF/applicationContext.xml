@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- Activates various annotations to be detected in bean classes -->
+    <context:annotation-config />
+
+    <context:component-scan base-package="com.hsenidmobile.recruitment"/>
 
     <!--serve for the static contents-->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <!--we will be using annotation driven handler mapping-->
     <mvc:annotation-driven/>
-
-    <context:component-scan base-package="com.hsenidmobile.recruitment"/>
 
     <!-- Factory bean that creates the Mongo instance -->
     <bean id="mongoDbFactoryBean" class="org.springframework.data.mongodb.core.MongoFactoryBean">
@@ -23,11 +32,5 @@
         <constructor-arg name="databaseName" value="recruitment_manager" />
     </bean>
 
-
-    <!--view resolver -->
-    <bean name="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/jsp/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
-
 </beans>
+
