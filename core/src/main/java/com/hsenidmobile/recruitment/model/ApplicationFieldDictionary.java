@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  */
 @Document
-public abstract class ApplicationFieldDictionary implements Serializable {
+public  class ApplicationFieldDictionary implements Serializable {
 
     @Id
     protected String id;

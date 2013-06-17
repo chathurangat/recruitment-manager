@@ -19,19 +19,9 @@ public class CvApplicationSection implements Serializable{
     @Id
     private String id;
     private String sectionName;
-    private  CvApplicationTemplate cvApplicationTemplate;
     private boolean status;
     private Integer priority;
     private List<CvApplicationField> cvApplicationFieldList;
-
-
-    public CvApplicationTemplate getCvApplicationTemplate() {
-        return cvApplicationTemplate;
-    }
-
-    public void setCvApplicationTemplate(CvApplicationTemplate cvApplicationTemplate) {
-        this.cvApplicationTemplate = cvApplicationTemplate;
-    }
 
     public boolean isStatus() {
         return status;

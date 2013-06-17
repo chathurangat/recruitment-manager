@@ -62,6 +62,8 @@
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:3.1.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:3.0.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: cglib:cglib-nodep:2.2" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax:javaee-api:6.0" level="project" />
+    <orderEntry type="library" name="Maven: opensymphony:sitemesh:2.4.2" level="project" />
   </component>
 </module>
 

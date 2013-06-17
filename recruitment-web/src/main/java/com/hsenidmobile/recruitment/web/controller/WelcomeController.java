@@ -1,5 +1,8 @@
 package com.hsenidmobile.recruitment.web.controller;
 
+import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
+import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +40,25 @@ public class WelcomeController {
     public ModelAndView displayAdminPage(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("admin_page");
+        return modelAndView;
+    }
+
+    @Autowired
+    private CvApplicationTemplateService cvApplicationTemplateService;
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/apply")
+    public ModelAndView generateCV(){
+        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51b77a8b44ae7fdb7af6011b");
+        ModelAndView modelAndView = new ModelAndView();
+        System.out.println(" application cv template ["+cvApplicationTemplate+"]");
+        if (cvApplicationTemplate!=null){
+            modelAndView.setViewName("cv_generation");
+            modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+        }
+        else {
+            modelAndView.setViewName("error");
+        }
         return modelAndView;
     }
 }

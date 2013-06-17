@@ -26,6 +26,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
@@ -61,13 +63,15 @@ public class UserLoginController {
      * @throws OAuthException
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String getLoginPage(ModelMap model) throws OAuthException {
+    public ModelAndView getLoginPage(ModelMap model) throws OAuthException {
+        ModelAndView modelAndView = new ModelAndView();
         logger.debug("Received request to show login page");
         this.initializeOAuthConfiguration();
         FacebookProvider facebookProvider = new FacebookProvider(oAuthConfiguration);
         String facebookLoginUrl = facebookProvider.getAuthorizationUrl();
         model.put("facebookLoginUrl",facebookLoginUrl);
-        return "open_id_login_page";
+        modelAndView.setViewName("open_id_login_page");
+        return modelAndView;
     }
 
     /**
@@ -77,9 +81,11 @@ public class UserLoginController {
      * @return the logical view name of the access denied page as {@link String}
      */
     @RequestMapping(value = "/denied", method = RequestMethod.GET)
-    public String showAccessDeniedPage() {
+    public ModelAndView showAccessDeniedPage() {
         logger.debug("Received request to show denied page");
-        return "access_denied_page";
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("access_denied_page");
+        return modelAndView;
     }
 
     /**
@@ -91,10 +97,12 @@ public class UserLoginController {
      * @return logical view name for the home page or login page pon user authentication as {@link String}
      */
     @RequestMapping(value = "/facebook",method = RequestMethod.GET)
-    public String facebookUserAuthentication(HttpServletRequest request,ModelMap modelMap){
+    public ModelAndView facebookUserAuthentication(HttpServletRequest request,ModelMap modelMap){
 
         String defaultFacebookPassword = "admin";
         String defaultFacebookPasswordInMd5Hashed = "21232f297a57a5a743894a0e4a801fc3";
+
+        ModelAndView modelAndView = new ModelAndView();
 
         if(request!=null && request.getAttribute(OAuthKeyBox.OAUTH_STATUS).equals("success")){
             logger.info(" starting the spring security integration with facebook");
@@ -121,19 +129,20 @@ public class UserLoginController {
                 SecurityContextHolder.getContext().setAuthentication(auth);
                 logger.debug(" Login succeeded! for the user [{}]",username);
                 System.out.println(" Login succeeded! for the user [{}]"+username);
-                return "welcome";
+                modelAndView.setViewName("welcome-redirect");
             } catch (BadCredentialsException e) {
                 logger.info("error ocured "+e);
                 logger.debug(" exception occurred while authenticating the user and exception message [{}]",e.getMessage());
-                return "open_id_login_page";
+                modelAndView.setViewName("open_id_login_page");
             }
         }
         else{
             if(request!=null && request.getAttribute(OAuthKeyBox.OAUTH_STATUS).equals("error")){
                 modelMap.put("error",request.getAttribute(OAuthKeyBox.OAUTH_MESSAGE));
             }
-            return "open_id_login_page";
+            modelAndView.setViewName("open_id_login_page");
         }
+        return modelAndView;
     }
 
 

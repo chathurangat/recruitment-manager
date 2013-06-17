@@ -159,10 +159,23 @@
 
         <!--spring security dependencies ends-->
 
+        <!--servlet 3 dependency start-->
+
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- servlet 3 dependency ends -->
+
+        <!--sitemesh dependency-->
+
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>sitemesh</artifactId>
+            <version>2.4.2</version>
         </dependency>
 
     </dependencies>

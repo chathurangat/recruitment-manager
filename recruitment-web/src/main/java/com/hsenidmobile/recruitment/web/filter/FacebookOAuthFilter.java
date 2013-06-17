@@ -7,6 +7,7 @@ import com.hms.oauth.provider.FacebookProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.Iterator;
 import java.util.Map;
 import static com.hms.oauth.config.OAuthKeyBox.*;
 
+@WebFilter(filterName = "facebook",urlPatterns = {"/user/auth/facebook"})
 public class FacebookOAuthFilter implements Filter {
 
     private static final Logger logger = LoggerFactory.getLogger(FacebookOAuthFilter.class);

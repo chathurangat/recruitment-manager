@@ -4,7 +4,6 @@
     <title></title>
 </head>
 <body>
-   Welcome to Recruitment Manager Web App...
-   this page is visible to any authenticated user
+   error page
 </body>
 </html>

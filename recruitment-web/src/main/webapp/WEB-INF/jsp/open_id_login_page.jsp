@@ -3,6 +3,7 @@
 <html>
 <head>
     <title></title>
+    <meta name="decorator" content="default" />
 </head>
 <body>
 

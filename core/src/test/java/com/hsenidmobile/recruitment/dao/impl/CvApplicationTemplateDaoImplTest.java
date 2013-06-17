@@ -38,10 +38,15 @@ public class CvApplicationTemplateDaoImplTest extends CommonDaoTest{
 
         //since we do not have dataDictionary fields we need to create them. if you have those in the database, noo need to create them and just reuse them
         ApplicationFieldDictionary nameDictionaryField = createTextFieldDictionary("name",60);
+        nameDictionaryField.setId("1");
         ApplicationFieldDictionary ageDictionaryField = createTextFieldDictionary("age",10);
+        ageDictionaryField.setId("2");
         ApplicationFieldDictionary educationalPrimaryDictionaryField = createTextAreaDictionary("primary education", 10, 20);
+        educationalPrimaryDictionaryField.setId("3");
         ApplicationFieldDictionary educationalSecondaryDictionaryField = createTextAreaDictionary("secondary education", 10, 20);
-        ApplicationFieldDictionary projectWorksDictionaryField = createTextAreaDictionary("project works",20,30);
+        educationalSecondaryDictionaryField.setId("4");
+        ApplicationFieldDictionary projectWorksDictionaryField = createTextAreaDictionary("Work Experience",15,30);
+        projectWorksDictionaryField.setId("5");
 
         //now we will create each application field with priority and assign them for the cv application sections
         // we will start with personal details section. there are two fields known as name and age
@@ -92,11 +97,13 @@ public class CvApplicationTemplateDaoImplTest extends CommonDaoTest{
         cvApplicationTemplateDao.create(cvApplicationTemplate);
         Assert.assertNotNull(cvApplicationTemplate.getId());
 
+        CvApplicationTemplate cvApplicationTemplateFound  = cvApplicationTemplateDao.findCvTemplateById(cvApplicationTemplate.getId());
+        Assert.assertNotNull(cvApplicationTemplateFound);
+
         //make sure to remove the test data once the test execution is completed.if you need to retain the test data just comment below lines
         cvApplicationTemplateDao.removeCvTemplate(cvApplicationTemplate);
         CvApplicationTemplate cvApplicationTemplate1 = cvApplicationTemplateDao.findCvTemplateById(cvApplicationTemplate.getId());
         Assert.assertNull(cvApplicationTemplate1);
-
     }
 
 

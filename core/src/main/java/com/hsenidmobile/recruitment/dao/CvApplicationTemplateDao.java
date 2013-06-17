@@ -37,6 +37,4 @@ public interface CvApplicationTemplateDao {
      * @return instance of {@link CvApplicationTemplate}
      */
     CvApplicationTemplate findCvTemplateById(String id);
-
-
 }
