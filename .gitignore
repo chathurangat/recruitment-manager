@@ -1,4 +1,6 @@
 .idea/
 core/recruitment-core.iml
 recruitment-web/recruitment-web.iml
+recruitment-admin/recruitment-admin.iml
+java-oauth-lib/java-oauth-lib.iml
 recruitment.iml

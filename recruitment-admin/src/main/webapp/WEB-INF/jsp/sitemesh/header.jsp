@@ -19,6 +19,7 @@
                             <%--<li><a href="#">Errors &amp; Validations</a></li>--%>
                             <%--<li><a href="#">Forms</a></li>--%>
                             <li><a href="?language=si"><spring:message code = "localization.language.sinhala"/></a></li>
+                            <li><a href="?language=ta"><spring:message code = "localization.language.tamil"/></a></li>
                             <li><a href="?language=en"><spring:message code = "localization.language.english"/></a></li>
                         </ul>
                     </div>
