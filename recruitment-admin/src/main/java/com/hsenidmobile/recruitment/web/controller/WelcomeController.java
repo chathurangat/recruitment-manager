@@ -1,6 +1,8 @@
 package com.hsenidmobile.recruitment.web.controller;
 
+import com.hsenidmobile.recruitment.model.CvApplicationSection;
 import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
+import com.hsenidmobile.recruitment.service.CvApplicationSectionService;
 import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -55,6 +57,25 @@ public class WelcomeController {
         if (cvApplicationTemplate!=null){
             modelAndView.setViewName("cv_generation");
             modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+        }
+        else {
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
+
+    @Autowired
+    private CvApplicationSectionService cvApplicationSectionService;
+
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/register")
+    public ModelAndView generateCVSection(){
+        CvApplicationSection cvApplicationSection = cvApplicationSectionService.findCvSectionById("51b77a8b44ae7fdb7af6011b");
+        ModelAndView modelAndView = new ModelAndView();
+        System.out.println(" application cv section ["+cvApplicationSection+"]");
+        if (cvApplicationSection!=null){
+            modelAndView.setViewName("cv_registration");
+            modelAndView.addObject("cvApplicationSection",cvApplicationSection);
         }
         else {
             modelAndView.setViewName("error");

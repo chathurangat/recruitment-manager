@@ -10,7 +10,7 @@
 
  <form action="" method="post">
  <table>
- <c:forEach items="${cv_register.sectionName }" var="sectionName"  >
+ <c:forEach items="${cvApplicationSection.sectionName }" var="sectionName"  >
  <tr>
      <td rowspan="3" ><input type="checkbox" for="status"> status </td>
 
@@ -39,7 +39,7 @@
 
      <td rowspan="3">
      <select>
-         <c:forEach begin="0" end="${fn:length(cv_register.sectionName)}" varStatus="loop">
+         <c:forEach begin="0" end="${fn:length(cvApplicationSection.sectionName)}" varStatus="loop">
              <option value="${loop.index}">${loop.index}</option>
          </c:forEach>
      </select>

@@ -1,12 +1,19 @@
-package com.hsenidmobile.recruitment.dao;
+package com.hsenidmobile.recruitment.service;
 
 import com.hsenidmobile.recruitment.model.CvApplicationSection;
 
-public interface CvApplicationSectionDao {
+/**
+ * Created with IntelliJ IDEA.
+ * User: nilaxan
+ * Date: 6/17/13
+ * Time: 10:41 PM
+ * To change this template use File | Settings | File Templates.
+ */
+public interface CvApplicationSectionService {
 
     /**
      * <p>
-     *     create cv application section
+     *     create application section
      * </p>
      * @param cvApplicationSection as {@link com.hsenidmobile.recruitment.model.CvApplicationSection}
      */
@@ -31,7 +38,7 @@ public interface CvApplicationSectionDao {
 
     /**
      * <p>
-     *     find cv application section with given id
+     *     find cv template with given id
      * </p>
      * @param id as {@link String}
      * @return instance of {@link CvApplicationSection}
