@@ -87,7 +87,7 @@ public class WelcomeController {
         return modelAndView;
     }
 
-
+    /*
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/register/save",method = RequestMethod.POST)
     public ModelAndView saveCVSection(@ModelAttribute CvApplicationTemplate cvApplicationTemplate, ModelMap model){
@@ -112,4 +112,16 @@ public class WelcomeController {
         modelAndView.setViewName("cv_section_insert");
         return modelAndView;
     }
+
+    @RequestMapping(value = "/insert/save", method = RequestMethod.POST)
+    public void insertCvSection(CvApplicationSection cvApplicationSection) {
+        if(StringUtils.hasText(cvApplicationSection.getId())) {
+            cvApplicationSectionService. update(cvApplicationSection);
+        }
+        else {
+            cvApplicationSectionService.create(cvApplicationSection);
+        }
+    }
+      */
+
 }
