@@ -30,8 +30,8 @@ public class CvApplicationSectionServiceImpl implements CvApplicationSectionServ
     }
 
     @Override
-    public void removeCvTemplate(CvApplicationSection cvApplicationSection) {
-        cvApplicationSectionDao.removeCvTemplate(cvApplicationSection);
+    public void removeCvSection(CvApplicationSection cvApplicationSection) {
+        cvApplicationSectionDao.removeCvSection(cvApplicationSection);
     }
 
     @Override

@@ -26,7 +26,7 @@ public interface CvApplicationSectionDao {
      * </p>
      * @param cvApplicationSection as {@link CvApplicationSection}
      */
-    void removeCvTemplate(CvApplicationSection cvApplicationSection);
+    void removeCvSection(CvApplicationSection cvApplicationSection);
 
 
     /**
