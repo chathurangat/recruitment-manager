@@ -44,7 +44,7 @@ public interface CvSectionInsertDao {
          * @param id as {@link String}
          * @return instance of {@link CvSectionInsert}
          */
-        CvSectionInsert findCvsectionById(String id);
+        CvSectionInsert findCvSectionById(String id);
 
 
 
