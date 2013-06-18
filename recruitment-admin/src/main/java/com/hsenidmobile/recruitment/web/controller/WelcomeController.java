@@ -82,4 +82,13 @@ public class WelcomeController {
         }
         return modelAndView;
     }
+
+
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/insert",method = RequestMethod.GET)
+    public ModelAndView displayInsertAdminPage(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("cv_section_insert");
+        return modelAndView;
+    }
 }
