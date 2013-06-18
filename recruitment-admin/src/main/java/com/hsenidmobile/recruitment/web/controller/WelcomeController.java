@@ -51,7 +51,7 @@ public class WelcomeController {
     @Secured("ROLE_USER")
     @RequestMapping(value = "/apply")
     public ModelAndView generateCV(){
-        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51b77a8b44ae7fdb7af6011b");
+        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51bff1eae4b080cd1e5af26e");
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(" application cv template ["+cvApplicationTemplate+"]");
         if (cvApplicationTemplate!=null){
@@ -70,7 +70,8 @@ public class WelcomeController {
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/register")
     public ModelAndView generateCVSection(){
-        CvApplicationSection cvApplicationSection = cvApplicationSectionService.findCvSectionById("51b77a8b44ae7fdb7af6011b");
+        CvApplicationSection cvApplicationSection=cvApplicationSectionService.findCvSectionById("51c017cae4b05b4bd7d854ee");
+       // List<CvApplicationSection> cvApplicationSection = cvApplicationSectionService.findAllCvSection();
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(" application cv section ["+cvApplicationSection+"]");
         if (cvApplicationSection!=null){
