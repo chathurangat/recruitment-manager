@@ -84,7 +84,7 @@ public class WelcomeController {
         return modelAndView;
     }
 
-
+    /*
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/insert",method = RequestMethod.GET)
     public ModelAndView displayInsertAdminPage(){
@@ -92,4 +92,16 @@ public class WelcomeController {
         modelAndView.setViewName("cv_section_insert");
         return modelAndView;
     }
+
+    @RequestMapping(value = "/insert/save", method = RequestMethod.POST)
+    public void insertCvSection(CvApplicationSection cvApplicationSection) {
+        if(StringUtils.hasText(cvApplicationSection.getId())) {
+            cvApplicationSectionService. update(cvApplicationSection);
+        }
+        else {
+            cvApplicationSectionService.create(cvApplicationSection);
+        }
+    }
+      */
+
 }
