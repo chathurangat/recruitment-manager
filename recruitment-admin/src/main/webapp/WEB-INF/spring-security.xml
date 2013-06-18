@@ -27,7 +27,7 @@
 
     <!-- Declare an authentication-manager to use a custom userDetailsService -->
     <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider user-service-ref="facebookUserDetailsService">
+        <security:authentication-provider user-service-ref="googleUserDetailsService">
             <security:password-encoder ref="passwordEncoder"/>
         </security:authentication-provider>
     </security:authentication-manager>
@@ -35,6 +35,6 @@
     <!-- Use a Md5 encoder since the user's passwords are stored as Md5 in the database -->
     <bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
 
-    <bean id="facebookUserDetailsService" class="com.hsenidmobile.recruitment.web.service.FacebookUserDetailService"/>
+    <bean id="googleUserDetailsService" class="com.hsenidmobile.recruitment.web.service.GoogleUserDetailService"/>
 
 </beans>

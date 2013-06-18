@@ -2,7 +2,6 @@ package com.hsenidmobile.recruitment.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,6 +17,7 @@ public class CvApplicationSection implements Serializable{
 
     @Id
     private String id;
+//    @Size(min = 1 ,max =100,message = "error.section.name.english.required")
     private String sectionNameEn;
     private String sectionNameSi;
     private String sectionNameTa;

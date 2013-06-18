@@ -12,7 +12,7 @@
 Please Login with your Google
 
 
- <%--<a href="${facebookLoginUrl}"> Login with Facebook </a>--%>
+ <a href="${googleLoginUrl}"> Login with Google </a>
 
 </body>
 </html>

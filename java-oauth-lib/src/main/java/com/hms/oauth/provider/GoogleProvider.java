@@ -32,11 +32,11 @@ public class GoogleProvider extends OAuth2Impl{
     private Map<Object,Object> responseParamMap  = new HashMap<Object, Object>();
     private OAuthConfiguration oAuthConfiguration;
 
-    private static final String ID = "id";
-    private static final String PICTURE = "picture";
-    private static final String NAME = "name";
-    private static final String FAMILY_NAME = "family_name";
-    private static final String GIVEN_NAME = "given_name";
+//    private static final String ID = "id";
+//    private static final String PICTURE = "picture";
+//    private static final String NAME = "name";
+//    private static final String FAMILY_NAME = "family_name";
+//    private static final String GIVEN_NAME = "given_name";
 
     public GoogleProvider(OAuthConfiguration oAuthConfiguration){
         this.oAuthConfiguration = oAuthConfiguration;
@@ -332,11 +332,11 @@ public class GoogleProvider extends OAuth2Impl{
         LOGGER.debug(" parsing JSON response [{}] and store response data in java.util.Map ", jsonObject);
         Map<Object,Object> googleAccessTokenResponseMap =  new HashMap<Object, Object>();
         //extracting data from json object and populate them in Map
-        googleAccessTokenResponseMap.put(ID,jsonObject.get(ID));
-        googleAccessTokenResponseMap.put(PICTURE,jsonObject.get(PICTURE));
-        googleAccessTokenResponseMap.put(NAME,jsonObject.get(NAME));
-        googleAccessTokenResponseMap.put(GIVEN_NAME,jsonObject.get(GIVEN_NAME));
-        googleAccessTokenResponseMap.put(FAMILY_NAME,jsonObject.get(FAMILY_NAME));
+        googleAccessTokenResponseMap.put(GOOGLE_ID,jsonObject.get(GOOGLE_ID));
+        googleAccessTokenResponseMap.put(GOOGLE_EMAIL,jsonObject.get(GOOGLE_EMAIL));
+//        googleAccessTokenResponseMap.put(NAME,jsonObject.get(NAME));
+//        googleAccessTokenResponseMap.put(GIVEN_NAME,jsonObject.get(GIVEN_NAME));
+//        googleAccessTokenResponseMap.put(FAMILY_NAME,jsonObject.get(FAMILY_NAME));
         return googleAccessTokenResponseMap;
     }
 

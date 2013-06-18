@@ -104,10 +104,10 @@ public class CvApplicationTemplateDaoImplTest extends CommonDaoTest{
         Assert.assertNotNull(cvApplicationTemplateFound);
 
         //make sure to remove the test data once the test execution is completed.if you need to retain the test data just comment below lines
-     /*  cvApplicationTemplateDao.removeCvTemplate(cvApplicationTemplate);
+       cvApplicationTemplateDao.removeCvTemplate(cvApplicationTemplate);
         CvApplicationTemplate cvApplicationTemplate1 = cvApplicationTemplateDao.findCvTemplateById(cvApplicationTemplate.getId());
         Assert.assertNull(cvApplicationTemplate1);
-     */
+
     }
 
 

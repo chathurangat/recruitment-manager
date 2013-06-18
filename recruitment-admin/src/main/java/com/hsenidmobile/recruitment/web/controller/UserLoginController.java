@@ -3,11 +3,11 @@
  */
 package com.hsenidmobile.recruitment.web.controller;
 
-
 import com.hms.oauth.config.OAuthConfiguration;
 import com.hms.oauth.config.OAuthKeyBox;
 import com.hms.oauth.exception.OAuthException;
 import com.hms.oauth.provider.FacebookProvider;
+import com.hms.oauth.provider.GoogleProvider;
 import com.hsenidmobile.recruitment.model.Applicant;
 import com.hsenidmobile.recruitment.service.ApplicantService;
 import org.slf4j.Logger;
@@ -27,7 +27,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
@@ -48,11 +47,10 @@ public class UserLoginController {
     @Autowired
     private ApplicantService applicantService;
     private OAuthConfiguration oAuthConfiguration;
-    private static final String APPLICATION_ID = "673816255977332";
-    private static final String APPLICATION_SECRET = "1b872f85587926cdfce11200aed7c269";
-    private static final String REDIRECT_URL = "http://localhost:8080/recruitment-web/user/auth/facebook";
-    private static final String STATE = "123";
-
+    private static final String APPLICATION_ID = "669970197155-7lhlm9iu7vgdv7dniif2kqs18ts5bt0h.apps.googleusercontent.com";
+    private static final String APPLICATION_SECRET = "C05Nugr_LKdwrq8-K2bZd7tK";
+    private static final String REDIRECT_URL = "http://localhost:8080/recruitment-admin/user/auth/google";
+    private static final String SCOPE = "https://www.googleapis.com/auth/userinfo#email";
 
     /**
      * <p>
@@ -67,9 +65,9 @@ public class UserLoginController {
         ModelAndView modelAndView = new ModelAndView();
         logger.debug("Received request to show login page");
         this.initializeOAuthConfiguration();
-        FacebookProvider facebookProvider = new FacebookProvider(oAuthConfiguration);
-        String facebookLoginUrl = facebookProvider.getAuthorizationUrl();
-        model.put("facebookLoginUrl",facebookLoginUrl);
+        GoogleProvider googleProvider = new GoogleProvider(oAuthConfiguration);
+        String googleLoginUrl = googleProvider.getAuthorizationUrl();
+        model.put("googleLoginUrl",googleLoginUrl);
         modelAndView.setViewName("open_id_login_page");
         return modelAndView;
     }
@@ -90,37 +88,42 @@ public class UserLoginController {
 
     /**
      *<p>
-     * the purpose of this method is to authenticate the facebook users with spring security
+     * the purpose of this method is to authenticate the google users with spring security
      *</p>
      * @param request  as {@link HttpServletRequest}
      * @param modelMap as {@link ModelMap}
      * @return logical view name for the home page or login page pon user authentication as {@link String}
      */
-    @RequestMapping(value = "/facebook",method = RequestMethod.GET)
-    public ModelAndView facebookUserAuthentication(HttpServletRequest request,ModelMap modelMap){
+    @RequestMapping(value = "/google",method = RequestMethod.GET)
+    public ModelAndView googleUserAuthentication(HttpServletRequest request,ModelMap modelMap) throws OAuthException {
 
-        String defaultFacebookPassword = "admin";
-        String defaultFacebookPasswordInMd5Hashed = "21232f297a57a5a743894a0e4a801fc3";
+        String defaultGooglePassword = "admin";
+//        String defaultFacebookPasswordInMd5Hashed = "21232f297a57a5a743894a0e4a801fc3";
 
         ModelAndView modelAndView = new ModelAndView();
 
+        this.initializeOAuthConfiguration();
+        GoogleProvider googleProvider = new GoogleProvider(oAuthConfiguration);
+        String googleLoginUrl = googleProvider.getAuthorizationUrl();
+
         if(request!=null && request.getAttribute(OAuthKeyBox.OAUTH_STATUS).equals("success")){
-            logger.info(" starting the spring security integration with facebook");
-            //check whether the facebook user has accessed this website  previousl
-            String facebookUsername = (String)request.getAttribute(OAuthKeyBox.USERNAME);
-            String facebookUserId = (String)request.getAttribute(OAuthKeyBox.ID);
+            logger.info(" starting the spring security integration with google");
+            //check whether the google user has accessed this website  previously
+            String googleUsername = (String)request.getAttribute(OAuthKeyBox.GOOGLE_EMAIL);
+//            String googleUserId = (String)request.getAttribute(OAuthKeyBox.GOOGLE_ID);
 
-            Applicant applicant =  applicantService.findApplicantFromSocialNetworkDetails("facebook",facebookUsername,facebookUserId,true);
-
-            if(applicant==null){
-                applicant =  new Applicant();
-                applicant.setDefaultMd5HashedPassword(defaultFacebookPasswordInMd5Hashed);
-                System.out.println("first time user ["+facebookUsername+"] accessing the recruitment portal");
-                //registering the applicant details
-                this.registerNewApplicant(applicant,request);
-            }
+//            Applicant applicant =  applicantService.findApplicantFromSocialNetworkDetails("google",googleUsername,googleUserId,true);
+//
+//            if(applicant==null){
+//                applicant =  new Applicant();
+//                applicant.setDefaultMd5HashedPassword(defaultFacebookPasswordInMd5Hashed);
+//                System.out.println("first time user ["+googleUsername+"] accessing the recruitment admin portal");
+//                //registering the applicant details
+//                this.registerNewApplicant(applicant,request);
+//            }
             //sending for user authentication
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(facebookUsername, defaultFacebookPassword);
+
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(googleUsername, defaultGooglePassword);
             UserDetails user = new User("username", "password", true, true, true, true,new ArrayList<GrantedAuthority>());
             token.setDetails(user);
             try {
@@ -131,14 +134,17 @@ public class UserLoginController {
                 System.out.println(" Login succeeded! for the user [{}]"+username);
                 modelAndView.setViewName("welcome-redirect");
             } catch (BadCredentialsException e) {
-                logger.info("error ocured "+e);
+                logger.info("error occurred "+e);
                 logger.debug(" exception occurred while authenticating the user and exception message [{}]",e.getMessage());
                 modelAndView.setViewName("open_id_login_page");
+                modelMap.put("error","Your google account does not associate with our cooperate google domain");
+                modelMap.put("googleLoginUrl",googleLoginUrl);
             }
         }
         else{
             if(request!=null && request.getAttribute(OAuthKeyBox.OAUTH_STATUS).equals("error")){
                 modelMap.put("error",request.getAttribute(OAuthKeyBox.OAUTH_MESSAGE));
+                modelMap.put("googleLoginUrl",googleLoginUrl);
             }
             modelAndView.setViewName("open_id_login_page");
         }
@@ -148,21 +154,22 @@ public class UserLoginController {
 
     /**
      * <p>
-     *     registering new facebook user upon his first access of the recruitment-portal
+     *     registering new google user upon his first access of the recruitment-portal
      * </p>
      * @param applicant as {@link Applicant}
      * @param request as {@link HttpServletRequest}
      */
     private void registerNewApplicant(Applicant applicant,HttpServletRequest request){
-        applicant.setUsername(request.getAttribute(OAuthKeyBox.USERNAME).toString());
-        applicant.setFirstName(request.getAttribute(OAuthKeyBox.FIRST_NAME).toString());
-        applicant.setLastName(request.getAttribute(OAuthKeyBox.LAST_NAME).toString());
-        applicant.setOpenIdProvider("facebook");
-        applicant.setHomeTown(request.getAttribute(OAuthKeyBox.HOME_TOWN).toString());
-        applicant.setGender(request.getAttribute(OAuthKeyBox.GENDER).toString());
-        applicant.setName(request.getAttribute(OAuthKeyBox.NAME).toString());
-        applicant.setLocation(request.getAttribute(OAuthKeyBox.LOCATION).toString());
-        applicant.setSocialNetworkResourceId(request.getAttribute(OAuthKeyBox.ID).toString());
+        applicant.setUsername(request.getAttribute(OAuthKeyBox.GOOGLE_EMAIL).toString());
+        applicant.setEmail(request.getAttribute(OAuthKeyBox.GOOGLE_EMAIL).toString());
+//        applicant.setFirstName(request.getAttribute(OAuthKeyBox.FIRST_NAME).toString());
+//        applicant.setLastName(request.getAttribute(OAuthKeyBox.LAST_NAME).toString());
+        applicant.setOpenIdProvider("google");
+//        applicant.setHomeTown(request.getAttribute(OAuthKeyBox.HOME_TOWN).toString());
+//        applicant.setGender(request.getAttribute(OAuthKeyBox.GENDER).toString());
+//        applicant.setName(request.getAttribute(OAuthKeyBox.NAME).toString());
+//        applicant.setLocation(request.getAttribute(OAuthKeyBox.LOCATION).toString());
+        applicant.setSocialNetworkResourceId(request.getAttribute(OAuthKeyBox.GOOGLE_ID).toString());
         applicant.setStatus(true);
         applicantService.addApplicant(applicant);
         logger.info("applicant was saved ");
@@ -179,6 +186,6 @@ public class UserLoginController {
         oAuthConfiguration.setApplicationId(APPLICATION_ID);
         oAuthConfiguration.setApplicationSecret(APPLICATION_SECRET);
         oAuthConfiguration.setRedirectUrl(REDIRECT_URL);
-        oAuthConfiguration.setState(STATE);
+        oAuthConfiguration.setScope(SCOPE);
     }
 }

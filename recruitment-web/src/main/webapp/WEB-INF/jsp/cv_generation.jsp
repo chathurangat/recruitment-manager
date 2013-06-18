@@ -13,40 +13,87 @@
 </head>
 <body>
 
-${cvApplicationTemplate.cvHeader}
+<%--${cvApplicationTemplate.cvHeader}--%>
 
-<c:forEach items="${cvApplicationTemplate.cvApplicationSectionList}" var="applicationSection">
-    <fieldset name="${applicationSection.sectionName}">
-        <legend>
-                ${applicationSection.sectionName}
+<%--<c:forEach items="${cvApplicationTemplate.cvApplicationSectionList}" var="applicationSection">--%>
+<%--<fieldset name="${applicationSection.sectionName}">--%>
+<%--<legend>--%>
+<%--${applicationSection.sectionName}--%>
 
-        </legend>
+<%--</legend>--%>
 
-        <c:forEach items="${applicationSection.cvApplicationFieldList}" var="applicationField">
-            <c:set var="textField" value="${applicationField.applicationFieldDictionary.htmlComponent}"/>
+<%--<c:forEach items="${applicationSection.cvApplicationFieldList}" var="applicationField">--%>
+<%--<c:set var="textField" value="${applicationField.applicationFieldDictionary.htmlComponent}"/>--%>
 
-            <c:if test="${fn:containsIgnoreCase(textField, 'textfield')}">
-                <label for="${applicationField.applicationFieldDictionary.id}">
-                        ${applicationField.applicationFieldDictionary.label}
-                </label>
-                <input id="${applicationField.applicationFieldDictionary.id}" name="${applicationField.applicationFieldDictionary.id}" type="text" size="${applicationField.applicationFieldDictionary.size}"/>
-                <br/>
-                <br/>
-            </c:if>
+<%--<c:if test="${fn:containsIgnoreCase(textField, 'textfield')}">--%>
+<%--<label for="${applicationField.applicationFieldDictionary.id}">--%>
+<%--${applicationField.applicationFieldDictionary.label}--%>
+<%--</label>--%>
+<%--<input id="${applicationField.applicationFieldDictionary.id}" name="${applicationField.applicationFieldDictionary.id}" type="text" size="${applicationField.applicationFieldDictionary.size}"/>--%>
+<%--<br/>--%>
+<%--<br/>--%>
+<%--</c:if>--%>
 
-            <c:if test="${fn:containsIgnoreCase(textField, 'textarea')}">
-                <p class="formfield">
-                    <label for="${applicationField.applicationFieldDictionary.id}">
-                            ${applicationField.applicationFieldDictionary.label}
-                    </label>
-                    <textarea name="${applicationField.applicationFieldDictionary.id}" cols="${applicationField.applicationFieldDictionary.cols}" rows="${applicationField.applicationFieldDictionary.rows}"></textarea>
-                </p>
-                <br/>
-                <br/>
-            </c:if>
-        </c:forEach>
-    </fieldset>
-</c:forEach>
+<%--<c:if test="${fn:containsIgnoreCase(textField, 'textarea')}">--%>
+<%--<p class="formfield">--%>
+<%--<label for="${applicationField.applicationFieldDictionary.id}">--%>
+<%--${applicationField.applicationFieldDictionary.label}--%>
+<%--</label>--%>
+<%--<textarea name="${applicationField.applicationFieldDictionary.id}" cols="${applicationField.applicationFieldDictionary.cols}" rows="${applicationField.applicationFieldDictionary.rows}"></textarea>--%>
+<%--</p>--%>
+<%--<br/>--%>
+<%--<br/>--%>
+<%--</c:if>--%>
+<%--</c:forEach>--%>
+<%--</fieldset>--%>
+<%--</c:forEach>--%>
+
+
+<%--<div class="container-fluid">--%>
+    <%--<div class="row-fluid">--%>
+        <%--<div class="span2">--%>
+            <%--side bar content--%>
+        <%--</div>--%>
+        <%--<div class="span10">--%>
+
+            ${cvApplicationTemplate.cvHeaderEn}
+
+            <c:forEach items="${cvApplicationTemplate.cvApplicationSectionList}" var="applicationSection">
+                <fieldset name="${applicationSection.sectionNameEn}">
+                    <legend>
+                            ${applicationSection.sectionNameEn}
+
+                    </legend>
+
+                    <c:forEach items="${applicationSection.cvApplicationFieldList}" var="applicationField">
+                        <c:set var="textField" value="${applicationField.applicationFieldDictionary.htmlComponent}"/>
+
+                        <c:if test="${fn:containsIgnoreCase(textField, 'textfield')}">
+                            <label for="${applicationField.applicationFieldDictionary.id}">
+                                    ${applicationField.applicationFieldDictionary.label}
+                            </label>
+                            <input id="${applicationField.applicationFieldDictionary.id}" name="${applicationField.applicationFieldDictionary.id}" type="text" size="${applicationField.applicationFieldDictionary.size}"/>
+                            <br/>
+                            <br/>
+                        </c:if>
+
+                        <c:if test="${fn:containsIgnoreCase(textField, 'textarea')}">
+                            <p class="formfield">
+                                <label for="${applicationField.applicationFieldDictionary.id}">
+                                        ${applicationField.applicationFieldDictionary.label}
+                                </label>
+                                <textarea name="${applicationField.applicationFieldDictionary.id}" cols="${applicationField.applicationFieldDictionary.cols}" rows="${applicationField.applicationFieldDictionary.rows}"></textarea>
+                            </p>
+                            <br/>
+                            <br/>
+                        </c:if>
+                    </c:forEach>
+                </fieldset>
+            </c:forEach>
+
+        <%--</div>--%>
+    <%--</div>--%>
+<%--</div>--%>
 
 </body>
 </html>

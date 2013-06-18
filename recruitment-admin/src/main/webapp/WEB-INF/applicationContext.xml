@@ -19,7 +19,7 @@
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <!--we will be using annotation driven handler mapping-->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven validator="validator"/>
 
     <!-- Factory bean that creates the Mongo instance -->
     <bean id="mongoDbFactoryBean" class="org.springframework.data.mongodb.core.MongoFactoryBean">
@@ -52,6 +52,12 @@
     </mvc:interceptors>
 
     <!--localization and internationalization ends here-->
+
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="messageInterpolator">
+            <bean class="com.hsenidmobile.recruitment.web.filter.SpringMessageSourceMessageInterpolator" />
+        </property>
+    </bean>
 
 </beans>
 
