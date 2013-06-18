@@ -22,7 +22,7 @@ public class CvApplicationTemplateDaoImplTest extends CommonDaoTest{
         CvApplicationTemplate cvApplicationTemplate = new CvApplicationTemplate();
         cvApplicationTemplate.setCvHeaderEn("Application for Trainee Software Engineer");
         cvApplicationTemplate.setCvHeaderSi("Application for Trainee Software Engineer_SI");
-        cvApplicationTemplate.setCvHeaderSi("Application for Trainee Software Engineer_TA");
+        cvApplicationTemplate.setCvHeaderTa("Application for Trainee Software Engineer_TA");
 
 
         // creating sections for the cv template
@@ -104,10 +104,10 @@ public class CvApplicationTemplateDaoImplTest extends CommonDaoTest{
         Assert.assertNotNull(cvApplicationTemplateFound);
 
         //make sure to remove the test data once the test execution is completed.if you need to retain the test data just comment below lines
-       cvApplicationTemplateDao.removeCvTemplate(cvApplicationTemplate);
+     /*  cvApplicationTemplateDao.removeCvTemplate(cvApplicationTemplate);
         CvApplicationTemplate cvApplicationTemplate1 = cvApplicationTemplateDao.findCvTemplateById(cvApplicationTemplate.getId());
         Assert.assertNull(cvApplicationTemplate1);
-
+     */
     }
 
 
@@ -134,7 +134,7 @@ public class CvApplicationTemplateDaoImplTest extends CommonDaoTest{
         cvApplicationSection.setId(id);
         cvApplicationSection.setSectionNameEn(nameEn);
         cvApplicationSection.setSectionNameSi(nameSi);
-        cvApplicationSection.setSectionNameEn(nameTa);
+        cvApplicationSection.setSectionNameTa(nameTa);
         cvApplicationSection.setStatus(status);
         return cvApplicationSection;
     }

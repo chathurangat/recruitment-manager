@@ -51,7 +51,7 @@ public interface CvApplicationSectionService {
      * <p>
      *     find all cv section with given id
      * </p>
-     * @param cvApplicationSection as {@link CvApplicationSection}
+     *
      */
     List<CvApplicationSection> findAllCvSection();
 }

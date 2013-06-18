@@ -35,8 +35,11 @@ public class CvApplicationSectionDaoImplTest extends CommonDaoTest{
         cvApplicationSectionDao.create(cvApplicationSection);
         Assert.assertNotNull(cvApplicationSection.getId());
 
-        List<CvApplicationSection> cvApplicationSectionFound  = cvApplicationSectionDao.findAllCvSection();
-        Assert.assertNotNull(cvApplicationSectionFound);
+        CvApplicationSection cvApplicationTemplateFound  = cvApplicationSectionDao.findCvSectionById(cvApplicationSection.getId());
+        Assert.assertNotNull(cvApplicationTemplateFound);
+
+        List<CvApplicationSection> cvApplicationSectionFound1  = cvApplicationSectionDao.findAllCvSection();
+        Assert.assertNotNull(cvApplicationSectionFound1);
 
         //make sure to remove the test data once the test execution is completed.if you need to retain the test data just comment below lines
     /*    cvApplicationSectionDao.removeCvSection(cvApplicationSection);

@@ -40,5 +40,11 @@ public interface CvApplicationSectionDao {
      */
     CvApplicationSection findCvSectionById(String id);
 
+    /**
+     * <p>
+     *     find all cv application section
+     * </p>
+     * @return instance of {@link List<CvApplicationSection>}
+     */
     List<CvApplicationSection> findAllCvSection();
 }

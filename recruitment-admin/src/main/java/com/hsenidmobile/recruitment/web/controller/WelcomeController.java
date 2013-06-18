@@ -7,6 +7,9 @@ import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,7 +54,7 @@ public class WelcomeController {
     @Secured("ROLE_USER")
     @RequestMapping(value = "/apply")
     public ModelAndView generateCV(){
-        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51bff1eae4b080cd1e5af26e");
+        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51c03dc3e4b07255b5d8d4d6");
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(" application cv template ["+cvApplicationTemplate+"]");
         if (cvApplicationTemplate!=null){
@@ -68,10 +71,10 @@ public class WelcomeController {
     private CvApplicationSectionService cvApplicationSectionService;
 
     @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/register")
-    public ModelAndView generateCVSection(){
-        CvApplicationSection cvApplicationSection=cvApplicationSectionService.findCvSectionById("51c017cae4b05b4bd7d854ee");
-       // List<CvApplicationSection> cvApplicationSection = cvApplicationSectionService.findAllCvSection();
+         @RequestMapping(value = "/register")
+         public ModelAndView generateCVSection(){
+         CvApplicationSection cvApplicationSection=cvApplicationSectionService.findCvSectionById("51c04d81e4b087d1087d04f6");
+        //List<CvApplicationSection> cvApplicationSection = cvApplicationSectionService.findAllCvSection();
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(" application cv section ["+cvApplicationSection+"]");
         if (cvApplicationSection!=null){
@@ -83,6 +86,23 @@ public class WelcomeController {
         }
         return modelAndView;
     }
+
+
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/register/save",method = RequestMethod.POST)
+    public ModelAndView saveCVSection(@ModelAttribute CvApplicationTemplate cvApplicationTemplate, ModelMap model){
+           ModelAndView modelAndView=new ModelAndView();
+            modelAndView.setViewName("admin_page");
+            if(StringUtils.hasText(cvApplicationTemplate.getId()))
+            {
+                cvApplicationTemplateService.update(cvApplicationTemplate);
+            }
+            else
+            {
+               cvApplicationTemplateService.create(cvApplicationTemplate);
+            }
+        return modelAndView;
+        }
 
 
     @Secured("ROLE_ADMIN")

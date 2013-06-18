@@ -13,12 +13,12 @@
 </head>
 <body>
 
-${cvApplicationTemplate.cvHeader}
+${cvApplicationTemplate.cvHeaderEn}  <br/>
 
 <c:forEach items="${cvApplicationTemplate.cvApplicationSectionList}" var="applicationSection">
-    <fieldset name="${applicationSection.sectionName}">
+    <fieldset name="${applicationSection.sectionNameEn}">
         <legend>
-                ${applicationSection.sectionName}
+                ${applicationSection.sectionNameEn}
 
         </legend>
 

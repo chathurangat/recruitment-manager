@@ -51,7 +51,7 @@ public class CvApplicationSectionDaoImpl implements CvApplicationSectionDao{
      */
     @Override
     public CvApplicationSection findCvSectionById(String id) {
-        return mongoTemplate.findById(id,CvApplicationSection.class);
+        return mongoTemplate.findById(id,CvApplicationSection.class,COLLECTION_NAME);
     }
 
     /**
