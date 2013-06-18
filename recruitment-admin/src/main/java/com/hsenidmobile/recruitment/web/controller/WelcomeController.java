@@ -87,7 +87,7 @@ public class WelcomeController {
         return modelAndView;
     }
 
-    /*
+
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/register/save",method = RequestMethod.POST)
     public ModelAndView saveCVSection(@ModelAttribute CvApplicationTemplate cvApplicationTemplate, ModelMap model){
@@ -122,6 +122,6 @@ public class WelcomeController {
             cvApplicationSectionService.create(cvApplicationSection);
         }
     }
-      */
+
 
 }
