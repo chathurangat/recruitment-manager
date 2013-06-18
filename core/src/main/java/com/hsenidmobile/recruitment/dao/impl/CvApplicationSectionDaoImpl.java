@@ -6,11 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.stereotype.Repository;
-import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Repository("cvApplicationSectionDao")
 public class CvApplicationSectionDaoImpl implements CvApplicationSectionDao{
@@ -45,7 +40,7 @@ public class CvApplicationSectionDaoImpl implements CvApplicationSectionDao{
      * {@inheritDoc}
      */
     @Override
-    public void removeCvTemplate(CvApplicationSection cvApplicationSection) {
+    public void removeCvSection(CvApplicationSection cvApplicationSection) {
         mongoTemplate.remove(cvApplicationSection,COLLECTION_NAME);
     }
 
