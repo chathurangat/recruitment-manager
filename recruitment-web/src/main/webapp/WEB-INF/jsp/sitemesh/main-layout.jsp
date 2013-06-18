@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp"/>
+<jsp:include page="main-header.jsp"/>
 
 
 <div class="hero-unit">

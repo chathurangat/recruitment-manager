@@ -7,6 +7,5 @@
    Welcome to Recruitment Manager Web App...
    this page is visible to any authenticated user
 
-<a href="apply"> Apply for vacancy</a>
 </body>
 </html>

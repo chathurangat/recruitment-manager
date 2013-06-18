@@ -110,17 +110,6 @@ public class UserLoginController {
             logger.info(" starting the spring security integration with google");
             //check whether the google user has accessed this website  previously
             String googleUsername = (String)request.getAttribute(OAuthKeyBox.GOOGLE_EMAIL);
-//            String googleUserId = (String)request.getAttribute(OAuthKeyBox.GOOGLE_ID);
-
-//            Applicant applicant =  applicantService.findApplicantFromSocialNetworkDetails("google",googleUsername,googleUserId,true);
-//
-//            if(applicant==null){
-//                applicant =  new Applicant();
-//                applicant.setDefaultMd5HashedPassword(defaultFacebookPasswordInMd5Hashed);
-//                System.out.println("first time user ["+googleUsername+"] accessing the recruitment admin portal");
-//                //registering the applicant details
-//                this.registerNewApplicant(applicant,request);
-//            }
             //sending for user authentication
 
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(googleUsername, defaultGooglePassword);
@@ -132,6 +121,7 @@ public class UserLoginController {
                 SecurityContextHolder.getContext().setAuthentication(auth);
                 logger.debug(" Login succeeded! for the user [{}]",username);
                 System.out.println(" Login succeeded! for the user [{}]"+username);
+                request.getSession().setAttribute("username",googleUsername);
                 modelAndView.setViewName("welcome-redirect");
             } catch (BadCredentialsException e) {
                 logger.info("error occurred "+e);
@@ -151,29 +141,6 @@ public class UserLoginController {
         return modelAndView;
     }
 
-
-    /**
-     * <p>
-     *     registering new google user upon his first access of the recruitment-portal
-     * </p>
-     * @param applicant as {@link Applicant}
-     * @param request as {@link HttpServletRequest}
-     */
-    private void registerNewApplicant(Applicant applicant,HttpServletRequest request){
-        applicant.setUsername(request.getAttribute(OAuthKeyBox.GOOGLE_EMAIL).toString());
-        applicant.setEmail(request.getAttribute(OAuthKeyBox.GOOGLE_EMAIL).toString());
-//        applicant.setFirstName(request.getAttribute(OAuthKeyBox.FIRST_NAME).toString());
-//        applicant.setLastName(request.getAttribute(OAuthKeyBox.LAST_NAME).toString());
-        applicant.setOpenIdProvider("google");
-//        applicant.setHomeTown(request.getAttribute(OAuthKeyBox.HOME_TOWN).toString());
-//        applicant.setGender(request.getAttribute(OAuthKeyBox.GENDER).toString());
-//        applicant.setName(request.getAttribute(OAuthKeyBox.NAME).toString());
-//        applicant.setLocation(request.getAttribute(OAuthKeyBox.LOCATION).toString());
-        applicant.setSocialNetworkResourceId(request.getAttribute(OAuthKeyBox.GOOGLE_ID).toString());
-        applicant.setStatus(true);
-        applicantService.addApplicant(applicant);
-        logger.info("applicant was saved ");
-    }
 
     /**
      * <p>
