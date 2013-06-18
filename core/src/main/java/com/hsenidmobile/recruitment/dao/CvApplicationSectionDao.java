@@ -2,6 +2,8 @@ package com.hsenidmobile.recruitment.dao;
 
 import com.hsenidmobile.recruitment.model.CvApplicationSection;
 
+import java.util.List;
+
 public interface CvApplicationSectionDao {
 
     /**
@@ -37,4 +39,6 @@ public interface CvApplicationSectionDao {
      * @return instance of {@link CvApplicationSection}
      */
     CvApplicationSection findCvSectionById(String id);
+
+    List<CvApplicationSection> findAllCvSection();
 }

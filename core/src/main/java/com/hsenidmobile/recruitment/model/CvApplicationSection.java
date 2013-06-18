@@ -2,8 +2,8 @@ package com.hsenidmobile.recruitment.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -18,7 +18,9 @@ public class CvApplicationSection implements Serializable{
 
     @Id
     private String id;
-    private String sectionName;
+    private String sectionNameEn;
+    private String sectionNameSi;
+    private String sectionNameTa;
     private boolean status;
     private Integer priority;
     private List<CvApplicationField> cvApplicationFieldList;
@@ -55,11 +57,27 @@ public class CvApplicationSection implements Serializable{
         this.id = id;
     }
 
-    public String getSectionName() {
-        return sectionName;
+    public String getSectionNameEn() {
+        return sectionNameEn;
     }
 
-    public void setSectionName(String sectionName) {
-        this.sectionName = sectionName;
+    public void setSectionNameEn(String sectionNameEn) {
+        this.sectionNameEn = sectionNameEn;
+    }
+
+    public String getSectionNameSi() {
+        return sectionNameSi;
+    }
+
+    public void setSectionNameSi(String sectionNameSi) {
+        this.sectionNameSi = sectionNameSi;
+    }
+
+    public String getSectionNameTa() {
+        return sectionNameTa;
+    }
+
+    public void setSectionNameTa(String sectionNameTa) {
+        this.sectionNameTa = sectionNameTa;
     }
 }

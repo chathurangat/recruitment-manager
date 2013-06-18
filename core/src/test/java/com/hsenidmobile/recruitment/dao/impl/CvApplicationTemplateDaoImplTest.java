@@ -20,12 +20,15 @@ public class CvApplicationTemplateDaoImplTest extends CommonDaoTest{
 
         //creating cv template
         CvApplicationTemplate cvApplicationTemplate = new CvApplicationTemplate();
-        cvApplicationTemplate.setCvHeader("Application for Trainee Software Engineer");
+        cvApplicationTemplate.setCvHeaderEn("Application for Trainee Software Engineer");
+        cvApplicationTemplate.setCvHeaderSi("Application for Trainee Software Engineer_SI");
+        cvApplicationTemplate.setCvHeaderSi("Application for Trainee Software Engineer_TA");
+
 
         // creating sections for the cv template
-        CvApplicationSection personalDetailsSection = createCvApplicationSection("personal details","1",true);
-        CvApplicationSection educationalQualificationSection = createCvApplicationSection("educational qualifications","2",true);
-        CvApplicationSection projectWorkSection = createCvApplicationSection("project works","3",true);
+        CvApplicationSection personalDetailsSection = createCvApplicationSection("personal details","personal details_Si","personal details_Ta","1",true);
+        CvApplicationSection educationalQualificationSection = createCvApplicationSection("educational qualifications","educational qualifications_Si","educational qualifications_Ta","2",true);
+        CvApplicationSection projectWorkSection = createCvApplicationSection("project works","project works_Si","project works_Ta","3",true);
 
         //adding the cv application sections to array list
         List<CvApplicationSection> cvApplicationSections = new ArrayList<CvApplicationSection>();
@@ -101,9 +104,10 @@ public class CvApplicationTemplateDaoImplTest extends CommonDaoTest{
         Assert.assertNotNull(cvApplicationTemplateFound);
 
         //make sure to remove the test data once the test execution is completed.if you need to retain the test data just comment below lines
-        cvApplicationTemplateDao.removeCvTemplate(cvApplicationTemplate);
+       cvApplicationTemplateDao.removeCvTemplate(cvApplicationTemplate);
         CvApplicationTemplate cvApplicationTemplate1 = cvApplicationTemplateDao.findCvTemplateById(cvApplicationTemplate.getId());
         Assert.assertNull(cvApplicationTemplate1);
+
     }
 
 
@@ -118,15 +122,19 @@ public class CvApplicationTemplateDaoImplTest extends CommonDaoTest{
      * <p>
      *     create application template sections
      * </p>
-     * @param name
+     * @param nameEn
+     * @param nameSi
+     * @param nameTa
      * @param id
      * @param status
      * @return
      */
-    private CvApplicationSection createCvApplicationSection(String name,String id,boolean status){
+    private CvApplicationSection createCvApplicationSection(String nameEn, String nameSi, String nameTa,String id,boolean status){
         CvApplicationSection cvApplicationSection = new CvApplicationSection();
         cvApplicationSection.setId(id);
-        cvApplicationSection.setSectionName(name);
+        cvApplicationSection.setSectionNameEn(nameEn);
+        cvApplicationSection.setSectionNameSi(nameSi);
+        cvApplicationSection.setSectionNameEn(nameTa);
         cvApplicationSection.setStatus(status);
         return cvApplicationSection;
     }

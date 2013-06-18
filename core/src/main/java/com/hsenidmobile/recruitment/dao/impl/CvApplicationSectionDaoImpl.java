@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("cvApplicationSectionDao")
 public class CvApplicationSectionDaoImpl implements CvApplicationSectionDao{
 
@@ -14,7 +16,7 @@ public class CvApplicationSectionDaoImpl implements CvApplicationSectionDao{
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public static final String COLLECTION_NAME = "cv_register";
+    public static final String COLLECTION_NAME = "cv_section_register";
 
 
     /**
@@ -50,5 +52,13 @@ public class CvApplicationSectionDaoImpl implements CvApplicationSectionDao{
     @Override
     public CvApplicationSection findCvSectionById(String id) {
         return mongoTemplate.findById(id,CvApplicationSection.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<CvApplicationSection> findAllCvSection() {
+        return mongoTemplate.findAll(CvApplicationSection.class);
     }
 }

@@ -15,7 +15,9 @@ public class CvApplicationTemplateDaoTest extends CommonDaoTest{
     @Test
     public void create(){
         CvApplicationTemplate cvApplicationTemplate = new CvApplicationTemplate();
-        cvApplicationTemplate.setCvHeader("header");
+        cvApplicationTemplate.setCvHeaderEn("header_English");
+        cvApplicationTemplate.setCvHeaderSi("header Sinhaha");
+        cvApplicationTemplate.setCvHeaderTa("header Tamil");
         cvApplicationTemplate.setStatus(true);
         cvApplicationTemplate.setCvApplicationSectionList(null);
        cvApplicationTemplateDao.create(cvApplicationTemplate);

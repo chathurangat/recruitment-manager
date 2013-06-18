@@ -11,7 +11,10 @@ public class CvApplicationTemplate implements Serializable {
 
     @Id
     private String id;
-    private String cvHeader;
+    private String cvHeaderEn;
+    private String cvHeaderSi;
+    private String cvHeaderTa;
+
     private List<CvApplicationSection> cvApplicationSectionList = new ArrayList<CvApplicationSection>();
     private boolean status;
 
@@ -23,12 +26,28 @@ public class CvApplicationTemplate implements Serializable {
         this.id = id;
     }
 
-    public String getCvHeader() {
-        return cvHeader;
+    public String getCvHeaderEn() {
+        return cvHeaderEn;
     }
 
-    public void setCvHeader(String cvHeader) {
-        this.cvHeader = cvHeader;
+    public void setCvHeaderEn(String cvHeaderEn) {
+        this.cvHeaderEn = cvHeaderEn;
+    }
+
+    public String getCvHeaderSi() {
+        return cvHeaderSi;
+    }
+
+    public void setCvHeaderSi(String cvHeaderSi) {
+        this.cvHeaderSi = cvHeaderSi;
+    }
+
+    public String getCvHeaderTa() {
+        return cvHeaderTa;
+    }
+
+    public void setCvHeaderTa(String cvHeaderTa) {
+        this.cvHeaderTa = cvHeaderTa;
     }
 
     public List<CvApplicationSection> getCvApplicationSectionList() {

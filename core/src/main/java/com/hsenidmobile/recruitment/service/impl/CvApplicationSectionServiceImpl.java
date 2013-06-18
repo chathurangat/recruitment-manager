@@ -6,6 +6,8 @@ import com.hsenidmobile.recruitment.service.CvApplicationSectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: nilaxan
@@ -37,5 +39,10 @@ public class CvApplicationSectionServiceImpl implements CvApplicationSectionServ
     @Override
     public CvApplicationSection findCvSectionById(String id) {
         return cvApplicationSectionDao.findCvSectionById(id);
+    }
+
+    @Override
+    public List<CvApplicationSection> findAllCvSection(){
+        return cvApplicationSectionDao.findAllCvSection();
     }
 }

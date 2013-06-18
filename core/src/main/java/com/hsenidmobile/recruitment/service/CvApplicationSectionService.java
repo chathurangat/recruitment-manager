@@ -2,6 +2,8 @@ package com.hsenidmobile.recruitment.service;
 
 import com.hsenidmobile.recruitment.model.CvApplicationSection;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: nilaxan
@@ -38,10 +40,18 @@ public interface CvApplicationSectionService {
 
     /**
      * <p>
-     *     find cv template with given id
+     *     find cv section with given id
      * </p>
      * @param id as {@link String}
      * @return instance of {@link CvApplicationSection}
      */
     CvApplicationSection findCvSectionById(String id);
+
+    /**
+     * <p>
+     *     find all cv section with given id
+     * </p>
+     * @param cvApplicationSection as {@link CvApplicationSection}
+     */
+    List<CvApplicationSection> findAllCvSection();
 }
