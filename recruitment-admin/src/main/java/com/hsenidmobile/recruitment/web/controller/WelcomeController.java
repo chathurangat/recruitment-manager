@@ -33,6 +33,7 @@ public class WelcomeController {
         return modelAndView;
     }
 
+
     /**
      * <p>
      *     this is to check whether the spring security works as expected....
@@ -54,7 +55,7 @@ public class WelcomeController {
     @Secured("ROLE_USER")
     @RequestMapping(value = "/apply")
     public ModelAndView generateCV(){
-        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51c03dc3e4b07255b5d8d4d6");
+        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51c084b7986c1fe7bcfce569");
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(" application cv template ["+cvApplicationTemplate+"]");
         if (cvApplicationTemplate!=null){
@@ -73,7 +74,7 @@ public class WelcomeController {
     @Secured("ROLE_ADMIN")
          @RequestMapping(value = "/register")
          public ModelAndView generateCVSection(){
-         CvApplicationSection cvApplicationSection=cvApplicationSectionService.findCvSectionById("51c04d81e4b087d1087d04f6");
+         CvApplicationSection cvApplicationSection=cvApplicationSectionService.findCvSectionById("51c084ee986ceed8ac1e1650");
         //List<CvApplicationSection> cvApplicationSection = cvApplicationSectionService.findAllCvSection();
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(" application cv section ["+cvApplicationSection+"]");
@@ -87,7 +88,7 @@ public class WelcomeController {
         return modelAndView;
     }
 
-
+     /*
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/register/save",method = RequestMethod.POST)
     public ModelAndView saveCVSection(@ModelAttribute CvApplicationTemplate cvApplicationTemplate, ModelMap model){
@@ -122,6 +123,6 @@ public class WelcomeController {
             cvApplicationSectionService.create(cvApplicationSection);
         }
     }
-
+    */
 
 }

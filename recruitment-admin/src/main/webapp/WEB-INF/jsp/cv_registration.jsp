@@ -7,48 +7,33 @@
 </head>
 <body>
 
+<form action="" method="post">
+    <table>
+        <tr>
+            <td rowspan="3"><label for="templateName">Cv Template Name</label></td>
+            <td><label for="cvHeaderEn">Header Name in English</label><input id="cvHeaderEn" name="cvHeaderEn" type="text"/><br/>
+                <label for="cvHeaderSi">Header Name in Sinhala</label><input id="cvHeaderSi" name="cvHeaderSi" type="text"/><br/>
+                <label for="cvHeaderTa">Header Name in Tamil</label><input id="cvHeaderTa" name="cvHeaderTa" type="text"/>
+            </td>
+        </tr>
+        <c:forEach items="${cvApplicationSection.sectionNameEn}" var="sectionNameEn"  >
+            <tr>
+                <td><input type="checkbox" for="status"> status </td>
 
- <form action="" method="post">
- <table>
- <c:forEach items="${cvApplicationSection.sectionName }" var="sectionName"  >
- <tr>
-     <td rowspan="3" ><input type="checkbox" for="status"> status </td>
+                <td><label for="${cvApplicationSection.sectionNameEn}">${cvApplicationSection.sectionNameEn}</label></td>
 
-     <td>
-     <!-- label for section name in English -->
-    <label for="${sectionName.sectionNameEN}">
-           Section Name in English
-    </label>
-    <input id="${sectionName.sectionNameEN}" name="${sectionName.sectionNameEN}" type="text" value="${sectionName.sectionNameEN}"/>
-    <br/>
+                <td >
+                    <select>
+                        <c:forEach begin="1" end="${fn:length(cvApplicationSection.sectionNameEn)}" varStatus="loop">
+                            <option value="${loop.index}">${loop.index}</option>
+                        </c:forEach>
+                    </select>
+                </td>
+            </tr>
+        </c:forEach>
+        <tr><td><button type="submit" id="submit" >Register</button></td></tr>
 
-     <!-- label for section name in Sinhala  -->
-     <label for="${sectionName.sectionNameSI}">
-         Section Name in Sinhala
-     </label>
-     <input id="${sectionName.sectionNameSI}" name="${sectionName.sectionNameSI}" type="text" value="${sectionName.sectionNameSI}"/>
-     <br/>
-
-     <!-- label for section name in Tamil  -->
-     <label for="${sectionName.sectionNameTA}">
-         Section Name in Tamil
-     </label>
-     <input id="${sectionName.sectionNameTA}" name="${sectionName.sectionNameTA}" type="text" value="${sectionName.sectionNameTA}"/>
-     <br/>
-     </td>
-
-     <td rowspan="3">
-     <select>
-         <c:forEach begin="0" end="${fn:length(cvApplicationSection.sectionName)}" varStatus="loop">
-             <option value="${loop.index}">${loop.index}</option>
-         </c:forEach>
-     </select>
-     </td>
- </tr>
-</c:forEach>
-<tr><td colspan="3"><button type="submit" id="submit" >Register</button></td></tr>
-
-</table>
+    </table>
 </form>
 
 </body>
