@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 public class WelcomeController {
 
@@ -55,7 +57,7 @@ public class WelcomeController {
     @Secured("ROLE_USER")
     @RequestMapping(value = "/apply")
     public ModelAndView generateCV(){
-        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51c084b7986c1fe7bcfce569");
+        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51c1557de4b008b7f7255328");
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(" application cv template ["+cvApplicationTemplate+"]");
         if (cvApplicationTemplate!=null){
@@ -71,11 +73,11 @@ public class WelcomeController {
     @Autowired
     private CvApplicationSectionService cvApplicationSectionService;
 
-    @Secured("ROLE_ADMIN")
-         @RequestMapping(value = "/register")
-         public ModelAndView generateCVSection(){
-         CvApplicationSection cvApplicationSection=cvApplicationSectionService.findCvSectionById("51c084ee986ceed8ac1e1650");
-        //List<CvApplicationSection> cvApplicationSection = cvApplicationSectionService.findAllCvSection();
+   // @Secured("ROLE_ADMIN")
+         @RequestMapping(value = "/cv_template_register")
+         public ModelAndView createCvTemplate(){
+         //CvApplicationSection cvApplicationSection=cvApplicationSectionService.findCvSectionById("51c153bae4b005665847d347");
+        List<CvApplicationSection> cvApplicationSection = cvApplicationSectionService.findAllCvSection();
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(" application cv section ["+cvApplicationSection+"]");
         if (cvApplicationSection!=null){
@@ -88,10 +90,10 @@ public class WelcomeController {
         return modelAndView;
     }
 
-     /*
+
     @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/register/save",method = RequestMethod.POST)
-    public ModelAndView saveCVSection(@ModelAttribute CvApplicationTemplate cvApplicationTemplate, ModelMap model){
+    @RequestMapping(value = "/cv_template_register/save",method = RequestMethod.POST)
+    public ModelAndView saveCvTemplate(@ModelAttribute CvApplicationTemplate cvApplicationTemplate, ModelMap model){
            ModelAndView modelAndView=new ModelAndView();
             modelAndView.setViewName("admin_page");
             if(StringUtils.hasText(cvApplicationTemplate.getId()))
@@ -105,7 +107,7 @@ public class WelcomeController {
         return modelAndView;
         }
 
-
+    /*
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/insert",method = RequestMethod.GET)
     public ModelAndView displayInsertAdminPage(){

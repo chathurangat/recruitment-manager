@@ -12,21 +12,21 @@ CV section register
 <sf:form method="POST" action="register"  modelAttribute="cvApplicationSection">
 
 
-    <sf:label path="sectionNameEnglish" >
+    <sf:label path="sectionNameEn" >
         <spring:message code="label.name.in.english"/>
     </sf:label>
-    <sf:input path="sectionNameEnglish" size="100" />
-    <sf:errors path="sectionNameEnglish" cssClass="text-error"/>
+    <sf:input path="sectionNameEn" size="100" />
+    <sf:errors path="sectionNameEn" cssClass="text-error"/>
 
-    <sf:label path="sectionNameSinhala" >
+    <sf:label path="sectionNameSi" >
         <spring:message code="label.name.in.sinhala"/>
     </sf:label>
-    <sf:input path="sectionNameSinhala" size="100" />
+    <sf:input path="sectionNameSi" size="100" />
 
-    <sf:label path="sectionNameTamil" >
+    <sf:label path="sectionNameTa" >
         <spring:message code="label.name.in.tamil"/>
     </sf:label>
-    <sf:input path="sectionNameTamil" size="100" />
+    <sf:input path="sectionNameTa" size="100" />
 
     <input name="submit" type="submit" />
 
