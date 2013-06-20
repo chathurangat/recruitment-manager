@@ -4,32 +4,55 @@
 <html>
 <head>
     <title></title>
+    <link href="/resources/css/bootstrap.css" rel="stylesheet">
+    <link href="/resources/css/bootstrap-responsive.css" rel="stylesheet">
+
 </head>
 <body>
 
-CV section register
-
-<sf:form method="POST" action="register"  modelAttribute="cvApplicationSection">
 
 
-    <sf:label path="sectionNameEnglish" >
+<div class="container">
+
+    <div class="row">
+
+
+        <div class="span8">
+
+
+    <sf:form class ="form-horizontal" method="POST" action="register"  modelAttribute="cvApplicationSection">
+    <legend>Add New CV sections to the CV section register</legend>
+    <div class="control-group">
+    <sf:label path="sectionNameEn" >
         <spring:message code="label.name.in.english"/>
     </sf:label>
-    <sf:input path="sectionNameEnglish" size="100" />
-    <sf:errors path="sectionNameEnglish" cssClass="text-error"/>
 
-    <sf:label path="sectionNameSinhala" >
+    <sf:input path="sectionNameEn" size="100" />
+    <sf:errors path="sectionNameEn" cssClass="text-error"/>
+    </div>
+
+    <div class="control-group">
+    <sf:label path="sectionNameSi" >
         <spring:message code="label.name.in.sinhala"/>
     </sf:label>
-    <sf:input path="sectionNameSinhala" size="100" />
 
-    <sf:label path="sectionNameTamil" >
+    <sf:input path="sectionNameSi" size="100" />
+    </div>
+
+    <div class="control-group">
+    <sf:label path="sectionNameTa" >
         <spring:message code="label.name.in.tamil"/>
     </sf:label>
-    <sf:input path="sectionNameTamil" size="100" />
 
-    <input name="submit" type="submit" />
+    <sf:input path="sectionNameTa" size="100" />
+    </div>
 
+    <div class="control-group">
+        <label class="control-label" for="submit"></label>
+        <div class="controls">
+            <button type="submit" name="submit" class="btn btn-success" rel="tooltip" title="first tooltip" id="submit" >Submit</button>
+
+        </div>
 </sf:form>
 
 
