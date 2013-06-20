@@ -1,20 +1,13 @@
 package com.hsenidmobile.recruitment.web.controller;
 
-import com.hsenidmobile.recruitment.model.CvApplicationSection;
 import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
-import com.hsenidmobile.recruitment.service.CvApplicationSectionService;
 import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Controller
 public class WelcomeController {
@@ -70,42 +63,6 @@ public class WelcomeController {
         return modelAndView;
     }
 
-    @Autowired
-    private CvApplicationSectionService cvApplicationSectionService;
-
-   // @Secured("ROLE_ADMIN")
-         @RequestMapping(value = "/cv_template_register")
-         public ModelAndView createCvTemplate(){
-         //CvApplicationSection cvApplicationSection=cvApplicationSectionService.findCvSectionById("51c153bae4b005665847d347");
-        List<CvApplicationSection> cvApplicationSection = cvApplicationSectionService.findAllCvSection();
-        ModelAndView modelAndView = new ModelAndView();
-        System.out.println(" application cv section ["+cvApplicationSection+"]");
-        if (cvApplicationSection!=null){
-            modelAndView.setViewName("cv_registration");
-            modelAndView.addObject("cvApplicationSection",cvApplicationSection);
-        }
-        else {
-            modelAndView.setViewName("error");
-        }
-        return modelAndView;
-    }
-
-
-    @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_template_register/save",method = RequestMethod.POST)
-    public ModelAndView saveCvTemplate(@ModelAttribute CvApplicationTemplate cvApplicationTemplate, ModelMap model){
-           ModelAndView modelAndView=new ModelAndView();
-            modelAndView.setViewName("admin_page");
-            if(StringUtils.hasText(cvApplicationTemplate.getId()))
-            {
-                cvApplicationTemplateService.update(cvApplicationTemplate);
-            }
-            else
-            {
-               cvApplicationTemplateService.create(cvApplicationTemplate);
-            }
-        return modelAndView;
-        }
 
     /*
     @Secured("ROLE_ADMIN")

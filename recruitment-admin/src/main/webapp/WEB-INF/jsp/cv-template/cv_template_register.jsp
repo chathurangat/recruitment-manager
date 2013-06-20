@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Employee Registration Form ! </title>
+    <title>Cv Template Register</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
@@ -24,16 +24,16 @@
 
         <div class="span8">
 
-            <form class="form-horizontal" id="cvTemplateInsertForm" action="cv_template_register/save" method="post">
+            <form class="form-horizontal" id="cvTemplateInsertForm" action="register" method="post">
                 <fieldset>
                     <legend>Create New Cv Template</legend>
 
 
-                    <div class="control-group">
+               <!--     <div class="control-group">
                         <div class="controls">
                             <input type="hidden" class="input-xlarge" id="id" name="id" >
                         </div>
-                    </div>
+                    </div>     -->
 
                     <div class="control-group">
                         <label class="control-label" for="cvHeaderEn">Cv Template Name in English</label>
@@ -76,7 +76,7 @@
 
                 <td >
                     <select id="priority">
-                        <c:forEach begin="1" end="${fn:length(sectionName.sectionNameEn)}" varStatus="loop">
+                        <c:forEach begin="1" end="${fn:length(cvApplicationSection)}" varStatus="loop">
                             <option value="${loop.index}">${loop.index}</option>
                         </c:forEach>
                     </select>
