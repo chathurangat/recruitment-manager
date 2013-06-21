@@ -21,7 +21,7 @@
 
         <div class="span8">
 
-            <form class="form-horizontal" id="cvSectionInsertForm" action="cv_register/save" method="post">
+            <form class="form-horizontal" id="cvSectionInsertForm" action="insert/save" method="post">
                 <fieldset>
                     <legend>Add New CV sections to the CV section register</legend>
 

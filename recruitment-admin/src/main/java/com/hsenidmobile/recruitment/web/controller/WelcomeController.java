@@ -16,11 +16,11 @@ public class WelcomeController {
      * <p>
      *     display the user home page of the recruitment web application
      *     this method will only support for HTTP GET requests
-     *     the access will be granted for the authenticated users with ROLE_USER
+     *     the access will be granted for the authenticated users with ROLE_ADMIN
      * </p>
      * @return "welcome" logical name encapsulated in {@link ModelAndView}
      */
-    @Secured("ROLE_USER")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = {"/home","welcome"},method = RequestMethod.GET)
     public ModelAndView displayWelcomePage(){
         ModelAndView modelAndView = new ModelAndView();
@@ -43,45 +43,4 @@ public class WelcomeController {
         modelAndView.setViewName("admin_page");
         return modelAndView;
     }
-
-    @Autowired
-    private CvApplicationTemplateService cvApplicationTemplateService;
-
-    @Secured("ROLE_USER")
-    @RequestMapping(value = "/apply")
-    public ModelAndView generateCV(){
-        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51c1557de4b008b7f7255328");
-        ModelAndView modelAndView = new ModelAndView();
-        System.out.println(" application cv template ["+cvApplicationTemplate+"]");
-        if (cvApplicationTemplate!=null){
-            modelAndView.setViewName("cv_generation");
-            modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
-        }
-        else {
-            modelAndView.setViewName("error");
-        }
-        return modelAndView;
-    }
-
-
-    /*
-    @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/insert",method = RequestMethod.GET)
-    public ModelAndView displayInsertAdminPage(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("cv_section_insert");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/insert/save", method = RequestMethod.POST)
-    public void insertCvSection(CvApplicationSection cvApplicationSection) {
-        if(StringUtils.hasText(cvApplicationSection.getId())) {
-            cvApplicationSectionService. update(cvApplicationSection);
-        }
-        else {
-            cvApplicationSectionService.create(cvApplicationSection);
-        }
-    }
-    */
-
 }

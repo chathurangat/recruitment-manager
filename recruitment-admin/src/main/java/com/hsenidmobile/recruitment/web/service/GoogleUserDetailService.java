@@ -36,7 +36,7 @@ public class GoogleUserDetailService implements UserDetailsService {
         System.out.println(" email domain is ["+emailDomain+"]");
 
         if(emailDomain!=null && (emailDomain.equals("hsenidmobile.com") || emailDomain.equals("hsenid.lk") || emailDomain.equals("hsenid.com"))){
-            grantedAuthorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
+            grantedAuthorityList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             UserDetails user = new User(username,"21232f297a57a5a743894a0e4a801fc3", true, true, true, true,grantedAuthorityList);
             System.out.println(" user authentication success");
             return user;

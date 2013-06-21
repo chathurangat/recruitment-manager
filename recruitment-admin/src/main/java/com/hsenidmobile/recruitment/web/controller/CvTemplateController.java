@@ -42,7 +42,7 @@ public class CvTemplateController {
     @RequestMapping(value = "/cv_section/register",method = RequestMethod.POST)
     public ModelAndView registerNewCvTemplateSection(@Valid CvApplicationSection cvApplicationSection,BindingResult bindingResult,ModelAndView modelAndView){
         System.out.println(" registering new cv template section");
-
+        modelAndView.setViewName("cv-template/cv-section-register");
         if(bindingResult.hasErrors()){
             System.out.println(" form contains errors");
         }
@@ -54,7 +54,7 @@ public class CvTemplateController {
     }
 
 
-    // @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_template/registration_view",method = RequestMethod.GET)
     public ModelAndView CvTemplateRegisterView(){
         //CvApplicationSection cvApplicationSection=cvApplicationSectionService.findCvSectionById("51c153bae4b005665847d347");
@@ -74,7 +74,7 @@ public class CvTemplateController {
     @Autowired
     private CvApplicationTemplateService cvApplicationTemplateService;
 
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_template/register",method = RequestMethod.POST)
     public View registerNewCvTemplate(@Valid CvApplicationTemplate cvApplicationTemplate,BindingResult bindingResult,ModelAndView modelAndView){
 

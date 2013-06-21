@@ -5,16 +5,9 @@ import com.hsenidmobile.recruitment.model.CvApplicationSection;
 import com.hsenidmobile.recruitment.service.CvApplicationSectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nilaxan
- * Date: 6/17/13
- * Time: 10:46 PM
- * To change this template use File | Settings | File Templates.
- */
+
 @Service("cvApplicationSectionService")
 public class CvApplicationSectionServiceImpl implements CvApplicationSectionService{
 

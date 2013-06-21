@@ -27,8 +27,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Locale;
 
 /**
  * <p>
@@ -98,20 +103,15 @@ public class UserLoginController {
     public ModelAndView googleUserAuthentication(HttpServletRequest request,ModelMap modelMap) throws OAuthException {
 
         String defaultGooglePassword = "admin";
-//        String defaultFacebookPasswordInMd5Hashed = "21232f297a57a5a743894a0e4a801fc3";
-
         ModelAndView modelAndView = new ModelAndView();
-
         this.initializeOAuthConfiguration();
         GoogleProvider googleProvider = new GoogleProvider(oAuthConfiguration);
         String googleLoginUrl = googleProvider.getAuthorizationUrl();
 
         if(request!=null && request.getAttribute(OAuthKeyBox.OAUTH_STATUS).equals("success")){
             logger.info(" starting the spring security integration with google");
-            //check whether the google user has accessed this website  previously
             String googleUsername = (String)request.getAttribute(OAuthKeyBox.GOOGLE_EMAIL);
-            //sending for user authentication
-
+            //sending for user authentication with spring security
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(googleUsername, defaultGooglePassword);
             UserDetails user = new User("username", "password", true, true, true, true,new ArrayList<GrantedAuthority>());
             token.setDetails(user);
@@ -122,6 +122,18 @@ public class UserLoginController {
                 logger.debug(" Login succeeded! for the user [{}]",username);
                 System.out.println(" Login succeeded! for the user [{}]"+username);
                 request.getSession().setAttribute("username",googleUsername);
+
+//                //displaying set of session keys
+//                HttpSession session = request.getSession();
+//                Enumeration e = session.getAttributeNames();
+//                while (e.hasMoreElements()) {
+//                    String name = (String)e.nextElement();
+//                    String value = session.getAttribute(name).toString();
+//                    System.out.println("name is: " + name + " value is: " + value);
+//                }
+
+                System.out.println( " current locale ["+request.getSession().getAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME)+"]");
+
                 modelAndView.setViewName("welcome-redirect");
             } catch (BadCredentialsException e) {
                 logger.info("error occurred "+e);
