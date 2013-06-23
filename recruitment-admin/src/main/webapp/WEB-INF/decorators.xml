@@ -1,6 +1,6 @@
 <decorators defaultdir="/WEB-INF/jsp/sitemesh">
 
-    <decorator name="default" page="main-layout.jsp">
+    <decorator name="default" page="main-layout.jspx">
 
         <!--<pattern>/springURITemplate/user/auth/*</pattern>-->
         <pattern>/springURITemplate/user/*</pattern>
@@ -18,7 +18,7 @@
         <!--<pattern>/user/auth/login/*</pattern>-->
     <!--</decorator>-->
 
-    <decorator name="login" page="login-layout.jsp">
+    <decorator name="login" page="login-layout.jspx">
         <pattern>/springURITemplate/user/auth/*</pattern>
     </decorator>
 
