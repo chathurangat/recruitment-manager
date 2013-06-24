@@ -21,7 +21,7 @@
 
         <div class="span8">
 
-            <form class="form-horizontal" id="cvSectionInsertForm" action="cv_register/save" method="post">
+            <form class="form-horizontal" id="cvSectionInsertForm" action="insert/save" method="post">
                 <fieldset>
                     <legend>Add New CV sections to the CV section register</legend>
 
@@ -34,30 +34,30 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="sectionName_EN">Section Name English</label>
+                        <label class="control-label" for="sectionNameEn">Section Name English</label>
                         <div class="controls">
-                            <input type="text" class="input-xlarge" id="sectionName_EN" name="sectionName_EN" rel="popover" data-content="Enter Section Name English" data-original-title="sectionName_EN">
+                            <input type="text" class="input-xlarge" id="sectionNameEn" name="sectionNameEn" rel="popover" data-content="sectionNameEn" data-original-title="sectionNameEn">
 
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="sectionName_SI">Section Name Sinhala</label>
+                        <label class="control-label" for="sectionNameSi">Section Name Sinhala</label>
                         <div class="controls">
-                            <input type="text" class="input-xlarge" id="sectionName_SI" name="sectionName_SI" rel="popover" data-content="Enter section Name Singhala" data-original-title="sectionName_SI">
+                            <input type="text" class="input-xlarge" id="sectionNameSi" name="sectionNameSi" rel="popover" data-content="sectionNameSi" data-original-title="sectionNameSi">
 
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="sectionName_TA">Section Name Tamil </label>
+                        <label class="control-label" for="sectionNameTa">Section Name Tamil </label>
                         <div class="controls">
-                            <input type="text" class="input-xlarge" id="sectionName_TA" name="sectionName_TA" rel="popover" data-content="Enter section Name Tamil" data-original-title="sectionName_TA">
+                            <input type="text" class="input-xlarge" id="sectionNameTa" name="sectionNameTa" rel="popover" data-content="sectionNameTa" data-original-title="sectionNameTa">
 
                         </div>
                         <br>
-                        <label class="checkbox" for="checkbox">
-                            <input type="checkbox" id="checkbox">
+                        <label class="checkbox" for="status">
+                            <input type="checkbox" id="status">
                             Active
                         </label>
                     </div>
