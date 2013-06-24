@@ -19,13 +19,10 @@ public class CvApplicationSection implements Serializable{
 
     @Id
     private String id;
-<<<<<<< HEAD
     //@Size(min = 1 ,max =100,message = "error.section.name.english.required")
-    //@NotEmpty("This field should filled") ;
+    //@NotEmpty("This field should be filled") ;
 
-=======
     @NotEmpty
->>>>>>> 85f0d879e263a7905ffbd79b29c2797f44b3156f
     private String sectionNameEn;
     @NotEmpty
     private String sectionNameSi;

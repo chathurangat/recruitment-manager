@@ -3,6 +3,7 @@ package com.hsenidmobile.recruitment.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -17,9 +18,15 @@ public  class ApplicationFieldDictionary implements Serializable {
 
     @Id
     protected String id;
+    @NotNull
+    protected String labelEn;
+    @NotNull
+    protected String labelSi;
+    @NotNull
+    protected String labelTa;
+    @NotNull
     protected String htmlComponent;
     protected String description;
-    protected String label;
     protected boolean status;
 
 
@@ -55,11 +62,25 @@ public  class ApplicationFieldDictionary implements Serializable {
         this.status = status;
     }
 
-    public String getLabel() {
-        return label;
+    public String getLabelEn() {
+        return labelEn;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setLabelEn(String labelEn) {
+        this.labelEn = labelEn;
+    }
+    public String getLabelSi() {
+        return labelSi;
+    }
+
+    public void setLabelSi(String labelSi) {
+        this.labelSi = labelSi;
+    }
+    public String getLabelTa() {
+        return labelTa;
+    }
+
+    public void setLabelTa(String labelTa) {
+        this.labelTa = labelTa;
     }
 }

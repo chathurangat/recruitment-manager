@@ -40,15 +40,15 @@ public class CvApplicationTemplateDaoImplTest extends CommonDaoTest{
         cvApplicationTemplate.setCvApplicationSectionList(cvApplicationSections);
 
         //since we do not have dataDictionary fields we need to create them. if you have those in the database, noo need to create them and just reuse them
-        ApplicationFieldDictionary nameDictionaryField = createTextFieldDictionary("name",60);
+        ApplicationFieldDictionary nameDictionaryField = createTextFieldDictionary("name","nameSi","nameTa",60);
         nameDictionaryField.setId("1");
-        ApplicationFieldDictionary ageDictionaryField = createTextFieldDictionary("age",10);
+        ApplicationFieldDictionary ageDictionaryField = createTextFieldDictionary("age","ageSi","ageTa",10);
         ageDictionaryField.setId("2");
-        ApplicationFieldDictionary educationalPrimaryDictionaryField = createTextAreaDictionary("primary education", 10, 20);
+        ApplicationFieldDictionary educationalPrimaryDictionaryField = createTextAreaDictionary("primary education","primary educationSi","primary educationTa", 10, 20);
         educationalPrimaryDictionaryField.setId("3");
-        ApplicationFieldDictionary educationalSecondaryDictionaryField = createTextAreaDictionary("secondary education", 10, 20);
+        ApplicationFieldDictionary educationalSecondaryDictionaryField = createTextAreaDictionary("secondary education","secondary educationSi","secondary educationTa", 10, 20);
         educationalSecondaryDictionaryField.setId("4");
-        ApplicationFieldDictionary projectWorksDictionaryField = createTextAreaDictionary("Work Experience",15,30);
+        ApplicationFieldDictionary projectWorksDictionaryField = createTextAreaDictionary("Work Experience","Work ExperienceSi","Work ExperienceTa",15,30);
         projectWorksDictionaryField.setId("5");
 
         //now we will create each application field with priority and assign them for the cv application sections
@@ -139,19 +139,43 @@ public class CvApplicationTemplateDaoImplTest extends CommonDaoTest{
         return cvApplicationSection;
     }
 
-
-    private TextFieldDictionary createTextFieldDictionary(String label,Integer size){
+    /**
+     * <p>
+     *     create application template section field dictionary
+     * </p>
+     * @param labelEn
+     * @param labelSi
+     * @param labelTa
+     * @param size
+     * @return
+     */
+    private TextFieldDictionary createTextFieldDictionary(String labelEn, String labelSi, String labelTa,Integer size){
         TextFieldDictionary textFieldDictionary = new TextFieldDictionary();
-        textFieldDictionary.setLabel(label);
+        textFieldDictionary.setLabelEn(labelEn);
+        textFieldDictionary.setLabelSi(labelSi);
+        textFieldDictionary.setLabelTa(labelTa);
         textFieldDictionary.setHtmlComponent("TextField");
         textFieldDictionary.setSize(size);
         textFieldDictionary.setStatus(true);
         return textFieldDictionary;
     }
 
-    private TextAreaDictionary createTextAreaDictionary(String label,Integer rows,Integer cols){
+    /**
+     * <p>
+     *     create application template section field dictionary
+     * </p>
+     * @param labelEn
+     * @param labelSi
+     * @param labelTa
+     * @param rows
+     * @param cols
+     * @return
+     */
+    private TextAreaDictionary createTextAreaDictionary(String labelEn, String labelSi,String labelTa, Integer rows,Integer cols){
         TextAreaDictionary textAreaDictionary = new TextAreaDictionary();
-        textAreaDictionary.setLabel(label);
+        textAreaDictionary.setLabelEn(labelEn);
+        textAreaDictionary.setLabelSi(labelSi);
+        textAreaDictionary.setLabelTa(labelTa);
         textAreaDictionary.setHtmlComponent("TextArea");
         textAreaDictionary.setRows(rows);
         textAreaDictionary.setCols(cols);
