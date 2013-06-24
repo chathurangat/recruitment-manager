@@ -1,12 +1,6 @@
 package com.hsenidmobile.recruitment.web.controller;
 
 import com.hsenidmobile.recruitment.model.CvApplicationSection;
-<<<<<<< HEAD
-import com.hsenidmobile.recruitment.service.CvApplicationSectionService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-=======
 import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
 import com.hsenidmobile.recruitment.service.CvApplicationSectionService;
 import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
@@ -14,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
->>>>>>> 85f0d879e263a7905ffbd79b29c2797f44b3156f
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -36,11 +29,7 @@ public class CvTemplateController {
     @Autowired
     private CvApplicationSectionService cvApplicationSectionService;
 
-<<<<<<< HEAD
-    //@Secured("ROLE_ADMIN")
-=======
     @Secured("ROLE_ADMIN")
->>>>>>> 85f0d879e263a7905ffbd79b29c2797f44b3156f
     @RequestMapping(value = "/cv_section/registration_view",method = RequestMethod.GET)
     public ModelAndView cvTemplateSectionsRegisterView(ModelAndView modelAndView){
         logger.info(" request to display cv template section registration view ");
@@ -49,7 +38,7 @@ public class CvTemplateController {
         return modelAndView;
     }
 
-   // @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_section/register",method = RequestMethod.POST)
     public ModelAndView registerNewCvTemplateSection(@Valid CvApplicationSection cvApplicationSection,BindingResult bindingResult,ModelAndView modelAndView){
         System.out.println(" registering new cv template section");
