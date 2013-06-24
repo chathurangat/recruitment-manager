@@ -1,0 +1,53 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:sf="http://www.springframework.org/tags/form">
+
+    <fieldset>
+        <legend>
+            <spring:message code="label.form.header.cvSection.registration"/>
+        </legend>
+    </fieldset>
+
+    <sf:form method="POST" action="register"  modelAttribute="cvApplicationSection" class="form-horizontal">
+
+        <div class="control-group">
+            <div class="controls">
+                <sf:label path="sectionNameEn">
+                    <spring:message code="label.cvSection.registration.form.name.in.english"/>
+                </sf:label>
+                <sf:input path="sectionNameEn" size="100" />
+                <sf:errors path="sectionNameEn" cssClass="text-error"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <sf:label path="sectionNameSi">
+                    <spring:message code="label.cvSection.registration.form.name.in.sinhala"/>
+                </sf:label>
+                <sf:input path="sectionNameSi" size="100" />
+                <sf:errors path="sectionNameSi" cssClass="text-error"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <sf:label path="sectionNameTa">
+                    <spring:message code="label.cvSection.registration.form.name.in.tamil"/>
+                </sf:label>
+                <sf:input path="sectionNameTa" size="100" />
+                <sf:errors path="sectionNameTa" cssClass="text-error"/>
+            </div>
+        </div>
+
+
+        <div class="control-group">
+            <div class="controls">
+                <!--<input type="submit" class="btn btn-success"  value="<spring:message code="label.cvSection.registration.form.submit.button"/>"/>-->
+                <input type="submit" class="btn btn-success"  value="Submit"/>
+            </div>
+        </div>
+
+    </sf:form>
+</jsp:root>

@@ -1,5 +1,6 @@
 package com.hsenidmobile.recruitment.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,11 +19,17 @@ public class CvApplicationSection implements Serializable{
 
     @Id
     private String id;
+<<<<<<< HEAD
     //@Size(min = 1 ,max =100,message = "error.section.name.english.required")
     //@NotEmpty("This field should filled") ;
 
+=======
+    @NotEmpty
+>>>>>>> 85f0d879e263a7905ffbd79b29c2797f44b3156f
     private String sectionNameEn;
+    @NotEmpty
     private String sectionNameSi;
+    @NotEmpty
     private String sectionNameTa;
     private boolean status;
     private Integer priority;

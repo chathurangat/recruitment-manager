@@ -1,16 +1,8 @@
 package com.hsenidmobile.recruitment.service;
 
 import com.hsenidmobile.recruitment.model.CvApplicationSection;
-
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nilaxan
- * Date: 6/17/13
- * Time: 10:41 PM
- * To change this template use File | Settings | File Templates.
- */
 public interface CvApplicationSectionService {
 
     /**

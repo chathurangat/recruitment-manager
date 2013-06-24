@@ -9,28 +9,7 @@
 
     <bean name="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
+        <property name="suffix" value=".jspx"/>
     </bean>
-
-    <!--&lt;!&ndash;localization and internationalization starts here &ndash;&gt;-->
-
-    <!--<bean id="messageSource"-->
-          <!--class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
-        <!--<property name="basename" value="classpath:message/massages" />-->
-        <!--<property name="defaultEncoding" value="UTF-8"/>-->
-    <!--</bean>-->
-
-
-    <!--<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" >-->
-        <!--<property name="defaultLocale" value="en"/>-->
-    <!--</bean>-->
-
-    <!--<mvc:interceptors>-->
-        <!--<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">-->
-            <!--<property name="paramName" value="language" />-->
-        <!--</bean>-->
-    <!--</mvc:interceptors>-->
-
-    <!--&lt;!&ndash;localization and internationalization ends here&ndash;&gt;-->
 
 </beans>

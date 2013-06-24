@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.hsenidmobile.recruitment.web.controller;
 
 import com.hms.oauth.config.OAuthConfiguration;
@@ -27,12 +24,17 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Locale;
 
 /**
  * <p>
- *     controller for handling user user login, authentication and logout operations
+ * controller for handling user user login, authentication and logout operations
  * </p>
  */
 @Controller
@@ -44,8 +46,6 @@ public class UserLoginController {
     @Autowired(required = false)
     @Qualifier("authenticationManager")
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private ApplicantService applicantService;
     private OAuthConfiguration oAuthConfiguration;
     private static final String APPLICATION_ID = "669970197155-7lhlm9iu7vgdv7dniif2kqs18ts5bt0h.apps.googleusercontent.com";
     private static final String APPLICATION_SECRET = "C05Nugr_LKdwrq8-K2bZd7tK";
@@ -54,7 +54,7 @@ public class UserLoginController {
 
     /**
      * <p>
-     *     display the open id login page for the user
+     * display the open id login page for the user
      * </p>
      * @param model as {@link ModelMap}
      * @return the logical view name of the open id login page as {@link String}
@@ -68,13 +68,13 @@ public class UserLoginController {
         GoogleProvider googleProvider = new GoogleProvider(oAuthConfiguration);
         String googleLoginUrl = googleProvider.getAuthorizationUrl();
         model.put("googleLoginUrl",googleLoginUrl);
-        modelAndView.setViewName("open_id_login_page");
+        modelAndView.setViewName("open-id-login-page");
         return modelAndView;
     }
 
     /**
      * <p>
-     *     display the access denied page upon the un-authorized user access
+     * display the access denied page upon the un-authorized user access
      * </p>
      * @return the logical view name of the access denied page as {@link String}
      */
@@ -90,7 +90,7 @@ public class UserLoginController {
      *<p>
      * the purpose of this method is to authenticate the google users with spring security
      *</p>
-     * @param request  as {@link HttpServletRequest}
+     * @param request as {@link HttpServletRequest}
      * @param modelMap as {@link ModelMap}
      * @return logical view name for the home page or login page pon user authentication as {@link String}
      */
@@ -98,20 +98,15 @@ public class UserLoginController {
     public ModelAndView googleUserAuthentication(HttpServletRequest request,ModelMap modelMap) throws OAuthException {
 
         String defaultGooglePassword = "admin";
-//        String defaultFacebookPasswordInMd5Hashed = "21232f297a57a5a743894a0e4a801fc3";
-
         ModelAndView modelAndView = new ModelAndView();
-
         this.initializeOAuthConfiguration();
         GoogleProvider googleProvider = new GoogleProvider(oAuthConfiguration);
         String googleLoginUrl = googleProvider.getAuthorizationUrl();
 
         if(request!=null && request.getAttribute(OAuthKeyBox.OAUTH_STATUS).equals("success")){
             logger.info(" starting the spring security integration with google");
-            //check whether the google user has accessed this website  previously
             String googleUsername = (String)request.getAttribute(OAuthKeyBox.GOOGLE_EMAIL);
-            //sending for user authentication
-
+            //sending for user authentication with spring security
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(googleUsername, defaultGooglePassword);
             UserDetails user = new User("username", "password", true, true, true, true,new ArrayList<GrantedAuthority>());
             token.setDetails(user);
@@ -122,11 +117,12 @@ public class UserLoginController {
                 logger.debug(" Login succeeded! for the user [{}]",username);
                 System.out.println(" Login succeeded! for the user [{}]"+username);
                 request.getSession().setAttribute("username",googleUsername);
-                modelAndView.setViewName("welcome-redirect");
+                System.out.println( " current locale ["+request.getSession().getAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME)+"]");
+                modelAndView.setViewName("redirect:../welcome");
             } catch (BadCredentialsException e) {
                 logger.info("error occurred "+e);
                 logger.debug(" exception occurred while authenticating the user and exception message [{}]",e.getMessage());
-                modelAndView.setViewName("open_id_login_page");
+                modelAndView.setViewName("open-id-login-page");
                 modelMap.put("error","Your google account does not associate with our cooperate google domain");
                 modelMap.put("googleLoginUrl",googleLoginUrl);
             }
@@ -136,7 +132,7 @@ public class UserLoginController {
                 modelMap.put("error",request.getAttribute(OAuthKeyBox.OAUTH_MESSAGE));
                 modelMap.put("googleLoginUrl",googleLoginUrl);
             }
-            modelAndView.setViewName("open_id_login_page");
+            modelAndView.setViewName("open-id-login-page");
         }
         return modelAndView;
     }
@@ -144,7 +140,7 @@ public class UserLoginController {
 
     /**
      * <p>
-     *     initializing oauth configuration for the facebook network
+     * initializing oauth configuration for the facebook network
      * </p>
      */
     private void initializeOAuthConfiguration(){

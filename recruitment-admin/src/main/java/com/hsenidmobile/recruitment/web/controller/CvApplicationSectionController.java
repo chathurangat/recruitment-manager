@@ -12,13 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
-/**
- * Created with IntelliJ IDEA.
- * User: tharanga
- * Date: 6/18/13
- * Time: 5:36 PM
- * To change this template use File | Settings | File Templates.
- */
 @Controller
 @RequestMapping(value = "/insert")
 public class CvApplicationSectionController {
