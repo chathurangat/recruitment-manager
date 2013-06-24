@@ -1,0 +1,52 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:sf="http://www.springframework.org/tags/form">
+
+    <fieldset>
+        <legend>
+            <spring:message code="label.form.header.cvField.dictionary.registration"/>
+        </legend>
+    </fieldset>
+
+    <sf:form method="POST" action="register"  modelAttribute="applicationFieldDictionary" class="form-horizontal">
+
+        <div class="control-group">
+            <div class="controls">
+                <sf:label path="labelEn">
+                    <spring:message code="label.cvSection.registration.form.name.in.english" />
+                </sf:label>
+                <sf:input path="labelEn" size="100" />
+                <sf:errors path="labelEn" cssClass="text-error" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <sf:label path="labelSi">
+                    <spring:message code="label.cvSection.registration.form.name.in.sinhala" />
+                </sf:label>
+                <sf:input path="labelSi" size="100" />
+                <sf:errors path="labelSi" cssClass="text-error" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <sf:label path="labelTa">
+                    <spring:message code="label.cvSection.registration.form.name.in.tamil" />
+                </sf:label>
+                <sf:input path="labelTa" size="100" />
+                <sf:errors path="labelTa" cssClass="text-error" />
+            </div>
+        </div>
+
+
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" class="btn btn-success" value="Submit" />
+            </div>
+        </div>
+
+    </sf:form>
+</jsp:root>
