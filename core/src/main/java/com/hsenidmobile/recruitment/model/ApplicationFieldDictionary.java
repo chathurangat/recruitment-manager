@@ -1,9 +1,9 @@
 package com.hsenidmobile.recruitment.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -18,13 +18,13 @@ public  class ApplicationFieldDictionary implements Serializable {
 
     @Id
     protected String id;
-    @NotNull
+    @NotEmpty
     protected String labelEn;
-    @NotNull
+    @NotEmpty
     protected String labelSi;
-    @NotNull
+    @NotEmpty
     protected String labelTa;
-    @NotNull
+    @NotEmpty
     protected String htmlComponent;
     protected String description;
     protected boolean status;

@@ -15,6 +15,12 @@
 
         <div class="control-group">
             <div class="controls">
+                <sf:input path="htmlComponent" value="TextArea" type="hidden" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
                 <sf:label path="labelEn">
                     <spring:message code="label.cvSection.registration.form.name.in.english" />
                 </sf:label>
