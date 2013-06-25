@@ -3,13 +3,15 @@
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:sf="http://www.springframework.org/tags/form">
 
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+
     <fieldset>
         <legend>
-            <spring:message code="label.form.header.cvField.dictionary.registration"/>
+            <spring:message code="label.form.header.cvTextField.dictionary.registration"/>
         </legend>
     </fieldset>
 
-    <sf:form method="POST" action="register"  modelAttribute="applicationFieldDictionary" class="form-horizontal">
+    <sf:form method="POST" action="register"  modelAttribute="textFieldDictionary" class="form-horizontal">
 
         <div class="control-group">
             <div class="controls">
@@ -41,6 +43,15 @@
             </div>
         </div>
 
+        <div class="control-group">
+            <div class="controls">
+                <sf:label path="size">
+                    <spring:message code="label.cvField.registration.form.size" />
+                </sf:label>
+                <sf:input path="size" size="50" />
+                <sf:errors path="size" cssClass="text-error" />
+            </div>
+        </div>
 
         <div class="control-group">
             <div class="controls">

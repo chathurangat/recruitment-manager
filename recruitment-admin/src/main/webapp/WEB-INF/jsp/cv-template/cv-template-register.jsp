@@ -63,9 +63,6 @@
 
                         </legend>
                  <div class="control-group">
-                     <label class="checkbox inline">
-                         <input type="checkbox" for="status" id="status"> status </td>
-                      </label>
 
                 <label for="${sectionName.sectionNameEn}">${sectionName.sectionNameEn}</label>
 
@@ -74,12 +71,16 @@
                      <input type="hidden"  id="sectionNameSi" name="sectionNameSi" value="cvApplicationSection.sectionNameSi">
                      <input type="hidden"  id="sectionNameTa" name="sectionNameTa" value="cvApplicationSection.sectionNameTa">
 
-                <td >
+                    <label for="priority">priority</label>
                     <select id="priority">
                         <c:forEach begin="1" end="${fn:length(cvApplicationSection)}" varStatus="loop">
                             <option value="${loop.index}">${loop.index}</option>
                         </c:forEach>
                     </select>
+
+                    <label class="checkbox inline">
+                        <input type="checkbox" for="status" id="status"> status                      </label>
+
                 </div>
              </fieldset>
           </c:forEach>
