@@ -18,6 +18,7 @@ public class CvApplicationField implements Serializable{
     private String id;
     private Integer priority;
     private ApplicationFieldDictionary applicationFieldDictionary;
+    private String fieldValue;
     private boolean status;
 
     public String getId() {
@@ -50,5 +51,13 @@ public class CvApplicationField implements Serializable{
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getFieldValue() {
+        return fieldValue;
+    }
+
+    public void setFieldValue(String fieldValue) {
+        this.fieldValue = fieldValue;
     }
 }

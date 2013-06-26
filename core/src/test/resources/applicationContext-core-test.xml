@@ -19,7 +19,7 @@
     <!-- MongoTemplate for connecting and quering the documents in the database -->
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongo" ref="mongoDbFactoryBean" />
-        <constructor-arg name="databaseName" value="recruitment_manager_test" />
+        <constructor-arg name="databaseName" value="recruitment_manager" />
     </bean>
 
 </beans>

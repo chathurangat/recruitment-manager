@@ -6,6 +6,8 @@ import com.hms.oauth.http.OAuthResponse;
 import com.hms.oauth.provider.GoogleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -23,15 +25,19 @@ public class GoogleOAuthFilter implements Filter {
 
     private OAuthConfiguration oAuthConfiguration;
 
-    private static final String APPLICATION_ID = "669970197155-7lhlm9iu7vgdv7dniif2kqs18ts5bt0h.apps.googleusercontent.com";
-    private static final String APPLICATION_SECRET = "C05Nugr_LKdwrq8-K2bZd7tK";
-    private static final String REDIRECT_URL = "http://localhost:8080/recruitment-admin/user/auth/google";
-    private static final String SCOPE = "https://www.googleapis.com/auth/userinfo#email";
+//    private static final String APPLICATION_ID = "669970197155-7lhlm9iu7vgdv7dniif2kqs18ts5bt0h.apps.googleusercontent.com";
+//    private static final String APPLICATION_SECRET = "C05Nugr_LKdwrq8-K2bZd7tK";
+//    private static final String REDIRECT_URL = "http://localhost:8080/recruitment-admin/user/auth/google";
+//    private static final String SCOPE = "https://www.googleapis.com/auth/userinfo#email";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig=filterConfig;
-        this.initializeOAuthConfiguration();
+//        this.initializeOAuthConfiguration();
+        oAuthConfiguration =
+                (OAuthConfiguration)WebApplicationContextUtils.
+                        getRequiredWebApplicationContext(filterConfig.getServletContext()).
+                        getBean("googleOAuthConfig");
     }
 
     //todo remove sout
@@ -102,13 +108,13 @@ public class GoogleOAuthFilter implements Filter {
         System.out.println(" executing GoogleOAuthFilter destroy method");
     }
 
-
-    private void initializeOAuthConfiguration(){
-        //setting up oauth configurations
-        oAuthConfiguration = new OAuthConfiguration();
-        oAuthConfiguration.setApplicationId(APPLICATION_ID);
-        oAuthConfiguration.setApplicationSecret(APPLICATION_SECRET);
-        oAuthConfiguration.setRedirectUrl(REDIRECT_URL);
-        oAuthConfiguration.setScope(SCOPE);
-    }
+//
+//    private void initializeOAuthConfiguration(){
+//        //setting up oauth configurations
+//        oAuthConfiguration = new OAuthConfiguration();
+//        oAuthConfiguration.setApplicationId(APPLICATION_ID);
+//        oAuthConfiguration.setApplicationSecret(APPLICATION_SECRET);
+//        oAuthConfiguration.setRedirectUrl(REDIRECT_URL);
+//        oAuthConfiguration.setScope(SCOPE);
+//    }
 }

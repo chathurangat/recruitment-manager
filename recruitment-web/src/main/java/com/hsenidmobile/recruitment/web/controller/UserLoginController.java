@@ -129,7 +129,9 @@ public class UserLoginController {
                 SecurityContextHolder.getContext().setAuthentication(auth);
                 logger.debug(" Login succeeded! for the user [{}]",username);
                 System.out.println(" Login succeeded! for the user [{}]"+username);
+                //todo move session keys to common class
                 request.getSession().setAttribute("username",facebookUsername);
+                request.getSession().setAttribute("user-id",applicant.getId());
                 modelAndView.setViewName("welcome-redirect");
             } catch (BadCredentialsException e) {
                 logger.info("error ocured "+e);

@@ -39,10 +39,10 @@ public class Applicant extends User implements Serializable{
     }
 
     public void addCvApplication(CvApplication cvApplication){
-      cvApplicationList.add(cvApplication);
+        cvApplicationList.add(cvApplication);
     }
 
     public void submitApplication(CvApplication cvApplication){
-     //todo implementation should go here
+        cvApplication.setUserApplied(this);
     }
 }

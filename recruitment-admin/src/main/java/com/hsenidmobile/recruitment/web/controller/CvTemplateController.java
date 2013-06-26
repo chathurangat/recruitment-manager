@@ -30,6 +30,8 @@ public class CvTemplateController {
 
     @Autowired
     private CvApplicationSectionService cvApplicationSectionService;
+    @Autowired
+    private CvApplicationTemplateService cvApplicationTemplateService;
 
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_section/registration_view",method = RequestMethod.GET)
@@ -60,7 +62,7 @@ public class CvTemplateController {
     @Autowired
     private CvApplicationFieldDictionaryService cvApplicationFieldDictionaryService;
 
-   // @Secured("ROLE_ADMIN")
+    // @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_template/registration_view",method = RequestMethod.GET)
     public ModelAndView CvTemplateRegisterView(ModelAndView modelAndView){
         //CvApplicationSection cvApplicationSection=cvApplicationSectionService.findCvSectionById("51c153bae4b005665847d347");
@@ -78,13 +80,10 @@ public class CvTemplateController {
         return modelAndView;
     }
 
-    @Autowired
-    private CvApplicationTemplateService cvApplicationTemplateService;
 
-   // @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_template/register",method = RequestMethod.POST)
     public View registerNewCvTemplate(@Valid CvApplicationTemplate cvApplicationTemplate,BindingResult bindingResult,ModelAndView modelAndView){
-
         if(StringUtils.hasText(cvApplicationTemplate.getId()))
         {
             cvApplicationTemplateService.update(cvApplicationTemplate);

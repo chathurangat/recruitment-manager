@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+import java.util.Map;
+
 @Controller
 public class WelcomeController {
 
@@ -40,25 +45,6 @@ public class WelcomeController {
     public ModelAndView displayAdminPage(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("admin_page");
-        return modelAndView;
-    }
-
-    @Autowired
-    private CvApplicationTemplateService cvApplicationTemplateService;
-
-    @Secured("ROLE_USER")
-    @RequestMapping(value = "/apply")
-    public ModelAndView generateCV(){
-        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51c09d3644ae87b2755242d3");
-        ModelAndView modelAndView = new ModelAndView();
-        System.out.println(" application cv template ["+cvApplicationTemplate+"]");
-        if (cvApplicationTemplate!=null){
-            modelAndView.setViewName("cv_generation");
-            modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
-        }
-        else {
-            modelAndView.setViewName("error");
-        }
         return modelAndView;
     }
 }
