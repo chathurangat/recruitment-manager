@@ -1,0 +1,97 @@
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"><jsp:directive.page contentType="text/html;charset=UTF-8" language="java"/>
+
+
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Cv Template Register</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+        <![CDATA[<!-- styles sheets -->]]>
+        <link href="/resources/css/bootstrap.css" rel="stylesheet">
+        <link href="/resources/css/bootstrap-responsive.css" rel="stylesheet">
+
+        </link>
+        <body>
+        <div class="container">
+
+            <div class="row">
+
+
+                <div class="span8">
+
+                    <form class="form-horizontal" modelAttribute="textAreaDictionary" action="register" method="post">                        <fieldset>
+                            <legend>Create New Cv Template</legend>
+
+                            <div class="control-group">
+                                <label class="control-label" for="cvHeaderEn">Cv Template Name in English</label>
+                                <div class="controls">
+                                    <input type="text" class="input-xlarge" id="cvHeaderEn" name="cvHeaderEn" >
+                                    </input>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="cvHeaderSi">Cv Template Name in Sinhala</label>
+                                    <div class="controls">
+                                        <input type="text" class="input-xlarge" id="cvHeaderSi" name="cvHeaderSi" >
+                                        </input>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="cvHeaderTa">Cv Template Name in English</label>
+                                        <div class="controls">
+                                            <input type="text" class="input-xlarge" id="cvHeaderTa" name="cvHeaderTa" >
+                                            </input>
+                                        </div>
+
+                                        <c:forEach items="${cvApplicationSection}" var="sectionName">
+                                            <fieldset name="${sectionName.sectionNameEn}">
+
+                                                <div class="control-group">
+
+                                                    <label for="${sectionName.sectionNameEn}">${sectionName.sectionNameEn}</label><br/>
+
+                                                    <label for="priority">priority</label>
+                                                    <select id="priority">
+                                                        <c:forEach begin="1" end="${fn:length(cvApplicationSection)}" varStatus="loop">
+                                                            <option value="${loop.index}">${loop.index}</option>
+                                                        </c:forEach>
+                                                    </select>
+
+                                                    <label class="checkbox inline">
+                                                        <input type="checkbox" > status</input>
+
+                                                        <![CDATA[<!--Cv Application Section Field Dictionary -->]]>
+                                                        <c:forEach items="${applicationFieldDictionary}" var="fieldDictionary">
+
+                                                            <div class="control-group">
+
+                                                                <label class="checkbox inline"><input type="checkbox" />
+                                                                    <label for="${fieldDictionary.labelEn}">${fieldDictionary.labelEn}</label>
+                                                                </label>
+
+                                                            </div>
+
+                                                        </c:forEach>
+                                                    </label>
+                                                </div>
+
+                                            </fieldset>
+                                        </c:forEach>
+
+
+                                        <div class="control-group">
+                                            <label class="control-label" for="submit"><![CDATA[<!---->]]></label>
+                                            <div class="controls">
+                                                <button type="submit" class="btn btn-success" rel="tooltip" title="first tooltip" id="submit">Submit</button>
+                                            </div>
+                                        </div>
+
+                                    </div>  <![CDATA[<!--/span8-->]]>
+                                </div>  <![CDATA[<!--/row-->]]>
+                            </div><![CDATA[<!--/container-->]]>
+
+                        </fieldset>
+                    </form></div></div></div></body></link></meta></meta></head></html></jsp:root>

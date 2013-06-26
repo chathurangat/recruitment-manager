@@ -1,7 +1,9 @@
 package com.hsenidmobile.recruitment.web.controller;
 
+import com.hsenidmobile.recruitment.model.ApplicationFieldDictionary;
 import com.hsenidmobile.recruitment.model.CvApplicationSection;
 import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
+import com.hsenidmobile.recruitment.service.CvApplicationFieldDictionaryService;
 import com.hsenidmobile.recruitment.service.CvApplicationSectionService;
 import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
 import org.slf4j.Logger;
@@ -55,17 +57,20 @@ public class CvTemplateController {
         return modelAndView;
     }
 
+    @Autowired
+    private CvApplicationFieldDictionaryService cvApplicationFieldDictionaryService;
 
-    @Secured("ROLE_ADMIN")
+   // @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_template/registration_view",method = RequestMethod.GET)
-    public ModelAndView CvTemplateRegisterView(){
+    public ModelAndView CvTemplateRegisterView(ModelAndView modelAndView){
         //CvApplicationSection cvApplicationSection=cvApplicationSectionService.findCvSectionById("51c153bae4b005665847d347");
         List<CvApplicationSection> cvApplicationSection = cvApplicationSectionService.findAllCvSection();
-        ModelAndView modelAndView = new ModelAndView();
+        List<ApplicationFieldDictionary> applicationFieldDictionary = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
         System.out.println(" application cv section ["+cvApplicationSection+"]");
         if (cvApplicationSection!=null){
-            modelAndView.setViewName("cv-template/cv_template_register");
+            modelAndView.setViewName("cv-template/cv-template-register");
             modelAndView.addObject("cvApplicationSection",cvApplicationSection);
+            modelAndView.addObject("applicationFieldDictionary",applicationFieldDictionary);
         }
         else {
             modelAndView.setViewName("error");
@@ -76,11 +81,10 @@ public class CvTemplateController {
     @Autowired
     private CvApplicationTemplateService cvApplicationTemplateService;
 
-    @Secured("ROLE_ADMIN")
+   // @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_template/register",method = RequestMethod.POST)
     public View registerNewCvTemplate(@Valid CvApplicationTemplate cvApplicationTemplate,BindingResult bindingResult,ModelAndView modelAndView){
 
-        //modelAndView.setViewName("cv-template/cv_registration");
         if(StringUtils.hasText(cvApplicationTemplate.getId()))
         {
             cvApplicationTemplateService.update(cvApplicationTemplate);
@@ -94,6 +98,5 @@ public class CvTemplateController {
         }
         return new RedirectView("registration_view");
     }
-
 
 }

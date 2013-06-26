@@ -1,5 +1,6 @@
 package com.hsenidmobile.recruitment.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
@@ -11,8 +12,11 @@ public class CvApplicationTemplate implements Serializable {
 
     @Id
     private String id;
+    @NotEmpty
     private String cvHeaderEn;
+    @NotEmpty
     private String cvHeaderSi;
+    @NotEmpty
     private String cvHeaderTa;
 
     private List<CvApplicationSection> cvApplicationSectionList = new ArrayList<CvApplicationSection>();
