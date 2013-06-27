@@ -15,7 +15,7 @@
 
         <div class="control-group">
             <div class="controls">
-                <sf:input path="htmlComponent" value="TextArea" type="hidden" />
+                <sf:input path="htmlComponent" value="TextField" type="hidden" />
             </div>
         </div>
 

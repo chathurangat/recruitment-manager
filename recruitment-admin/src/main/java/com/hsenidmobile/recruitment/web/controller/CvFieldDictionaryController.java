@@ -34,7 +34,7 @@ public class CvFieldDictionaryController {
      * </p>
      * @return "textfield-dictionary-register" logical name encapsulated in {@link ModelAndView}
      */
-    @Secured("ROLE_ADMIN")
+//    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_textfield/registration_view",method = RequestMethod.GET)
     public ModelAndView cvFieldTextFieldRegisterView(ModelAndView modelAndView){
         logger.info(" display cv template section textfield dictionary registration view ");
@@ -52,7 +52,7 @@ public class CvFieldDictionaryController {
      * </p>
      * @return "textfield-dictionary-register" logical name encapsulated in {@link ModelAndView}
      */
-    @Secured("ROLE_ADMIN")
+//    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_textfield/register",method = RequestMethod.POST)
     public ModelAndView registerNewTextFieldDictionary(@Valid TextFieldDictionary textFieldDictionary,BindingResult bindingResult,ModelAndView modelAndView){
         System.out.println(" registering new cv template section field dictionary");

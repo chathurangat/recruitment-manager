@@ -15,7 +15,7 @@ public class CvApplicationFieldDictionaryDaoImpl implements CvApplicationFieldDi
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public static final String COLLECTION_NAME = "cv_field_dictionary_register";
+    public static final String COLLECTION_NAME = "cv_field_dictionary";
 
 
     /**

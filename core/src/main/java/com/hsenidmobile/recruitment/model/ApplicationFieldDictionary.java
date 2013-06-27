@@ -13,7 +13,7 @@ import java.io.Serializable;
  *    each application field will be assigned under a section of the CV template.{@link CvApplicationSection}
  * </p>
  */
-@Document
+@Document(collection = "cv_field_dictionary")
 public  class ApplicationFieldDictionary implements Serializable {
 
     @Id

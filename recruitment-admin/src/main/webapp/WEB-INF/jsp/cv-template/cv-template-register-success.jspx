@@ -1,0 +1,94 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:sf="http://www.springframework.org/tags/form">
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+
+    <fieldset>
+        <legend>
+            CV Template Registration
+        </legend>
+
+        <div class="alert alert-success">
+            <a class="close" data-dismiss="alert">×</a>
+            <strong>Success!</strong>You have successfully created the CV Template.
+        </div>
+
+        <div class="padding-bottom-10">
+            <h5>you have successfully created the Cv Template with following Values.</h5>
+        </div>
+
+        <!--name in english-->
+        <div class="row padding-bottom-10">
+
+            <div class="span4 margin-left-30">
+                key
+            </div>
+
+            <div class="span6">
+                value
+            </div>
+
+
+        </div>
+
+        <!--name in sinhala-->
+        <div class="row padding-bottom-10">
+
+            <div class="span4 margin-left-30">
+                key
+            </div>
+
+            <div class="span6">
+                value
+            </div>
+
+
+        </div>
+
+
+        <!--name in tamil-->
+        <div class="row padding-bottom-10">
+
+            <div class="span4 margin-left-30">
+                key
+            </div>
+
+            <div class="span6">
+                value
+            </div>
+
+
+        </div>
+
+        <div class="padding-bottom-10">
+            <h5>CV Section List</h5>
+        </div>
+        <!--cv application sections -->
+        <!--<div class="span4 margin-left-30">-->
+            <div class="row padding-bottom-10">
+                <div class="span4 margin-left-30">
+                    Section Name yyyyyyyyyyyyyyy yyyyyyyyyyyyyy yyyyyyyyyyy
+                </div>
+
+                <div class="span6">
+                    Priority
+                </div>
+
+            </div>
+
+            <div class="row padding-bottom-10">
+                <div class="span4 margin-left-30">
+                    Section Name yyyyyyyyyy yyyyyyyyyyyyyyyyy
+                </div>
+
+                <div class="span6">
+                    Priority
+                </div>
+            </div>
+
+        <!--</div>-->
+
+    </fieldset>
+
+</jsp:root>

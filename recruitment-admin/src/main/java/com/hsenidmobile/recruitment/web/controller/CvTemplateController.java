@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +76,6 @@ public class CvTemplateController {
             for(Integer itemIndex :duplicatePriorityIndexes){
                 //adding custom error message here
                 bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList["+itemIndex+"].priority","Duplicates priorities were found "));
-
             }
         }
         //todo at least one section should be selected
@@ -83,32 +83,44 @@ public class CvTemplateController {
         if(!bindingResult.hasErrors()){
             logger.info(" submitted form does not contain field errors ");
             cvApplicationTemplate.setCvApplicationSectionList(selectedCvApplicationSectionList);
+            modelAndView.setViewName("redirect:cv-template-register-success");
+            modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
             if(StringUtils.hasText(cvApplicationTemplate.getId()))
             {
                 cvApplicationTemplateService.update(cvApplicationTemplate);
                 logger.info("updating the cv application template");
+//                modelAndView.setViewName("redirect:cv-template/cv-template-register-success");
             }
             else
             {
                 cvApplicationTemplateService.create(cvApplicationTemplate);
                 logger.info("creating new cv application template");
+//                modelAndView.setViewName("redirect:cv-template/cv-template-register-success");
             }
         }
         else{
             logger.info(" submitted form contains field errors ");
+            //loading the UI again
+            List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();
+            Map<String,Object> modelObjects = new HashMap<String, Object>();
+
+            List<Integer> priorityList = this.createPriorityLit(cvApplicationSectionList);
+
+            modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
+            modelObjects.put("priorityList",priorityList);
+            modelAndView.addAllObjects(modelObjects);
         }
+        return modelAndView;
+    }
 
-        //loading the UI again
-        List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();
-        Map<String,Object> modelObjects = new HashMap<String, Object>();
-
-        List<Integer> priorityList = this.createPriorityLit(cvApplicationSectionList);
-
-        modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
-        modelObjects.put("priorityList",priorityList);
-        modelAndView.addAllObjects(modelObjects);
-
-        modelAndView.setViewName("cv-template/cv-template-register");
+//    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/cv-template-register-success")
+    public ModelAndView cvApplicationTemplateRegistrationSuccess(HttpServletRequest request){
+        String lastCreatedCvTemplateId = (String) request.getSession().getAttribute("last-created-cv-template-id");
+        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById(lastCreatedCvTemplateId);
+        ModelAndView modelAndView =  new ModelAndView();
+        modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+        modelAndView.setViewName("cv-template/cv-template-register-success");
         return modelAndView;
     }
 
@@ -137,7 +149,7 @@ public class CvTemplateController {
                 cvApplicationSection1.setPriority(cvApplicationSection.getPriority());
                 selectedCvApplicationSectionList.add(cvApplicationSection1);
 
-               logger.info(" cv section has been submitted with id [{}] and priority [{}]",cvApplicationSection.getId(),cvApplicationSection.getPriority());
+                logger.info(" cv section has been submitted with id [{}] and priority [{}]",cvApplicationSection.getId(),cvApplicationSection.getPriority());
 
                 if(!enteredPriorities.containsKey(cvApplicationSection.getPriority())){
                     //priority is not duplicated so far
@@ -149,7 +161,7 @@ public class CvTemplateController {
                     //current duplicate priority index was added
                     duplicatePriorityIndexes.add(index);
                     //index of the already inserted duplicate priority will also be added here
-//                duplicatePriorityIndexes.add(enteredPriorities.get(cvApplicationSection.getPriority()));
+                    duplicatePriorityIndexes.add(enteredPriorities.get(cvApplicationSection.getPriority()));
                 }
             }
             index++;
