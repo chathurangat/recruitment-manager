@@ -62,7 +62,9 @@ public class CvTemplateController {
         modelObjects.put("cvApplicationSectionList", cvApplicationSectionList);
 //        modelObjects.put("cvApplicationSectionMap", cvApplicationSectionMap);
 //        modelObjects.put("applicationFieldDictionaryItemsList", applicationFieldDictionaryItemsList);
-        modelObjects.put("cvApplicationTemplate",new CvApplicationTemplate());
+        CvApplicationTemplate cvApplicationTemplate =  new CvApplicationTemplate();
+        cvApplicationTemplate.setCvApplicationSectionList(cvApplicationSectionList);
+        modelObjects.put("cvApplicationTemplate",cvApplicationTemplate);
         modelObjects.put("priorityList",priorityList);
         modelAndView.addAllObjects(modelObjects);
 //        }
@@ -98,6 +100,11 @@ public class CvTemplateController {
 
         System.out.println(" size of cvApplicationSectionList ["+cvApplicationTemplate.getCvApplicationSectionList()+"]");
         System.out.println(" size of cvApplicationSectionList size ["+cvApplicationTemplate.getCvApplicationSectionList().size()+"]");
+
+        for(CvApplicationSection cvApplicationSection:cvApplicationTemplate.getCvApplicationSectionList()){
+            System.out.println(" section name ["+cvApplicationSection.getSectionNameEn()+"] and status ["+cvApplicationSection.isStatus()+"]");
+            System.out.println(" id ["+cvApplicationSection.getId()+"]");
+        }
 
         modelAndView.setViewName("cv-template/cv-template-register");
         return modelAndView;
