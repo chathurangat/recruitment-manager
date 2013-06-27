@@ -45,9 +45,9 @@
 
         <!--start-->
 
-        <c:if test="${cvApplicationSectionList ne null}">
+        <c:if test="${masterCvApplicationSectionList ne null}">
             Select sections for the CV template from the below Section list
-            <c:forEach items="${cvApplicationSectionList}" var="cvApplicationSection" varStatus="status">
+            <c:forEach items="${masterCvApplicationSectionList}" var="cvApplicationSection" varStatus="status">
                 <!--<fieldset name="${sectionName.sectionNameEn}">-->
 
                 <div class="control-group">
@@ -66,6 +66,9 @@
                            <sf:option value="-1" label="--- Select ---"/>
                            <sf:options items="${priorityList}"/>
                        </sf:select>
+
+                    <sf:errors path="cvApplicationSectionList[${status.index}].priority" cssClass="text-error"/>
+
 
                     <!--</label>-->
 

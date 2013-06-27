@@ -13,6 +13,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,7 +44,7 @@ public class CvTemplateController {
     public ModelAndView CvTemplateRegisterView(ModelAndView modelAndView){
         System.out.println(" cv template registration view ");
         List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();
-        List<ApplicationFieldDictionary> applicationFieldDictionaryItemsList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
+//        List<ApplicationFieldDictionary> applicationFieldDictionaryItemsList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
 //        if (cvApplicationSectionList!=null){
         Map<String,Object> modelObjects = new HashMap<String, Object>();
 //        Map<String,String> cvApplicationSectionMap = new HashMap<String, String>();
@@ -59,11 +60,11 @@ public class CvTemplateController {
         modelAndView.setViewName("cv-template/cv-template-register");
 //            modelAndView.addObject("cvApplicationSectionList",cvApplicationSectionList);
 //            modelAndView.addObject("applicationFieldDictionaryItemsList",applicationFieldDictionaryItemsList);
-        modelObjects.put("cvApplicationSectionList", cvApplicationSectionList);
+        modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
 //        modelObjects.put("cvApplicationSectionMap", cvApplicationSectionMap);
 //        modelObjects.put("applicationFieldDictionaryItemsList", applicationFieldDictionaryItemsList);
         CvApplicationTemplate cvApplicationTemplate =  new CvApplicationTemplate();
-        cvApplicationTemplate.setCvApplicationSectionList(cvApplicationSectionList);
+//        cvApplicationTemplate.setCvApplicationSectionList(cvApplicationSectionList);
         modelObjects.put("cvApplicationTemplate",cvApplicationTemplate);
         modelObjects.put("priorityList",priorityList);
         modelAndView.addAllObjects(modelObjects);
@@ -102,9 +103,27 @@ public class CvTemplateController {
         System.out.println(" size of cvApplicationSectionList size ["+cvApplicationTemplate.getCvApplicationSectionList().size()+"]");
 
         for(CvApplicationSection cvApplicationSection:cvApplicationTemplate.getCvApplicationSectionList()){
+            if(cvApplicationSection!=null){
             System.out.println(" section name ["+cvApplicationSection.getSectionNameEn()+"] and status ["+cvApplicationSection.isStatus()+"]");
             System.out.println(" id ["+cvApplicationSection.getId()+"]");
+            System.out.println(" priority ["+cvApplicationSection.getPriority()+"]");
+//             bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList[2].priority","Error for 51cbd68244ae9cb4d97994d7"));
+            }
         }
+
+        List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();
+        Map<String,Object> modelObjects = new HashMap<String, Object>();
+
+        List<Long> priorityList = new ArrayList<Long>();
+        if(cvApplicationSectionList!=null){
+            for(long i=1;i<=cvApplicationSectionList.size();i++){
+                priorityList.add(i);
+            }
+        }
+
+        modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
+        modelObjects.put("priorityList",priorityList);
+        modelAndView.addAllObjects(modelObjects);
 
         modelAndView.setViewName("cv-template/cv-template-register");
         return modelAndView;
