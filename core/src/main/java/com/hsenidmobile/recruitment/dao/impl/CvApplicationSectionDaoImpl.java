@@ -16,7 +16,7 @@ public class CvApplicationSectionDaoImpl implements CvApplicationSectionDao{
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public static final String COLLECTION_NAME = "cv_section_register";
+    public static final String COLLECTION_NAME = "master_cv_section";
 
 
     /**

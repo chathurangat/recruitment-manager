@@ -15,14 +15,11 @@ import java.util.List;
  *     eg:- personal details, educational details, work experiences
  * </p>
  */
-@Document
+@Document(collection = "master_cv_section")
 public class CvApplicationSection implements Serializable{
 
     @Id
     private String id;
-    //@Size(min = 1 ,max =100,message = "error.section.name.english.required")
-    //@NotEmpty("This field should be filled") ;
-
     @NotBlank
     private String sectionNameEn;
     @NotBlank

@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/register")
+@RequestMapping(value = "/cv_template")
 public class CvTemplateController {
 
     private static final Logger  logger = LoggerFactory.getLogger(CvTemplateController.class);
@@ -32,38 +32,11 @@ public class CvTemplateController {
     private CvApplicationSectionService cvApplicationSectionService;
     @Autowired
     private CvApplicationTemplateService cvApplicationTemplateService;
-
-    @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_section/registration_view",method = RequestMethod.GET)
-    public ModelAndView cvTemplateSectionsRegisterView(ModelAndView modelAndView){
-        logger.info(" request to display cv template section registration view ");
-        modelAndView.setViewName("cv-template/cv-section-register");
-        modelAndView.addObject(new CvApplicationSection());
-        return modelAndView;
-    }
-
-    @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_section/register",method = RequestMethod.POST)
-    public ModelAndView registerNewCvTemplateSection(@Valid CvApplicationSection cvApplicationSection,BindingResult bindingResult,ModelAndView modelAndView){
-        System.out.println(" registering new cv template section");
-        modelAndView.setViewName("cv-template/cv-section-register");
-        if(StringUtils.hasText(cvApplicationSection.getId())){
-            cvApplicationSectionService.update(cvApplicationSection);
-            System.out.println(" form contains errors");
-        }
-        else
-        {
-            cvApplicationSectionService.create(cvApplicationSection);
-            System.out.println(" there are no errors");
-        }
-        return modelAndView;
-    }
-
     @Autowired
     private CvApplicationFieldDictionaryService cvApplicationFieldDictionaryService;
 
-    // @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_template/registration_view",method = RequestMethod.GET)
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/registration_view",method = RequestMethod.GET)
     public ModelAndView CvTemplateRegisterView(ModelAndView modelAndView){
         //CvApplicationSection cvApplicationSection=cvApplicationSectionService.findCvSectionById("51c153bae4b005665847d347");
         List<CvApplicationSection> cvApplicationSection = cvApplicationSectionService.findAllCvSection();
@@ -82,7 +55,7 @@ public class CvTemplateController {
 
 
     @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_template/register",method = RequestMethod.POST)
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
     public View registerNewCvTemplate(@Valid CvApplicationTemplate cvApplicationTemplate,BindingResult bindingResult,ModelAndView modelAndView){
         if(StringUtils.hasText(cvApplicationTemplate.getId()))
         {
