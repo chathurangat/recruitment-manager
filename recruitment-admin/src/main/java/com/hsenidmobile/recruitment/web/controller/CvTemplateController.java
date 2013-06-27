@@ -44,13 +44,10 @@ public class CvTemplateController {
     public ModelAndView CvTemplateRegisterView(ModelAndView modelAndView){
         System.out.println(" cv template registration view ");
         List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();
+
         Map<String,Object> modelObjects = new HashMap<String, Object>();
-        List<Long> priorityList = new ArrayList<Long>();
-        if(cvApplicationSectionList!=null){
-            for(long i=1;i<=cvApplicationSectionList.size();i++){
-                priorityList.add(i);
-            }
-        }
+
+        List<Integer> priorityList = this.createPriorityLit(cvApplicationSectionList);
         modelAndView.setViewName("cv-template/cv-template-register");
         modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
         CvApplicationTemplate cvApplicationTemplate =  new CvApplicationTemplate();
@@ -101,17 +98,11 @@ public class CvTemplateController {
             logger.info(" submitted form contains field errors ");
         }
 
-
         //loading the UI again
         List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();
         Map<String,Object> modelObjects = new HashMap<String, Object>();
 
-        List<Long> priorityList = new ArrayList<Long>();
-        if(cvApplicationSectionList!=null){
-            for(long i=1;i<=cvApplicationSectionList.size();i++){
-                priorityList.add(i);
-            }
-        }
+        List<Integer> priorityList = this.createPriorityLit(cvApplicationSectionList);
 
         modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
         modelObjects.put("priorityList",priorityList);
@@ -126,7 +117,6 @@ public class CvTemplateController {
      * <P>
      *  this will find the list of {@link CvApplicationSection} selected for the CvTemplate being created/updated.
      *  the selected CvSections list will be added to the List passed as  @param selectedCvApplicationSectionList
-     *
      *  if there are duplicate priorities found, relevant Cv section indexes will be updated in the duplicatePriorityIndexes list.
      * </P>
      * @param cvApplicationTemplate will be the model object that encapsulates all the submitted data by the user
@@ -164,6 +154,23 @@ public class CvTemplateController {
             }
             index++;
         }
+    }
+
+    /**
+     * <p>
+     *     creating the priority list based on the applicationSectionList
+     * </p>
+     * @param cvApplicationSectionList contains the list of {@link CvApplicationSection} instances found
+     * @return list of priorities based on the size of the cvapplication section list
+     */
+    private List<Integer> createPriorityLit(List<CvApplicationSection> cvApplicationSectionList){
+        List<Integer> priorityList = new ArrayList<Integer>();
+        if(cvApplicationSectionList!=null){
+            for(int i=1;i<=cvApplicationSectionList.size();i++){
+                priorityList.add(i);
+            }
+        }
+        return priorityList;
     }
 
 }
