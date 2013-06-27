@@ -105,12 +105,17 @@ public class CvTemplateController {
         List<Integer> duplicatePriorityIndexes = new ArrayList<Integer>();
 
         int index= 0;
+
         for(CvApplicationSection cvApplicationSection:cvApplicationTemplate.getCvApplicationSectionList()){
             if(cvApplicationSection.getId()!=null){
-                selectedCvApplicationSectionList.add(cvApplicationSection);
+                //finding the original instance by giving Id
+                CvApplicationSection cvApplicationSection1 = cvApplicationSectionService.findCvSectionById(cvApplicationSection.getId());
+                cvApplicationSection1.setPriority(cvApplicationSection.getPriority());
+
+                selectedCvApplicationSectionList.add(cvApplicationSection1);
+
                 System.out.println(" id ["+cvApplicationSection.getId()+"]");
                 System.out.println(" priority ["+cvApplicationSection.getPriority()+"]");
-//             bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList[2].priority","Error for 51cbd68244ae9cb4d97994d7"));
                 if(!enteredPriorities.containsKey(cvApplicationSection.getPriority())){
                     //priority is not duplicated so far
                     logger.info(" priority is not duplicated so far");
@@ -132,11 +137,32 @@ public class CvTemplateController {
 
         if(duplicatePriorityIndexes.size()!=0){
             for(Integer itemIndex :duplicatePriorityIndexes){
-                //adding binding result here
+                //adding custom error message here
                 bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList["+itemIndex+"].priority","Duplicates priorities were found "));
 
             }
         }
+
+
+        //creating or updating the CV Template
+        if(!bindingResult.hasErrors()){
+            logger.info(" submitted form does not contain field errors ");
+            cvApplicationTemplate.setCvApplicationSectionList(selectedCvApplicationSectionList);
+            if(StringUtils.hasText(cvApplicationTemplate.getId()))
+            {
+                cvApplicationTemplateService.update(cvApplicationTemplate);
+                logger.info("updating the cv application template");
+            }
+            else
+            {
+                cvApplicationTemplateService.create(cvApplicationTemplate);
+                logger.info("creating new cv application template");
+            }
+        }
+        else{
+            logger.info(" submitted form contains field errors ");
+        }
+
 
         //loading the UI again
         List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();

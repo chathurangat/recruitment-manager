@@ -48,7 +48,6 @@
         <c:if test="${masterCvApplicationSectionList ne null}">
             Select sections for the CV template from the below Section list
             <c:forEach items="${masterCvApplicationSectionList}" var="cvApplicationSection" varStatus="status">
-                <!--<fieldset name="${sectionName.sectionNameEn}">-->
 
                 <div class="control-group">
 
