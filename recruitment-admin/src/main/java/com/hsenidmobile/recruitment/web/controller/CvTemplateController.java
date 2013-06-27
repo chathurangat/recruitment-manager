@@ -53,9 +53,9 @@ public class CvTemplateController {
 //        cvApplicationSectionMap.put("3n","section three");
         List<Long> priorityList = new ArrayList<Long>();
         if(cvApplicationSectionList!=null){
-        for(long i=1;i<=cvApplicationSectionList.size();i++){
-            priorityList.add(i);
-        }
+            for(long i=1;i<=cvApplicationSectionList.size();i++){
+                priorityList.add(i);
+            }
         }
         modelAndView.setViewName("cv-template/cv-template-register");
 //            modelAndView.addObject("cvApplicationSectionList",cvApplicationSectionList);
@@ -76,7 +76,7 @@ public class CvTemplateController {
     }
 
 
-//    @Secured("ROLE_ADMIN")
+    //    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public ModelAndView registerNewCvTemplate(@Valid CvApplicationTemplate cvApplicationTemplate,BindingResult bindingResult,ModelAndView modelAndView){
 //       if(!bindingResult.hasErrors()){
@@ -99,18 +99,46 @@ public class CvTemplateController {
 ////        return new RedirectView("registration_view");
 //        return modelAndView;
 
-        System.out.println(" size of cvApplicationSectionList ["+cvApplicationTemplate.getCvApplicationSectionList()+"]");
         System.out.println(" size of cvApplicationSectionList size ["+cvApplicationTemplate.getCvApplicationSectionList().size()+"]");
+        List<CvApplicationSection> selectedCvApplicationSectionList = new ArrayList<CvApplicationSection>();
+        Map<Integer,Integer> enteredPriorities = new HashMap<Integer, Integer>();
+        List<Integer> duplicatePriorityIndexes = new ArrayList<Integer>();
 
+        int index= 0;
         for(CvApplicationSection cvApplicationSection:cvApplicationTemplate.getCvApplicationSectionList()){
-            if(cvApplicationSection!=null){
-            System.out.println(" section name ["+cvApplicationSection.getSectionNameEn()+"] and status ["+cvApplicationSection.isStatus()+"]");
-            System.out.println(" id ["+cvApplicationSection.getId()+"]");
-            System.out.println(" priority ["+cvApplicationSection.getPriority()+"]");
+            if(cvApplicationSection.getId()!=null){
+                selectedCvApplicationSectionList.add(cvApplicationSection);
+                System.out.println(" id ["+cvApplicationSection.getId()+"]");
+                System.out.println(" priority ["+cvApplicationSection.getPriority()+"]");
 //             bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList[2].priority","Error for 51cbd68244ae9cb4d97994d7"));
+                if(!enteredPriorities.containsKey(cvApplicationSection.getPriority())){
+                    //priority is not duplicated so far
+                    logger.info(" priority is not duplicated so far");
+                    enteredPriorities.put(cvApplicationSection.getPriority(),index);
+                }
+                else {
+                    logger.info("duplicate priority was found");
+                    //current duplicate priority index was added
+                    duplicatePriorityIndexes.add(index);
+                    //index of the already inserted duplicate priority will also be added here
+//                duplicatePriorityIndexes.add(enteredPriorities.get(cvApplicationSection.getPriority()));
+                }
+            }
+            index++;
+        }
+
+        System.out.println(" number of selected Cv sections for the template is ["+selectedCvApplicationSectionList.size()+"]");
+        System.out.println(" number of duplicate priories ["+duplicatePriorityIndexes.size()+"] were also found ");
+
+        if(duplicatePriorityIndexes.size()!=0){
+            for(Integer itemIndex :duplicatePriorityIndexes){
+                //adding binding result here
+                bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList["+itemIndex+"].priority","Duplicates priorities were found "));
+
             }
         }
 
+        //loading the UI again
         List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();
         Map<String,Object> modelObjects = new HashMap<String, Object>();
 
