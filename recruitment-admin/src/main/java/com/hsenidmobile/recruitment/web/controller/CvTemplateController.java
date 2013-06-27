@@ -101,36 +101,39 @@ public class CvTemplateController {
 
         System.out.println(" size of cvApplicationSectionList size ["+cvApplicationTemplate.getCvApplicationSectionList().size()+"]");
         List<CvApplicationSection> selectedCvApplicationSectionList = new ArrayList<CvApplicationSection>();
-        Map<Integer,Integer> enteredPriorities = new HashMap<Integer, Integer>();
         List<Integer> duplicatePriorityIndexes = new ArrayList<Integer>();
 
-        int index= 0;
+//        Map<Integer,Integer> enteredPriorities = new HashMap<Integer, Integer>();
+//
+//        int index= 0;
+//
+//        for(CvApplicationSection cvApplicationSection:cvApplicationTemplate.getCvApplicationSectionList()){
+//            if(cvApplicationSection.getId()!=null){
+//                //finding the original instance by giving Id
+//                CvApplicationSection cvApplicationSection1 = cvApplicationSectionService.findCvSectionById(cvApplicationSection.getId());
+//                cvApplicationSection1.setPriority(cvApplicationSection.getPriority());
+//
+//                selectedCvApplicationSectionList.add(cvApplicationSection1);
+//
+//                System.out.println(" id ["+cvApplicationSection.getId()+"]");
+//                System.out.println(" priority ["+cvApplicationSection.getPriority()+"]");
+//                if(!enteredPriorities.containsKey(cvApplicationSection.getPriority())){
+//                    //priority is not duplicated so far
+//                    logger.info(" priority is not duplicated so far");
+//                    enteredPriorities.put(cvApplicationSection.getPriority(),index);
+//                }
+//                else {
+//                    logger.info("duplicate priority was found");
+//                    //current duplicate priority index was added
+//                    duplicatePriorityIndexes.add(index);
+//                    //index of the already inserted duplicate priority will also be added here
+////                duplicatePriorityIndexes.add(enteredPriorities.get(cvApplicationSection.getPriority()));
+//                }
+//            }
+//            index++;
+//        }
 
-        for(CvApplicationSection cvApplicationSection:cvApplicationTemplate.getCvApplicationSectionList()){
-            if(cvApplicationSection.getId()!=null){
-                //finding the original instance by giving Id
-                CvApplicationSection cvApplicationSection1 = cvApplicationSectionService.findCvSectionById(cvApplicationSection.getId());
-                cvApplicationSection1.setPriority(cvApplicationSection.getPriority());
-
-                selectedCvApplicationSectionList.add(cvApplicationSection1);
-
-                System.out.println(" id ["+cvApplicationSection.getId()+"]");
-                System.out.println(" priority ["+cvApplicationSection.getPriority()+"]");
-                if(!enteredPriorities.containsKey(cvApplicationSection.getPriority())){
-                    //priority is not duplicated so far
-                    logger.info(" priority is not duplicated so far");
-                    enteredPriorities.put(cvApplicationSection.getPriority(),index);
-                }
-                else {
-                    logger.info("duplicate priority was found");
-                    //current duplicate priority index was added
-                    duplicatePriorityIndexes.add(index);
-                    //index of the already inserted duplicate priority will also be added here
-//                duplicatePriorityIndexes.add(enteredPriorities.get(cvApplicationSection.getPriority()));
-                }
-            }
-            index++;
-        }
+        this.findSelectedCvApplicationListForCvTemplate(cvApplicationTemplate,selectedCvApplicationSectionList,duplicatePriorityIndexes);
 
         System.out.println(" number of selected Cv sections for the template is ["+selectedCvApplicationSectionList.size()+"]");
         System.out.println(" number of duplicate priories ["+duplicatePriorityIndexes.size()+"] were also found ");
@@ -181,6 +184,41 @@ public class CvTemplateController {
 
         modelAndView.setViewName("cv-template/cv-template-register");
         return modelAndView;
+    }
+
+
+
+
+    private void findSelectedCvApplicationListForCvTemplate(CvApplicationTemplate cvApplicationTemplate,List<CvApplicationSection> selectedCvApplicationSectionList,List<Integer> duplicatePriorityIndexes){
+        Map<Integer,Integer> enteredPriorities = new HashMap<Integer, Integer>();
+
+        int index= 0;
+
+        for(CvApplicationSection cvApplicationSection:cvApplicationTemplate.getCvApplicationSectionList()){
+            if(cvApplicationSection.getId()!=null){
+                //finding the original instance by giving Id
+                CvApplicationSection cvApplicationSection1 = cvApplicationSectionService.findCvSectionById(cvApplicationSection.getId());
+                cvApplicationSection1.setPriority(cvApplicationSection.getPriority());
+
+                selectedCvApplicationSectionList.add(cvApplicationSection1);
+
+                System.out.println(" id ["+cvApplicationSection.getId()+"]");
+                System.out.println(" priority ["+cvApplicationSection.getPriority()+"]");
+                if(!enteredPriorities.containsKey(cvApplicationSection.getPriority())){
+                    //priority is not duplicated so far
+                    logger.info(" priority is not duplicated so far");
+                    enteredPriorities.put(cvApplicationSection.getPriority(),index);
+                }
+                else {
+                    logger.info("duplicate priority was found");
+                    //current duplicate priority index was added
+                    duplicatePriorityIndexes.add(index);
+                    //index of the already inserted duplicate priority will also be added here
+//                duplicatePriorityIndexes.add(enteredPriorities.get(cvApplicationSection.getPriority()));
+                }
+            }
+            index++;
+        }
     }
 
 }
