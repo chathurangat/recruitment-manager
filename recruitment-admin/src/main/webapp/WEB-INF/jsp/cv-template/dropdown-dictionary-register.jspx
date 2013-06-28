@@ -1,0 +1,69 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:sf="http://www.springframework.org/tags/form">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+
+    <fieldset>
+        <legend>
+            <spring:message code="label.form.header.cvDropDown.dictionary.registration"/>
+        </legend>
+    </fieldset>
+
+    <sf:form method="POST" action="register"  modelAttribute="dropDownDictionary" class="form-horizontal">
+
+        <div class="control-group">
+            <div class="controls">
+                <sf:input path="htmlComponent" value="Select" type="hidden" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <sf:label path="labelEn">
+                    <spring:message code="label.cvSection.registration.form.name.in.english" />
+                </sf:label>
+                <sf:input path="labelEn" size="100" />
+                <sf:errors path="labelEn" cssClass="text-error" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <sf:label path="labelSi">
+                    <spring:message code="label.cvSection.registration.form.name.in.sinhala" />
+                </sf:label>
+                <sf:input path="labelSi" size="100" />
+                <sf:errors path="labelSi" cssClass="text-error" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <sf:label path="labelTa">
+                    <spring:message code="label.cvSection.registration.form.name.in.tamil" />
+                </sf:label>
+                <sf:input path="labelTa" size="100" />
+                <sf:errors path="labelTa" cssClass="text-error" />
+            </div>
+        </div>
+
+        <div class="control-group">
+             <div class="controls">
+                      <spring:message code="label.form.select.cvDropDown.dictionary.field.registration" />
+                        <sf:select path="" cssClass="width-150">
+                            <sf:option value="-1" label="--- Select ---"/>
+                  <!--          <sf:options items=""/> -->
+                        </sf:select>
+             </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" class="btn btn-success" value="Submit" />
+            </div>
+        </div>
+
+    </sf:form>
+</jsp:root>
