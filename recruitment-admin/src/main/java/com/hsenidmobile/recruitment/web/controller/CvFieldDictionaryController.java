@@ -60,14 +60,23 @@ public class CvFieldDictionaryController {
     public ModelAndView registerNewTextFieldDictionary(@Valid TextFieldDictionary textFieldDictionary,BindingResult bindingResult,ModelAndView modelAndView){
         System.out.println(" registering new cv template section textfield field dictionary ");
         modelAndView.setViewName("cv-template/textfield-dictionary-register");
-        if(StringUtils.hasText(textFieldDictionary.getId())){
-            cvApplicationFieldDictionaryService.updateCvSectionFieldDictionary(textFieldDictionary);
+        if(!bindingResult.hasErrors()){
+            if(StringUtils.hasText(textFieldDictionary.getId())){
+                cvApplicationFieldDictionaryService.updateCvSectionFieldDictionary(textFieldDictionary);
+                logger.info("registering new cv template section textfield field dictionary form contains no errors (update) ");
+            }
+            else
+            {
+                cvApplicationFieldDictionaryService.createCvSectionFieldDictionary(textFieldDictionary);
+                logger.info("registering new cv template section textfield field dictionary form contains no errors (create) ");
+            }
+            return modelAndView;
         }
-        else
-        {
-            cvApplicationFieldDictionaryService.createCvSectionFieldDictionary(textFieldDictionary);
+        else {
+            logger.info("registering new cv template section textfield field dictionary form contains errors ");
+            return modelAndView;
         }
-        return modelAndView;
+
     }
 
 
@@ -79,7 +88,7 @@ public class CvFieldDictionaryController {
      * </p>
      * @return "textarea-dictionary-register" logical name encapsulated in {@link ModelAndView}
      */
-    @Secured("ROLE_ADMIN")
+  //  @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_textarea/registration_view",method = RequestMethod.GET)
     public ModelAndView cvFieldTextAreaRegisterView(ModelAndView modelAndView){
         logger.info(" display cv template section textarea field dictionary registration view ");
@@ -97,19 +106,28 @@ public class CvFieldDictionaryController {
      * </p>
      * @return "textarea-dictionary-register" logical name encapsulated in {@link ModelAndView}
      */
-    @Secured("ROLE_ADMIN")
+   // @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_textarea/register",method = RequestMethod.POST)
     public ModelAndView registerNewTextAreaDictionary(@Valid TextAreaDictionary textAreaDictionary,BindingResult bindingResult,ModelAndView modelAndView){
         System.out.println(" registering new cv template section textarea field dictionary");
         modelAndView.setViewName("cv-template/textarea-dictionary-register");
-        if(StringUtils.hasText(textAreaDictionary.getId())){
-            cvApplicationFieldDictionaryService.updateCvSectionFieldDictionary(textAreaDictionary);
+        if(!bindingResult.hasErrors()){
+            if(StringUtils.hasText(textAreaDictionary.getId())){
+                cvApplicationFieldDictionaryService.updateCvSectionFieldDictionary(textAreaDictionary);
+                logger.info("registering new cv template section textarea field dictionary form contains no errors (update) ");
+            }
+            else
+            {
+                cvApplicationFieldDictionaryService.createCvSectionFieldDictionary(textAreaDictionary);
+                logger.info("registering new cv template section textarea field dictionary form contains no errors (create) ");
+            }
+            return modelAndView;
         }
-        else
-        {
-            cvApplicationFieldDictionaryService.createCvSectionFieldDictionary(textAreaDictionary);
+        else {
+            logger.info("registering new cv template section textarea field dictionary form contains errors ");
+            return modelAndView;
         }
-        return modelAndView;
+
     }
 
     /**

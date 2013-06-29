@@ -24,7 +24,15 @@ public class CvApplicationSectionController {
     @Autowired
     private CvApplicationSectionService cvApplicationSectionService;
 
-    @Secured("ROLE_ADMIN")
+    /**
+     * <p>
+     *     display the Cv Section Registration page of the recruitment admin application
+     *     this method will only support for HTTP GET requests
+     *     the access will be granted for the authenticated users with ROLE_ADMIN
+     * </p>
+     * @return "cv-section-register" logical name encapsulated in {@link ModelAndView}
+     */
+   // @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/registration_view",method = RequestMethod.GET)
     public ModelAndView cvTemplateSectionsRegisterView(ModelAndView modelAndView){
         logger.info(" request to display cv template section registration view ");
@@ -33,20 +41,40 @@ public class CvApplicationSectionController {
         return modelAndView;
     }
 
-    @Secured("ROLE_ADMIN")
+
+    /**
+     * <p>
+     *     Insert the Cv Section items into CvApplicationSection collections
+     *     Then display the Cv Section Registration page of the recruitment admin application
+     *     this method will only support for HTTP GET requests
+     *     the access will be granted for the authenticated users with ROLE_ADMIN
+     * </p>
+     * @return "cv-section-register" logical name encapsulated in {@link ModelAndView}
+     */
+    //@Secured("ROLE_ADMIN")
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public ModelAndView registerNewCvTemplateSection(@Valid CvApplicationSection cvApplicationSection,BindingResult bindingResult,ModelAndView modelAndView){
         System.out.println(" registering new cv template section");
         modelAndView.setViewName("cv-template/cv-section-register");
-        if(StringUtils.hasText(cvApplicationSection.getId())){
-            cvApplicationSectionService.update(cvApplicationSection);
-            System.out.println(" form contains errors");
+        if(!bindingResult.hasErrors()){
+            if(StringUtils.hasText(cvApplicationSection.getId())){
+                cvApplicationSectionService.update(cvApplicationSection);
+                logger.info("registering new cv template section form contains no errors (update) ");
+                System.out.println(" there are no errors (update)");
+            }
+            else
+            {
+                cvApplicationSectionService.create(cvApplicationSection);
+                logger.info("registering new cv template section form contains no errors (create) ");
+                System.out.println(" there are no errors (create)");
+            }
+            return modelAndView;
         }
-        else
-        {
-            cvApplicationSectionService.create(cvApplicationSection);
-            System.out.println(" there are no errors");
+        else {
+
+            logger.info("registering new cv template section form contains errors ");
+            return modelAndView;
         }
-        return modelAndView;
+
     }
 }
