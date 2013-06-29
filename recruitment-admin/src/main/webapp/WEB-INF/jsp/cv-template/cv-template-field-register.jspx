@@ -43,17 +43,22 @@
                     <div class="row">
                         <div class="control-group">
 
-                            <div class="span10 margin-left-30">
+                            <div class="span4 margin-left-30">
                                 <h5>${cvApplicationSection.sectionNameEn}</h5>
 
                             </div>
 
-                            <div class="span10 margin-left-30">
-
-                            <sf:errors path="cvApplicationSectionList[${outer.index}].id" cssClass="text-error"/>
+                            <div class="span6">
+                                <sf:errors path="cvApplicationSectionList[${outer.index}].id" cssClass="text-error margin-left-30"/>
                             </div>
 
                         </div>
+                        <!--<div class="row">-->
+                            <!--<div class="span10">-->
+
+                                <!--<sf:errors path="cvApplicationSectionList[${outer.index}].id" cssClass="text-error margin-left-30"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
                     </div>
 
                     <sf:hidden path="cvApplicationSectionList[${outer.index}].id"/>
