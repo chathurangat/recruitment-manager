@@ -173,7 +173,7 @@ public class CvTemplateController {
      *     creating the priority list based on the applicationSectionList
      * </p>
      * @param cvApplicationSectionList contains the list of {@link CvApplicationSection} instances found
-     * @return list of priorities based on the size of the cvapplication section list
+     * @return list of priorities based on the size of the cv application section list
      */
     private List<Integer> createPriorityLit(List<CvApplicationSection> cvApplicationSectionList){
         List<Integer> priorityList = new ArrayList<Integer>();
