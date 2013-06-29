@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,8 +29,8 @@ public class ApplicantController {
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/apply")
-    public ModelAndView generateCV(){
-        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51ce78de44ae1f0c38b6be4e");
+    public ModelAndView generateCV(@RequestParam("id")String cvTemplateId){
+        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById(cvTemplateId);
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(" application cv template ["+cvApplicationTemplate+"]");
         if (cvApplicationTemplate!=null){
@@ -57,7 +58,7 @@ public class ApplicantController {
 //            String paramValue = request.getParameter(paramName);
 //            System.out.println(" parameter name ["+paramName+"] and value ["+paramValue+"]");
 //        }
-       CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51c71d1244aea6983bfae324");
+       CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById(request.getParameter("id"));
 
         //setting up the data submitted trough the form
         if(cvApplicationTemplate!=null){
@@ -74,10 +75,12 @@ public class ApplicantController {
                         if(applicationFieldList!=null){
 
                             for(CvApplicationField cvApplicationField:applicationFieldList){
+                                if(cvApplicationField.getId()!=null){
                                 System.out.println(" getting the value of the CV application field ["+cvApplicationField.getId()+"] ");
 
                                 String paramValue = request.getParameter(cvApplicationField.getId());
                                 cvApplicationField.setFieldValue(paramValue);
+                                }
                             }
                         }
 

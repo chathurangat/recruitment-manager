@@ -73,7 +73,7 @@
                         <div class="row">
                             <div class="control-group">
                                 <div class="span4">
-                                    <sf:checkbox path="cvApplicationSectionList[${outer.index}].cvApplicationFieldList[${inner.index}].applicationFieldDictionary.id" value="${dataDictionaryField.id}" cssClass="margin-left-30"/>
+                                    <sf:checkbox path="cvApplicationSectionList[${outer.index}].cvApplicationFieldList[${inner.index}].id" value="${dataDictionaryField.id}" cssClass="margin-left-30"/>
                                     <!--<sf:label path="cvApplicationFieldList[${status.index}].id" cssClass="checkbox inline">-->
                                     ${dataDictionaryField.labelEn}
                                     <!--section name-->

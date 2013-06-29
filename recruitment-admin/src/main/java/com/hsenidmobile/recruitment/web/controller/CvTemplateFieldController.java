@@ -19,6 +19,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -44,11 +45,11 @@ public class CvTemplateFieldController {
 
     //    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/registration_view")
-    public ModelAndView  cvTemplateFieldRegistrationView(){
-        logger.info(" cv template field registration view ");
+    public ModelAndView  cvTemplateFieldRegistrationView(@RequestParam("id")String cvTemplateId){
+        logger.info(" cv template field registration view for cv Template with id [{}]",cvTemplateId);
 
         Map<String,Object> modelsObjects = new HashMap<String, Object>();
-        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById("51ce78de44ae1f0c38b6be4e");
+        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById(cvTemplateId);
 
         List<ApplicationFieldDictionary> masterApplicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
         List<Integer> priorityList = this.createPriorityLit(masterApplicationFieldDictionaryList);
@@ -118,10 +119,10 @@ public class CvTemplateFieldController {
             for(int fieldIndex=0;fieldIndex<cvApplicationSection.getCvApplicationFieldList().size();fieldIndex++){
                 //getting the current application field
                 CvApplicationField applicationField = cvApplicationSection.getCvApplicationFieldList().get(fieldIndex);
-                if(applicationField.getApplicationFieldDictionary().getId()!=null){
-                    logger.info(" user has selected cv field dictionary item id [{}]",applicationField.getApplicationFieldDictionary().getId());
+                if(applicationField.getId()!=null){
+                    logger.info(" user has selected cv field dictionary item id [{}]",applicationField.getId());
                     //getting the up to date field dictionary instance
-                    String currentId = applicationField.getApplicationFieldDictionary().getId();
+                    String currentId = applicationField.getId();
                     ApplicationFieldDictionary applicationFieldDictionary = cvApplicationFieldDictionaryService.findCvSectionFieldDictionaryById(currentId);
                     applicationField.setApplicationFieldDictionary(applicationFieldDictionary);
                     //checking whether th user has selected the priority for the selected field
@@ -149,13 +150,9 @@ public class CvTemplateFieldController {
             }
             //now checking whether user has selected at least one cv field for the current section
             if(submittedFieldList.size()==0){
-                logger.info(" at least one cv field should be selected for Cv Section [{}]",cvApplicationSection.getSectionNameEn());
-//                bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList["+sectionIndex+"].id","At least one field should be selected for the section "));
-                errorMessages.put("cvApplicationSectionList["+sectionIndex+"].id","At least one field should be selected for the section ");
-                logger.info("cvApplicationSectionList["+sectionIndex+"].cvApplicationFieldList[0].applicationFieldDictionary.id");
+                logger.info(" at least one cv field should be selected for Cv Section [{}]", cvApplicationSection.getSectionNameEn());
+                errorMessages.put("cvApplicationSectionList[" + sectionIndex + "].id", "At least one field should be selected for the section ");
             }
-            //setting up the submitted cv application field list to cv application section
-//            cvApplicationSection.setCvApplicationFieldList(submittedFieldList);
         }
 
         return errorMessages;

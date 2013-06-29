@@ -14,8 +14,9 @@
 </head>
 <body>
 
-<sf:form method="POST" action="applicationSubmit"  modelAttribute="cvApplicationSection" class="form-horizontal">
+<sf:form method="POST" action="applicationSubmit"  modelAttribute="cvApplicationTemplate" class="form-horizontal">
 
+    <sf:hidden path="id" />
     ${cvApplicationTemplate.cvHeaderEn}
 
     <c:forEach items="${cvApplicationTemplate.cvApplicationSectionList}" var="applicationSection">
@@ -26,9 +27,11 @@
             </legend>
 
             <c:forEach items="${applicationSection.cvApplicationFieldList}" var="applicationField">
+
                 <c:set var="htmlComponent" value="${applicationField.applicationFieldDictionary.htmlComponent}"/>
 
                 <c:if test="${fn:containsIgnoreCase(htmlComponent, 'textfield')}">
+
                     <label for="${applicationField.applicationFieldDictionary.id}">
                             ${applicationField.applicationFieldDictionary.labelEn}
                     </label>
@@ -38,6 +41,7 @@
                 </c:if>
 
                 <c:if test="${fn:containsIgnoreCase(htmlComponent, 'textarea')}">
+
                     <p class="formfield">
                         <label for="${applicationField.applicationFieldDictionary.id}">
                                 ${applicationField.applicationFieldDictionary.labelEn}
