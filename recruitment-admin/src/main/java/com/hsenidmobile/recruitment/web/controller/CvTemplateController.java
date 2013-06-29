@@ -105,7 +105,7 @@ public class CvTemplateController {
             Map<String,Object> modelObjects = new HashMap<String, Object>();
 
             List<Integer> priorityList = this.createPriorityLit(cvApplicationSectionList);
-
+            modelAndView.setViewName("cv-template/cv-template-register");
             modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
             modelObjects.put("priorityList",priorityList);
             modelAndView.addAllObjects(modelObjects);

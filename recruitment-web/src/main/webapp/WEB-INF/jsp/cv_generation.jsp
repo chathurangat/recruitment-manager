@@ -30,7 +30,7 @@
 
                 <c:if test="${fn:containsIgnoreCase(htmlComponent, 'textfield')}">
                     <label for="${applicationField.applicationFieldDictionary.id}">
-                            ${applicationField.applicationFieldDictionary.label}
+                            ${applicationField.applicationFieldDictionary.labelEn}
                     </label>
                     <input id="${applicationField.id}" name="${applicationField.id}" type="text" size="${applicationField.applicationFieldDictionary.size}"/>
                     <br/>
@@ -40,7 +40,7 @@
                 <c:if test="${fn:containsIgnoreCase(htmlComponent, 'textarea')}">
                     <p class="formfield">
                         <label for="${applicationField.applicationFieldDictionary.id}">
-                                ${applicationField.applicationFieldDictionary.label}
+                                ${applicationField.applicationFieldDictionary.labelEn}
                         </label>
                         <textarea name="${applicationField.id}" cols="${applicationField.applicationFieldDictionary.cols}" rows="${applicationField.applicationFieldDictionary.rows}"></textarea>
                     </p>
