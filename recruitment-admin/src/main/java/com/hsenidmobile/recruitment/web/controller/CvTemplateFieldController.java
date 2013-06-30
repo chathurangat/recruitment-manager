@@ -5,23 +5,18 @@ import com.hsenidmobile.recruitment.model.CvApplicationField;
 import com.hsenidmobile.recruitment.model.CvApplicationSection;
 import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
 import com.hsenidmobile.recruitment.service.CvApplicationFieldDictionaryService;
-import com.hsenidmobile.recruitment.service.CvApplicationFieldService;
-import com.hsenidmobile.recruitment.service.CvApplicationSectionService;
 import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,53 +28,49 @@ import java.util.Map;
 public class CvTemplateFieldController {
 
     private static final Logger logger = LoggerFactory.getLogger(CvTemplateFieldController.class);
-
-    @Autowired
-    private CvApplicationFieldService cvApplicationFieldService;
     @Autowired
     private CvApplicationTemplateService cvApplicationTemplateService;
     @Autowired
     private CvApplicationFieldDictionaryService cvApplicationFieldDictionaryService;
-    @Autowired
-    private CvApplicationSectionService cvApplicationSectionService;
 
-    //    @Secured("ROLE_ADMIN")
+    /**
+     * <p>
+     *     displaying the required view to assign/update cv application field for the given Cv Application Template
+     * </p>
+     * @param cvTemplateId will be the id of the cv application template
+     * @return an instance of {@link ModelAndView} containing the logical view name for the Cv Template field registration view
+     */
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/registration_view")
     public ModelAndView  cvTemplateFieldRegistrationView(@RequestParam("id")String cvTemplateId){
         logger.info(" cv template field registration view for cv Template with id [{}]",cvTemplateId);
-
-        Map<String,Object> modelsObjects = new HashMap<String, Object>();
         CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById(cvTemplateId);
-
-        List<ApplicationFieldDictionary> masterApplicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
-        List<Integer> priorityList = this.createPriorityLit(masterApplicationFieldDictionaryList);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelsObjects.put("cvApplicationTemplate",cvApplicationTemplate);
-        modelsObjects.put("priorityList", priorityList);
-        modelsObjects.put("masterApplicationFieldDictionaryList", masterApplicationFieldDictionaryList);
-        modelAndView.setViewName("cv-template/cv-template-field-register");
-        modelAndView.addAllObjects(modelsObjects);
-        return modelAndView;
+        if(cvApplicationTemplate!=null){
+            return this.initializeCvTemplateFieldRegistrationView(cvApplicationTemplate);
+        }
+        else{
+            //cv template instance cannot be found
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("error");
+            return modelAndView;
+        }
     }
 
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/registration",method = RequestMethod.POST)
     public ModelAndView  cvTemplateFieldRegistration(@Valid CvApplicationTemplate cvApplicationTemplate,BindingResult bindingResult){
         logger.info(" cv template field registration process start for template  [{}]",cvApplicationTemplate.getCvHeaderEn());
-
         Map<String,String> errorMessages =  this.validateCvTemplate(cvApplicationTemplate);
-
         if(errorMessages!=null && errorMessages.size()!=0){
             for(Map.Entry<String,String> entry: errorMessages.entrySet()){
                 logger.info(" error key [{}] and value [{}]",entry.getKey(),entry.getValue());
                 bindingResult.addError(new FieldError("cvApplicationTemplate",entry.getKey(),entry.getValue()));
             }
         }
-
         ModelAndView modelAndView = new ModelAndView();
         if(bindingResult.hasErrors()){
-            logger.info(" form contains errors");
+            logger.info(" submitted form contains errors");
             Map<String,Object> modelsObjects = new HashMap<String, Object>();
 
             List<ApplicationFieldDictionary> masterApplicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
@@ -90,15 +81,33 @@ public class CvTemplateFieldController {
             modelsObjects.put("masterApplicationFieldDictionaryList", masterApplicationFieldDictionaryList);
             modelAndView.addAllObjects(modelsObjects);
         }
-
         cvApplicationTemplateService.update(cvApplicationTemplate);
-
         modelAndView.setViewName("cv-template/cv-template-field-register");
         return modelAndView;
     }
 
 
 
+    /**
+     * <p>
+     *     initializing the required data and model to load the UI view to register fields for the given cv template
+     * </p>
+     * @param cvApplicationTemplate as {@link CvApplicationTemplate}
+     * @return an instance of {@link ModelAndView} containing the logical view name for the Cv Template field registration view with required initializing data
+     */
+    private ModelAndView initializeCvTemplateFieldRegistrationView(CvApplicationTemplate cvApplicationTemplate){
+        logger.info(" initializing the required data and model to load cv template field registration view");
+        Map<String,Object> modelsObjects = new HashMap<String, Object>();
+        List<ApplicationFieldDictionary> masterApplicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
+        List<Integer> priorityList = this.createPriorityLit(masterApplicationFieldDictionaryList);
+        ModelAndView modelAndView = new ModelAndView();
+        modelsObjects.put("cvApplicationTemplate",cvApplicationTemplate);
+        modelsObjects.put("priorityList", priorityList);
+        modelsObjects.put("masterApplicationFieldDictionaryList", masterApplicationFieldDictionaryList);
+        modelAndView.setViewName("cv-template/cv-template-field-register");
+        modelAndView.addAllObjects(modelsObjects);
+        return modelAndView;
+    }
 
     private Map<String,String>  validateCvTemplate(CvApplicationTemplate cvApplicationTemplate){
         Map<String,String> errorMessages = new HashMap<String, String>();
@@ -120,14 +129,13 @@ public class CvTemplateFieldController {
                 //getting the current application field
                 CvApplicationField applicationField = cvApplicationSection.getCvApplicationFieldList().get(fieldIndex);
                 if(applicationField.getId()!=null){
-                    logger.info(" user has selected cv field dictionary item id [{}]",applicationField.getId());
+                    logger.info(" user has selected cv field dictionary item id [{}]", applicationField.getId());
                     //getting the up to date field dictionary instance
                     String currentId = applicationField.getId();
                     ApplicationFieldDictionary applicationFieldDictionary = cvApplicationFieldDictionaryService.findCvSectionFieldDictionaryById(currentId);
                     applicationField.setApplicationFieldDictionary(applicationFieldDictionary);
                     //checking whether th user has selected the priority for the selected field
                     if(applicationField.getPriority()==-1){
-//                        bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList["+sectionIndex+"].cvApplicationFieldList["+fieldIndex+"].priority","Priority is required "));
                         errorMessages.put("cvApplicationSectionList["+sectionIndex+"].cvApplicationFieldList["+fieldIndex+"].priority","Priority is required ");
                     }
                     else{

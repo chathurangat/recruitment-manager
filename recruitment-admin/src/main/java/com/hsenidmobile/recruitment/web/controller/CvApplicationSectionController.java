@@ -32,7 +32,7 @@ public class CvApplicationSectionController {
      * </p>
      * @return "cv-section-register" logical name encapsulated in {@link ModelAndView}
      */
-   // @Secured("ROLE_ADMIN")
+   @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/registration_view",method = RequestMethod.GET)
     public ModelAndView cvTemplateSectionsRegisterView(ModelAndView modelAndView){
         logger.info(" request to display cv template section registration view ");
@@ -51,7 +51,7 @@ public class CvApplicationSectionController {
      * </p>
      * @return "cv-section-register" logical name encapsulated in {@link ModelAndView}
      */
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public ModelAndView registerNewCvTemplateSection(@Valid CvApplicationSection cvApplicationSection,BindingResult bindingResult,ModelAndView modelAndView){
         System.out.println(" registering new cv template section");
