@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -127,55 +126,117 @@ public class CvTemplateFieldController {
 
             logger.info(" getting submitted fields of the Cv Application Section  [{}]",cvApplicationSection.getSectionNameEn());
 
-            //this will hold the submitted application field list
-            List<CvApplicationField> submittedFieldList =  new ArrayList<CvApplicationField>();
-            //this will hold the map of priority submitted for the given cv application section
-            Map<Integer,Integer>  prioritySubmitted = new HashMap<Integer, Integer>();
+//            //this will hold the submitted application field list
+//            List<CvApplicationField> submittedFieldList =  new ArrayList<CvApplicationField>();
+//            //this will hold the map of priority submitted for the given cv application section
+//            Map<Integer,Integer>  prioritySubmitted = new HashMap<Integer, Integer>();
+//
+//            //getting the list of cv application fields submitted
+//            for(int fieldIndex=0;fieldIndex<cvApplicationSection.getCvApplicationFieldList().size();fieldIndex++){
+//                //getting the current application field
+//                CvApplicationField applicationField = cvApplicationSection.getCvApplicationFieldList().get(fieldIndex);
+//                if(applicationField.getId()!=null){
+//                    logger.info(" user has selected cv field dictionary item id [{}]", applicationField.getId());
+//                    //getting the up to date field dictionary instance
+//                    String currentId = applicationField.getId();
+//                    ApplicationFieldDictionary applicationFieldDictionary = cvApplicationFieldDictionaryService.findCvSectionFieldDictionaryById(currentId);
+//                    applicationField.setApplicationFieldDictionary(applicationFieldDictionary);
+//                    //checking whether th user has selected the priority for the selected field
+//                    if(applicationField.getPriority()==-1){
+//                        errorMessages.put("cvApplicationSectionList["+sectionIndex+"].cvApplicationFieldList["+fieldIndex+"].priority","Priority is required ");
+//                    }
+//                    else{
+//                        //checking for duplicate priorities
+//                        if(!prioritySubmitted.containsKey(applicationField.getPriority())){
+//                            //field priority within the section has not ben duplicated so far
+//                            prioritySubmitted.put(applicationField.getPriority(),fieldIndex);
+//                        }
+//                        else{
+//                            //field priority within the section has been duplicated. therefore putting an error message
+//                            //adding the current field duplicate record error  message
+//                            errorMessages.put("cvApplicationSectionList["+sectionIndex+"].cvApplicationFieldList["+fieldIndex+"].priority","Duplicate priority detected ");
+//                            //adding the error message for previous duplicate record matches with the current priority
+//                            errorMessages.put("cvApplicationSectionList["+sectionIndex+"].cvApplicationFieldList["+prioritySubmitted.get(applicationField.getPriority())+"].priority","Duplicate Priority detected ");
+//                        }
+//                    }
+//                    //adding the cv application field for submitted field list
+//                    submittedFieldList.add(applicationField);
+//                }
+//                else{
+//                    //setting up the priority of the non selected fields to default priority if they have changed the priority
+//                    applicationField.setPriority(-1);
+//                }
+//            }
+            //now checking whether user has selected at least one cv field for the current section
+//            if(submittedFieldList.size()==0){
+//                logger.info(" at least one cv field should be selected for Cv Section [{}]", cvApplicationSection.getSectionNameEn());
+//                errorMessages.put("cvApplicationSectionList[" + sectionIndex + "].id", "At least one field should be selected for the section ");
+//            }
+            this.validateCvSectionFields(cvApplicationSection,sectionIndex,errorMessages);
+        }
+        return errorMessages;
+    }
 
-            //getting the list of cv application fields submitted
-            for(int fieldIndex=0;fieldIndex<cvApplicationSection.getCvApplicationFieldList().size();fieldIndex++){
-                //getting the current application field
-                CvApplicationField applicationField = cvApplicationSection.getCvApplicationFieldList().get(fieldIndex);
-                if(applicationField.getId()!=null){
-                    logger.info(" user has selected cv field dictionary item id [{}]", applicationField.getId());
-                    //getting the up to date field dictionary instance
-                    String currentId = applicationField.getId();
-                    ApplicationFieldDictionary applicationFieldDictionary = cvApplicationFieldDictionaryService.findCvSectionFieldDictionaryById(currentId);
-                    applicationField.setApplicationFieldDictionary(applicationFieldDictionary);
-                    //checking whether th user has selected the priority for the selected field
-                    if(applicationField.getPriority()==-1){
-                        errorMessages.put("cvApplicationSectionList["+sectionIndex+"].cvApplicationFieldList["+fieldIndex+"].priority","Priority is required ");
-                    }
-                    else{
-                        //checking for duplicate priorities
-                        if(!prioritySubmitted.containsKey(applicationField.getPriority())){
-                            //field priority within the section has not ben duplicated so far
-                            prioritySubmitted.put(applicationField.getPriority(),fieldIndex);
-                        }
-                        else{
-                            //field priority within the section has been duplicated. therefore putting an error message
-                            //adding the current field duplicate record error  message
-                            errorMessages.put("cvApplicationSectionList["+sectionIndex+"].cvApplicationFieldList["+fieldIndex+"].priority","Duplicate priority detected ");
-                            //adding the error message for previous duplicate record matches with the current priority
-                            errorMessages.put("cvApplicationSectionList["+sectionIndex+"].cvApplicationFieldList["+prioritySubmitted.get(applicationField.getPriority())+"].priority","Duplicate Priority detected ");
-                        }
-                    }
-                    //adding the cv application field for submitted field list
-                    submittedFieldList.add(applicationField);
+   private void validateCvSectionFields(CvApplicationSection cvApplicationSection,int sectionIndex,Map<String,String> errorMessages){
+//       this will hold the submitted application field list
+        List<CvApplicationField> submittedFieldList =  new ArrayList<CvApplicationField>();
+       for(CvApplicationField cvApplicationField:cvApplicationSection.getCvApplicationFieldList()){
+           if(cvApplicationField.getId()!=null){
+               submittedFieldList.add(cvApplicationField);
+           }
+       }
+       //checking the size of the submitted cv application field list
+       if(submittedFieldList.size()==0){
+           logger.info(" at least one cv field should be selected for Cv Section [{}]", cvApplicationSection.getSectionNameEn());
+           errorMessages.put("cvApplicationSectionList[" + sectionIndex + "].id", "At least one field should be selected for the section ");
+       }
+       else {
+           //validating the priority of the submitted field list
+           this.validatePriorityOfCvSectionFieldList(submittedFieldList,sectionIndex,errorMessages);
+       }
+   }
+    private void validatePriorityOfCvSectionFieldList(List<CvApplicationField> cvApplicationFieldList,int sectionIndex,Map<String,String> errorMessages){
+        //this will hold the submitted application field list
+//        List<CvApplicationField> submittedFieldList =  new ArrayList<CvApplicationField>();
+        //this will hold the map of priority submitted for the given cv application section
+        Map<Integer,Integer>  prioritySubmitted = new HashMap<Integer, Integer>();
+
+        //getting the list of cv application fields submitted
+        for(int fieldIndex=0;fieldIndex<cvApplicationFieldList.size();fieldIndex++){
+            //getting the current application field
+            CvApplicationField applicationField = cvApplicationFieldList.get(fieldIndex);
+            if(applicationField.getId()!=null){
+                logger.info(" user has selected cv field dictionary item id [{}]", applicationField.getId());
+                //getting the up to date field dictionary instance
+                String currentId = applicationField.getId();
+                ApplicationFieldDictionary applicationFieldDictionary = cvApplicationFieldDictionaryService.findCvSectionFieldDictionaryById(currentId);
+                applicationField.setApplicationFieldDictionary(applicationFieldDictionary);
+                //checking whether th user has selected the priority for the selected field
+                if(applicationField.getPriority()==-1){
+                    errorMessages.put("cvApplicationSectionList["+sectionIndex+"].cvApplicationFieldList["+fieldIndex+"].priority","Priority is required ");
                 }
                 else{
-                    //setting up the priority of the non selected fields to default priority if they have changed the priority
-                    applicationField.setPriority(-1);
+                    //checking for duplicate priorities
+                    if(!prioritySubmitted.containsKey(applicationField.getPriority())){
+                        //field priority within the section has not ben duplicated so far
+                        prioritySubmitted.put(applicationField.getPriority(),fieldIndex);
+                    }
+                    else{
+                        //field priority within the section has been duplicated. therefore putting an error message
+                        //adding the current field duplicate record error  message
+                        errorMessages.put("cvApplicationSectionList["+sectionIndex+"].cvApplicationFieldList["+fieldIndex+"].priority","Duplicate priority detected ");
+                        //adding the error message for previous duplicate record matches with the current priority
+                        errorMessages.put("cvApplicationSectionList["+sectionIndex+"].cvApplicationFieldList["+prioritySubmitted.get(applicationField.getPriority())+"].priority","Duplicate Priority detected ");
+                    }
                 }
+//                //adding the cv application field for submitted field list
+//                submittedFieldList.add(applicationField);
             }
-            //now checking whether user has selected at least one cv field for the current section
-            if(submittedFieldList.size()==0){
-                logger.info(" at least one cv field should be selected for Cv Section [{}]", cvApplicationSection.getSectionNameEn());
-                errorMessages.put("cvApplicationSectionList[" + sectionIndex + "].id", "At least one field should be selected for the section ");
+            else{
+                //setting up the priority of the non selected fields to default priority if they have changed the priority
+                applicationField.setPriority(-1);
             }
         }
-
-        return errorMessages;
     }
 
     /**
