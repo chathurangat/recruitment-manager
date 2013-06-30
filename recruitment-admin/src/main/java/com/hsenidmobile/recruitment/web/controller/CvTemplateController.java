@@ -7,6 +7,7 @@ import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -15,12 +16,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <P>
@@ -39,6 +39,8 @@ public class CvTemplateController {
     private CvApplicationSectionService cvApplicationSectionService;
     @Autowired
     private CvApplicationTemplateService cvApplicationTemplateService;
+    @Autowired
+    private MessageSource messageSource;
 
     /**
      * <p>
@@ -80,8 +82,10 @@ public class CvTemplateController {
     public ModelAndView registerOrUpdateCvTemplate(@Valid CvApplicationTemplate cvApplicationTemplate,BindingResult bindingResult,ModelAndView modelAndView,HttpSession session){
         List<CvApplicationSection> selectedCvApplicationSectionList = new ArrayList<CvApplicationSection>();
         Map<String,String> errorMessages = new HashMap<String,String>();
-        this.findSelectedCvApplicationListForCvTemplate(cvApplicationTemplate,selectedCvApplicationSectionList,errorMessages);
-        logger.info(" user has selected [{}] cv sections for this template out of [{}] sections",selectedCvApplicationSectionList.size(),cvApplicationTemplate.getCvApplicationSectionList().size());
+        //getting the current user locale
+        Locale currentUserLocale = this.getUserLocale(session);
+        this.findSelectedCvApplicationListForCvTemplate(cvApplicationTemplate, selectedCvApplicationSectionList, errorMessages,currentUserLocale);
+        logger.info(" user has selected [{}] cv sections for this template out of [{}] sections", selectedCvApplicationSectionList.size(), cvApplicationTemplate.getCvApplicationSectionList().size());
         if(errorMessages.size()>0){
             logger.info(" [{}] number of errors found with the submitted form",errorMessages.size());
             //binding each error message to the relevant field
@@ -119,7 +123,7 @@ public class CvTemplateController {
         String lastCreatedCvTemplateId = (String) session.getAttribute("last-created-cv-template-id");
         CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById(lastCreatedCvTemplateId);
         ModelAndView modelAndView =  new ModelAndView();
-        modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+        modelAndView.addObject("cvApplicationTemplate", cvApplicationTemplate);
         modelAndView.setViewName("cv-template/cv-template-register-success");
         return modelAndView;
     }
@@ -183,8 +187,9 @@ public class CvTemplateController {
      * @param cvApplicationTemplate will be the model object that encapsulates all the submitted cv template data by the user
      * @param selectedCvApplicationSectionList will be modified inside the method to hold the list of {@link CvApplicationSection} instances selected by the user for the CvTemplate being created
      * @param errorMessages  will be modified inside the method to hold the error messages related to the cv sections and their priories
+     * @param locale as {@link Locale}  current user locale
      */
-    private void findSelectedCvApplicationListForCvTemplate(CvApplicationTemplate cvApplicationTemplate,List<CvApplicationSection> selectedCvApplicationSectionList,Map<String,String> errorMessages){
+    private void findSelectedCvApplicationListForCvTemplate(CvApplicationTemplate cvApplicationTemplate,List<CvApplicationSection> selectedCvApplicationSectionList,Map<String,String> errorMessages,Locale locale){
         //this map will hold a set of entered priorities for each cv application section
         Map<Integer,Integer> enteredPriorities = new HashMap<Integer, Integer>();
         for(int index=0;index<cvApplicationTemplate.getCvApplicationSectionList().size();index++){
@@ -200,7 +205,7 @@ public class CvTemplateController {
                 }
                 logger.info(" cv section has been submitted with id [{}] and priority [{}]",cvApplicationSection.getId(),cvApplicationSection.getPriority());
                 //checking the validity of the submitted priority
-                this.validateSubmittedPriority(cvApplicationSection.getPriority(),index,enteredPriorities,errorMessages);
+                this.validateSubmittedPriority(cvApplicationSection.getPriority(),index,enteredPriorities,errorMessages,locale);
             }
         }
         //check whether user has selected at least one cv section fr the cv template
@@ -219,8 +224,9 @@ public class CvTemplateController {
      * @param cvSectionIndex is the index location of the cv sections that resides in the cv section list for the template. this will help to compose the validation error message if there is any
      * @param priorityMap will contain a map of priorities inserted for the cv section list. (key->priority and value-> cvSectionIndex)
      * @param errorMessages hold the map of error messages (if any) related to the cv section priority
+     * @param locale as {@link Locale} current user locale
      */
-    private void validateSubmittedPriority(int cvSectionPriority,int cvSectionIndex,Map<Integer,Integer> priorityMap,Map<String,String> errorMessages){
+    private void validateSubmittedPriority(int cvSectionPriority,int cvSectionIndex,Map<Integer,Integer> priorityMap,Map<String,String> errorMessages,Locale locale){
         if(cvSectionPriority!=-1){
             if(!priorityMap.containsKey(cvSectionPriority)){
                 //priority is not duplicated so far
@@ -230,15 +236,36 @@ public class CvTemplateController {
             else {
                 logger.info("duplicate priority was found");
                 //error message for the current duplicate priority
-                errorMessages.put("cvApplicationSectionList["+cvSectionIndex+"].priority","Duplicates priorities were found ");
+                String priorityDuplicateErrorMessage =   messageSource.getMessage("error.cv.template.registration.duplicate.priority",null,locale);
+                errorMessages.put("cvApplicationSectionList["+cvSectionIndex+"].priority",priorityDuplicateErrorMessage);
                 //error message for the the already inserted duplicate priority
-                errorMessages.put("cvApplicationSectionList["+priorityMap.get(cvSectionPriority)+"].priority","Duplicates priorities were found ");
+                errorMessages.put("cvApplicationSectionList["+priorityMap.get(cvSectionPriority)+"].priority",priorityDuplicateErrorMessage);
             }
         }
         else{
-            errorMessages.put("cvApplicationSectionList["+cvSectionIndex+"].priority","Priority should be selected ");
+            String priorityRequiredErrorMessage =   messageSource.getMessage("error.cv.template.registration.priority.required",null,locale);
+            errorMessages.put("cvApplicationSectionList["+cvSectionIndex+"].priority",priorityRequiredErrorMessage);
         }
     }
+
+
+    /**
+     * <p>
+     *     getting the user locale from the user session
+     * </p>
+     * @param session as {@link HttpSession}
+     * @return current user locale as {@link Locale}
+     */
+    private Locale getUserLocale(HttpSession session){
+        if(session.getAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME)!=null){
+            return (Locale) session.getAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME);
+        }
+        else{
+            //setting up the default locale to english
+            return new Locale("en");
+        }
+    }
+
 
     /**
      * <p>
