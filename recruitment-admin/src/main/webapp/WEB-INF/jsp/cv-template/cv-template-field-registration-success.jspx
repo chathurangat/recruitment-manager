@@ -1,0 +1,46 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:sf="http://www.springframework.org/tags/form">
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+
+    <fieldset>
+        <legend>
+            CV Template Field Registration
+        </legend>
+
+        <div class="alert alert-success">
+            <a class="close" data-dismiss="alert">×</a>
+            <strong>Success!</strong>You have successfully created the CV Template.
+        </div>
+
+        <div class="padding-bottom-10">
+            <h5>you have successfully created the Cv Template with following Values.</h5>
+        </div>
+
+        <div class="row padding-bottom-10">
+
+            <div class="span10 margin-left-30">
+                CV Section Name
+            </div>
+
+        </div>
+        <div class="row padding-bottom-10">
+
+            <div class="span10 margin-left-30">
+                field one
+            </div>
+
+        </div>
+
+        <div class="row padding-bottom-10">
+
+            <div class="span10 margin-left-30">
+                field two
+            </div>
+
+        </div>
+
+    </fieldset>
+
+</jsp:root>
