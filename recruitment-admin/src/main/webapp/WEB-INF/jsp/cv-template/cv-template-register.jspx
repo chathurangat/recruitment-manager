@@ -10,111 +10,115 @@
 
 
 
-    <sf:form method="POST" action="register"  modelAttribute="cvApplicationTemplate" class="form-horizontal">
+        <sf:form method="POST" action="register"  modelAttribute="cvApplicationTemplate" class="form-horizontal">
 
-        <div class="row">
-            <div class="control-group">
-            <!--<div class="controls">-->
-            <div class="span3">
-                <sf:label path="cvHeaderEn" cssClass="margin-left-30">
-                    Cv Template Header In English
-                </sf:label>
-            </div>
-            <div class="span3">
-                <sf:input path="cvHeaderEn" size="100" />
-            </div>
-            <div class="span4">
-                <sf:errors path="cvHeaderEn" cssClass="text-error"/>
-            </div>
-        <!--</div>-->
-        </div>
-        </div>
-
-        <div class="row">
-            <div class="control-group">
-            <!--<div class="controls">-->
-            <div class="span3">
-                <sf:label path="cvHeaderSi" cssClass="margin-left-30">
-                    Cv Template Header In Sinhala
-
-                </sf:label>
-            </div>
-            <div class="span3">
-                <sf:input path="cvHeaderSi" size="100" />
-            </div>
-            <div class="span4">
-                <sf:errors path="cvHeaderSi" cssClass="text-error"/>
-            </div>
-        <!--</div>-->
-        </div>
-        </div>
-
-        <div class="row">
-            <div class="control-group">
-            <!--<div class="controls">-->
-            <div class="span3">
-                <sf:label path="cvHeaderTa" cssClass="margin-left-30">
-                    Cv Template Header In Tamil
-                </sf:label>
-            </div>
-            <div class="span3">
-                <sf:input path="cvHeaderTa" size="100" />
-            </div>
-            <div class="span4">
-                <sf:errors path="cvHeaderTa" cssClass="text-error"/>
-            </div>
-        <!--</div>-->
-        </div>
-        </div>
-        <!--start-->
-
-        <c:if test="${masterCvApplicationSectionList ne null}">
-
-            <!--<label class = "font-18">CV Sections for the CV Template</label>-->
-            <h5>CV Sections for the CV Template</h5>
-
-            <c:forEach items="${masterCvApplicationSectionList}" var="cvApplicationSection" varStatus="status">
-                <div class="row">
-                    <div class="control-group">
-
-                        <div class="span4">
-                            <sf:checkbox path="cvApplicationSectionList[${status.index}].id" value="${cvApplicationSection.id}" cssClass="margin-left-30"/>
-                            <sf:label path="cvApplicationSectionList[${status.index}].sectionNameEn" cssClass="checkbox inline">
-                                ${cvApplicationSection.sectionNameEn}
-                                <!--section name-->
-                            </sf:label>
-                        </div>
-                        <div class="span2">
-                            <!--<sf:label path="cvApplicationSectionList[${status.index}].priority" cssClass="dropdown inline">-->
-                            <!--with priority-->
-                            <!--</sf:label>-->
-
-                            <sf:select path="cvApplicationSectionList[${status.index}].priority" cssClass="width-150">
-                                <sf:option value="-1" label="--- Select ---"/>
-                                <sf:options items="${priorityList}"/>
-                            </sf:select>
-                        </div>
-                        <div class="span4">
-                            <sf:errors path="cvApplicationSectionList[${status.index}].priority" cssClass="text-error"/>
-                        </div>
+            <div class="row">
+                <div class="control-group">
+                    <!--<div class="controls">-->
+                    <div class="span3">
+                        <sf:label path="cvHeaderEn" cssClass="margin-left-30">
+                            Cv Template Header In English
+                        </sf:label>
                     </div>
-                    <!--</label>-->
-
+                    <div class="span3">
+                        <sf:input path="cvHeaderEn" size="100" />
+                    </div>
+                    <div class="span4">
+                        <sf:errors path="cvHeaderEn" cssClass="text-error"/>
+                    </div>
+                    <!--</div>-->
                 </div>
-                <!--</fieldset>-->
-            </c:forEach>
-        </c:if>
-
-
-        <!--end-->
-
-
-        <div class="control-group">
-            <div class="controls">
-                <input type="submit" class="btn btn-primary"  value="Submit"/>
             </div>
-        </div>
 
-    </sf:form>
+            <div class="row">
+                <div class="control-group">
+                    <!--<div class="controls">-->
+                    <div class="span3">
+                        <sf:label path="cvHeaderSi" cssClass="margin-left-30">
+                            Cv Template Header In Sinhala
+
+                        </sf:label>
+                    </div>
+                    <div class="span3">
+                        <sf:input path="cvHeaderSi" size="100" />
+                    </div>
+                    <div class="span4">
+                        <sf:errors path="cvHeaderSi" cssClass="text-error"/>
+                    </div>
+                    <!--</div>-->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="control-group">
+                    <!--<div class="controls">-->
+                    <div class="span3">
+                        <sf:label path="cvHeaderTa" cssClass="margin-left-30">
+                            Cv Template Header In Tamil
+                        </sf:label>
+                    </div>
+                    <div class="span3">
+                        <sf:input path="cvHeaderTa" size="100" />
+                    </div>
+                    <div class="span4">
+                        <sf:errors path="cvHeaderTa" cssClass="text-error"/>
+                    </div>
+                    <!--</div>-->
+                </div>
+            </div>
+            <!--start-->
+
+            <c:if test="${masterCvApplicationSectionList ne null}">
+
+                <!--<label class = "font-18">CV Sections for the CV Template</label>-->
+                <h5>CV Sections for the CV Template</h5>
+                <div class="row">
+                    <div class="span10">
+                        <sf:errors path="cvApplicationSectionList" cssClass="text-error margin-left-30"/>
+                    </div>
+                </div>
+                <c:forEach items="${masterCvApplicationSectionList}" var="cvApplicationSection" varStatus="status">
+                    <div class="row">
+                        <div class="control-group">
+
+                            <div class="span4">
+                                <sf:checkbox path="cvApplicationSectionList[${status.index}].id" value="${cvApplicationSection.id}" cssClass="margin-left-30"/>
+                                <sf:label path="cvApplicationSectionList[${status.index}].sectionNameEn" cssClass="checkbox inline">
+                                    ${cvApplicationSection.sectionNameEn}
+                                    <!--section name-->
+                                </sf:label>
+                            </div>
+                            <div class="span2">
+                                <!--<sf:label path="cvApplicationSectionList[${status.index}].priority" cssClass="dropdown inline">-->
+                                <!--with priority-->
+                                <!--</sf:label>-->
+
+                                <sf:select path="cvApplicationSectionList[${status.index}].priority" cssClass="width-150">
+                                    <sf:option value="-1" label="--- Select ---"/>
+                                    <sf:options items="${priorityList}"/>
+                                </sf:select>
+                            </div>
+                            <div class="span4">
+                                <sf:errors path="cvApplicationSectionList[${status.index}].priority" cssClass="text-error"/>
+                            </div>
+                        </div>
+                        <!--</label>-->
+
+                    </div>
+                    <!--</fieldset>-->
+                </c:forEach>
+            </c:if>
+
+
+            <!--end-->
+
+
+            <div class="control-group">
+                <div class="controls">
+                    <input type="submit" class="btn btn-primary"  value="Submit"/>
+                </div>
+            </div>
+
+        </sf:form>
     </fieldset>
 </jsp:root>

@@ -55,12 +55,6 @@
 
     <!--localization and internationalization ends here-->
 
-    <!--<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">-->
-        <!--<property name="messageInterpolator">-->
-            <!--<bean class="com.hsenidmobile.recruitment.web.filter.SpringMessageSourceMessageInterpolator" />-->
-        <!--</property>-->
-    <!--</bean>-->
-
     <!--google oauth configuration details -->
     <bean id="googleOAuthConfig" class="com.hms.oauth.config.OAuthConfiguration">
         <property name="applicationId" value="669970197155-7lhlm9iu7vgdv7dniif2kqs18ts5bt0h.apps.googleusercontent.com"/>
@@ -68,6 +62,26 @@
         <property name="redirectUrl" value="http://localhost:8080/recruitment-admin/user/auth/google"/>
         <property name="scope" value="https://www.googleapis.com/auth/userinfo#email"/>
     </bean>
+
+
+    <!--email sender bean declarations starts -->
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="587" />
+        <property name="username" value="abanstest@gmail.com" />
+        <property name="password" value="abanstest123" />
+
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.debug">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--email sender bean declarations ends-->
 
 </beans>
 

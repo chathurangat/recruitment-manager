@@ -67,6 +67,13 @@ public class CvTemplateController {
         System.out.println(" number of selected Cv sections for the template is ["+selectedCvApplicationSectionList.size()+"]");
         System.out.println(" number of duplicate priories ["+duplicatePriorityIndexes.size()+"] were also found ");
 
+        //check whether user has selected at least one cv section fr the cv template
+        if(selectedCvApplicationSectionList.size()==0){
+            //adding custom error message here
+            bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList","At least One CV Section should be selected "));
+        }
+
+        //check for priority duplicates
         if(duplicatePriorityIndexes.size()!=0){
             for(Integer itemIndex :duplicatePriorityIndexes){
                 //adding custom error message here
