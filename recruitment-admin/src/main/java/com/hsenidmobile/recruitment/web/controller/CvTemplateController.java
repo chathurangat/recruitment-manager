@@ -60,26 +60,33 @@ public class CvTemplateController {
 
         System.out.println(" size of cvApplicationSectionList size ["+cvApplicationTemplate.getCvApplicationSectionList().size()+"]");
         List<CvApplicationSection> selectedCvApplicationSectionList = new ArrayList<CvApplicationSection>();
-        List<Integer> duplicatePriorityIndexes = new ArrayList<Integer>();
+        Map<String,String> errorMessages = new HashMap<String,String>();
 
-        this.findSelectedCvApplicationListForCvTemplate(cvApplicationTemplate,selectedCvApplicationSectionList,duplicatePriorityIndexes);
+        this.findSelectedCvApplicationListForCvTemplate(cvApplicationTemplate,selectedCvApplicationSectionList,errorMessages);
 
         System.out.println(" number of selected Cv sections for the template is ["+selectedCvApplicationSectionList.size()+"]");
-        System.out.println(" number of duplicate priories ["+duplicatePriorityIndexes.size()+"] were also found ");
+        System.out.println(" number of error founds with submitted form ["+errorMessages.size()+"]  ");
 
-        //check whether user has selected at least one cv section fr the cv template
-        if(selectedCvApplicationSectionList.size()==0){
-            //adding custom error message here
-            bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList","At least One CV Section should be selected "));
-        }
-
-        //check for priority duplicates
-        if(duplicatePriorityIndexes.size()!=0){
-            for(Integer itemIndex :duplicatePriorityIndexes){
-                //adding custom error message here
-                bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList["+itemIndex+"].priority","Duplicates priorities were found "));
+        if(errorMessages.size()>0){
+            //binding each error message to the relevant field
+            for(Map.Entry<String,String> entry:errorMessages.entrySet()){
+                bindingResult.addError(new FieldError("cvApplicationTemplate",entry.getKey(),entry.getValue()));
             }
         }
+
+//        //check whether user has selected at least one cv section fr the cv template
+//        if(selectedCvApplicationSectionList.size()==0){
+//            //adding custom error message here
+//            bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList","At least One CV Section should be selected "));
+//        }
+//
+//        //check for priority duplicates
+//        if(duplicatePriorityIndexes.size()!=0){
+//            for(Integer itemIndex :duplicatePriorityIndexes){
+//                //adding custom error message here
+//                bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList["+itemIndex+"].priority","Duplicates priorities were found "));
+//            }
+//        }
         //todo at least one section should be selected
         //creating or updating the CV Template
         if(!bindingResult.hasErrors()){
@@ -115,7 +122,7 @@ public class CvTemplateController {
         return modelAndView;
     }
 
-//    @Secured("ROLE_ADMIN")
+    //    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv-template-register-success")
     public ModelAndView cvApplicationTemplateRegistrationSuccess(HttpServletRequest request){
         String lastCreatedCvTemplateId = (String) request.getSession().getAttribute("last-created-cv-template-id");
@@ -135,14 +142,13 @@ public class CvTemplateController {
      * </P>
      * @param cvApplicationTemplate will be the model object that encapsulates all the submitted data by the user
      * @param selectedCvApplicationSectionList will be modified inside the method to hold the list of {@link CvApplicationSection} instances selected by the user for the CvTemplate being created
-     * @param duplicatePriorityIndexes  will be modified inside the method to hold the list of indexes of the CvApplication sections that are having the duplicate priorities
+     * @param errorMessages  will be modified inside the method to hold the error messages related to the cv sections and their priories
      */
-    private void findSelectedCvApplicationListForCvTemplate(CvApplicationTemplate cvApplicationTemplate,List<CvApplicationSection> selectedCvApplicationSectionList,List<Integer> duplicatePriorityIndexes){
+    private void findSelectedCvApplicationListForCvTemplate(CvApplicationTemplate cvApplicationTemplate,List<CvApplicationSection> selectedCvApplicationSectionList,Map<String,String> errorMessages){
         //this map will hold a set of entered priorities for each cv application section
         Map<Integer,Integer> enteredPriorities = new HashMap<Integer, Integer>();
 
         int index= 0;
-
         for(CvApplicationSection cvApplicationSection:cvApplicationTemplate.getCvApplicationSectionList()){
             if(cvApplicationSection.getId()!=null){
                 //finding the original instance by giving Id
@@ -160,13 +166,24 @@ public class CvTemplateController {
                 }
                 else {
                     logger.info("duplicate priority was found");
-                    //current duplicate priority index was added
-                    duplicatePriorityIndexes.add(index);
-                    //index of the already inserted duplicate priority will also be added here
-                    duplicatePriorityIndexes.add(enteredPriorities.get(cvApplicationSection.getPriority()));
+                    //error message for the current duplicate priority
+//                    duplicatePriorityIndexes.add(index);
+                    errorMessages.put("cvApplicationSectionList["+index+"].priority","Duplicates priorities were found ");
+
+                    //error message for the the already inserted duplicate priority
+//                    duplicatePriorityIndexes.add(enteredPriorities.get(cvApplicationSection.getPriority()));
+                    errorMessages.put("cvApplicationSectionList["+enteredPriorities.get(cvApplicationSection.getPriority())+"].priority","Duplicates priorities were found ");
                 }
             }
             index++;
+        }
+
+        //check whether user has selected at least one cv section fr the cv template
+        if(selectedCvApplicationSectionList.size()==0){
+            //adding custom error message here
+//            bindingResult.addError(new FieldError("cvApplicationTemplate","cvApplicationSectionList","At least One CV Section should be selected "));
+            errorMessages.put("cvApplicationSectionList","At least One CV Section should be selected ");
+
         }
     }
 
