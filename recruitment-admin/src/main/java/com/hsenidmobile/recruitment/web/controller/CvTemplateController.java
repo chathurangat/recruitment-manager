@@ -2,12 +2,12 @@ package com.hsenidmobile.recruitment.web.controller;
 
 import com.hsenidmobile.recruitment.model.CvApplicationSection;
 import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
-import com.hsenidmobile.recruitment.service.CvApplicationFieldDictionaryService;
 import com.hsenidmobile.recruitment.service.CvApplicationSectionService;
 import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -16,12 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <P>
+ *     this controller will contain the method to perform the administrative operations related to the
+ *     cv template such as displaying cv template registration view, creating new cv template, updating cv template.
+ *     all the cv template related operations(method) should be added here
+ * </P>
+ */
 @Controller
 @RequestMapping(value = "/cv_template")
 public class CvTemplateController {
@@ -32,17 +40,21 @@ public class CvTemplateController {
     private CvApplicationSectionService cvApplicationSectionService;
     @Autowired
     private CvApplicationTemplateService cvApplicationTemplateService;
-    @Autowired
-    private CvApplicationFieldDictionaryService cvApplicationFieldDictionaryService;
 
-    //    @Secured("ROLE_ADMIN")
+    /**
+     * <p>
+     *     displaying the cv template registration view with cv sections
+     * </p>
+     * @return an instance of {@link ModelAndView} containing the logical view name for the Cv Template registration view
+     */
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/registration_view",method = RequestMethod.GET)
-    public ModelAndView CvTemplateRegisterView(ModelAndView modelAndView){
-        System.out.println(" cv template registration view ");
+    public ModelAndView CvTemplateRegisterView(){
+        ModelAndView modelAndView =  new ModelAndView();
+        logger.info(" cv template registration view ");
         List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();
 
         Map<String,Object> modelObjects = new HashMap<String, Object>();
-
         List<Integer> priorityList = this.createPriorityLit(cvApplicationSectionList);
         modelAndView.setViewName("cv-template/cv-template-register");
         modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
@@ -53,67 +65,59 @@ public class CvTemplateController {
         return modelAndView;
     }
 
-
-    //    @Secured("ROLE_ADMIN")
+    /**
+     * <p>
+     *  this method will accept the cvTemplate instance and proceed with creating new or updating existing cv template.
+     *  the create or update operation will be automatically determined based on the cvTemplate object status
+     * </p>
+     * @param cvApplicationTemplate  encapsulates the cv template data submitted by user as {@link CvApplicationTemplate}
+     * @param bindingResult as {@link BindingResult} supports to do the jsr 303 validation
+     * @param modelAndView  as {@link ModelAndView}
+     * @param session  as {@link HttpSession} and if new Cv Template was created or updated, session will be  updated with the relevant ID of the CV Template
+     * @return  an instance of {@link ModelAndView} that encapsulates the logical view name of the user screen based on the operation status
+     */
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public ModelAndView registerNewCvTemplate(@Valid CvApplicationTemplate cvApplicationTemplate,BindingResult bindingResult,ModelAndView modelAndView,HttpServletRequest request){
-
-        System.out.println(" size of cvApplicationSectionList size ["+cvApplicationTemplate.getCvApplicationSectionList().size()+"]");
+    public ModelAndView registerOrUpdateCvTemplate(@Valid CvApplicationTemplate cvApplicationTemplate,BindingResult bindingResult,ModelAndView modelAndView,HttpSession session){
         List<CvApplicationSection> selectedCvApplicationSectionList = new ArrayList<CvApplicationSection>();
         Map<String,String> errorMessages = new HashMap<String,String>();
-
         this.findSelectedCvApplicationListForCvTemplate(cvApplicationTemplate,selectedCvApplicationSectionList,errorMessages);
-
-        System.out.println(" number of selected Cv sections for the template is ["+selectedCvApplicationSectionList.size()+"]");
-        System.out.println(" number of error founds with submitted form ["+errorMessages.size()+"]  ");
-
+        logger.info(" user has selected [{}] cv sections for this template out of [{}] sections",selectedCvApplicationSectionList.size(),cvApplicationTemplate.getCvApplicationSectionList().size());
         if(errorMessages.size()>0){
+            logger.info(" [{}] number of errors found with the submitted form",errorMessages.size());
             //binding each error message to the relevant field
             for(Map.Entry<String,String> entry:errorMessages.entrySet()){
                 bindingResult.addError(new FieldError("cvApplicationTemplate",entry.getKey(),entry.getValue()));
             }
         }
-        //todo at least one section should be selected
         //creating or updating the CV Template
         if(!bindingResult.hasErrors()){
             logger.info(" submitted form contains valid data ");
             cvApplicationTemplate.setCvApplicationSectionList(selectedCvApplicationSectionList);
-//            modelAndView.setViewName("redirect:cv-template-register-success");
-//            if(StringUtils.hasText(cvApplicationTemplate.getId()))
-//            {
-//                cvApplicationTemplateService.update(cvApplicationTemplate);
-//                logger.info("update the cv application template");
-//            }
-//            else
-//            {
-//                cvApplicationTemplateService.create(cvApplicationTemplate);
-//                logger.info("created new cv application template");
-//            }
             modelAndView = createOrUpdateCvTemplate(cvApplicationTemplate);
             if(cvApplicationTemplate.getId()!=null){
-                request.getSession().setAttribute("last-created-cv-template-id", cvApplicationTemplate.getId());
+                session.setAttribute("last-created-cv-template-id", cvApplicationTemplate.getId());
             }
         }
         else{
             logger.info(" submitted form contains field errors ");
             //loading the UI again
-//            List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();
-//            Map<String,Object> modelObjects = new HashMap<String, Object>();
-//
-//            List<Integer> priorityList = this.createPriorityLit(cvApplicationSectionList);
-//            modelAndView.setViewName("cv-template/cv-template-register");
-//            modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
-//            modelObjects.put("priorityList",priorityList);
-//            modelAndView.addAllObjects(modelObjects);
             modelAndView = this.initializeCvTemplateRegistrationView();
         }
         return modelAndView;
     }
 
-    //    @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv-template-register-success")
-    public ModelAndView cvApplicationTemplateRegistrationSuccess(HttpServletRequest request){
-        String lastCreatedCvTemplateId = (String) request.getSession().getAttribute("last-created-cv-template-id");
+    /**
+     * <p>
+     *  displaying the success notification page for the created or updated CV template
+     * </p>
+     * @param session as {@link HttpSession} and will contains the ID of the CV Template that was created or updated lastly
+     * @return an instance of {@link ModelAndView} that encapsulates the logical view name for the cv template registration success page and relevant {@link CvApplicationTemplate} instance
+     */
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/cv-template-register-success",method = RequestMethod.GET)
+    public ModelAndView cvApplicationTemplateRegistrationSuccess(HttpSession session){
+        String lastCreatedCvTemplateId = (String) session.getAttribute("last-created-cv-template-id");
         CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById(lastCreatedCvTemplateId);
         ModelAndView modelAndView =  new ModelAndView();
         modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
@@ -121,35 +125,48 @@ public class CvTemplateController {
         return modelAndView;
     }
 
+    /**
+     * <p>
+     *     this method will create or update the given cvTemplate instance based on the object status
+     * </p>
+     * @param cvApplicationTemplate instance to be created or updated as as {@link CvApplicationTemplate}
+     * @return  an instance of {@link ModelAndView} that encapsulates the logical view name of the user screen based on the operation status
+     */
     private ModelAndView createOrUpdateCvTemplate(CvApplicationTemplate cvApplicationTemplate){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:cv-template-register-success");
         if(StringUtils.hasText(cvApplicationTemplate.getId()))
         {
             cvApplicationTemplateService.update(cvApplicationTemplate);
-            logger.info("update the cv application template");
+            logger.info("updated the cv application template");
+            modelAndView.setViewName("redirect:cv-template-register-success");
         }
         else
         {
             cvApplicationTemplateService.create(cvApplicationTemplate);
             if(cvApplicationTemplate.getId()==null || (cvApplicationTemplate.getId()!=null && cvApplicationTemplate.getId().trim().equals(""))){
                 logger.info(" new cv template was not created successfully ");
-                 modelAndView = this.initializeCvTemplateRegistrationView();
-                 modelAndView.addObject("error",true);
+                modelAndView = this.initializeCvTemplateRegistrationView();
+                //initializing the error model to say that error has occurred
+                modelAndView.addObject("error",true);
             }
             else{
+                modelAndView.setViewName("redirect:cv-template-register-success");
                 logger.info("created new cv application template");
             }
         }
         return modelAndView;
     }
 
-
+    /**
+     * <p>
+     *     this will initialize required model objects to display the cv template registration view
+     * </p>
+     * @return an instance of {@link ModelAndView} that encapsulates the logical view name for the  cv template registration view and initial model data to load the UI
+     */
     private ModelAndView initializeCvTemplateRegistrationView(){
         ModelAndView modelAndView = new ModelAndView();
         List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();
         Map<String,Object> modelObjects = new HashMap<String, Object>();
-
         List<Integer> priorityList = this.createPriorityLit(cvApplicationSectionList);
         modelAndView.setViewName("cv-template/cv-template-register");
         modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
@@ -164,16 +181,15 @@ public class CvTemplateController {
      *  the selected CvSections list will be added to the List passed as  @param selectedCvApplicationSectionList
      *  if there are errors found with related to cv sections and their priorities,errorMessages Map will be updated
      * </P>
-     * @param cvApplicationTemplate will be the model object that encapsulates all the submitted data by the user
+     * @param cvApplicationTemplate will be the model object that encapsulates all the submitted cv template data by the user
      * @param selectedCvApplicationSectionList will be modified inside the method to hold the list of {@link CvApplicationSection} instances selected by the user for the CvTemplate being created
      * @param errorMessages  will be modified inside the method to hold the error messages related to the cv sections and their priories
      */
     private void findSelectedCvApplicationListForCvTemplate(CvApplicationTemplate cvApplicationTemplate,List<CvApplicationSection> selectedCvApplicationSectionList,Map<String,String> errorMessages){
         //this map will hold a set of entered priorities for each cv application section
         Map<Integer,Integer> enteredPriorities = new HashMap<Integer, Integer>();
-
-        int index= 0;
-        for(CvApplicationSection cvApplicationSection:cvApplicationTemplate.getCvApplicationSectionList()){
+        for(int index=0;index<cvApplicationTemplate.getCvApplicationSectionList().size();index++){
+            CvApplicationSection cvApplicationSection = cvApplicationTemplate.getCvApplicationSectionList().get(index);
             if(cvApplicationSection.getId()!=null){
                 //finding the original instance by giving Id
                 CvApplicationSection cvApplicationSection1 = cvApplicationSectionService.findCvSectionById(cvApplicationSection.getId());
@@ -187,13 +203,11 @@ public class CvTemplateController {
                 //checking the validity of the submitted priority
                 this.validateSubmittedPriority(cvApplicationSection.getPriority(),index,enteredPriorities,errorMessages);
             }
-            index++;
         }
         //check whether user has selected at least one cv section fr the cv template
         if(selectedCvApplicationSectionList.size()==0){
             //adding custom error message here
             errorMessages.put("cvApplicationSectionList","At least One CV Section should be selected ");
-
         }
     }
 
@@ -243,5 +257,4 @@ public class CvTemplateController {
         }
         return priorityList;
     }
-
 }
