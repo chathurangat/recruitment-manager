@@ -1,78 +1,71 @@
 <jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"><jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
-<html>
-<head>
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-    <!--<meta name="description" content="">-->
-    <!--<meta name="author" content="">-->
-    <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
-    <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/custom-hms.css" rel="stylesheet" type="text/css"/>
+    <html>
+    <head>
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+        <!--<meta name="description" content="">-->
+        <!--<meta name="author" content="">-->
+        <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+        <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/custom-hms.css" rel="stylesheet" type="text/css"/>
 
-    <!--<title><decorator:title default="Customized Title Should Goes here"/></title>-->
-    <!--<meta http-equiv="content-type" content="text/html; charset=utf-8"/>-->
-    <!--<meta name="decorator" content="main"/>-->
-    <decorator:head/>
-</head>
-<body>
+        <!--<title><decorator:title default="Customized Title Should Goes here"/></title>-->
+        <!--<meta http-equiv="content-type" content="text/html; charset=utf-8"/>-->
+        <!--<meta name="decorator" content="main"/>-->
+        <decorator:head/>
+    </head>
+    <body>
 
-<jsp:include page="main-header.jspx"/>
-
-
-<div class="hero-unit">
-    <jsp:include page="banner.jspx"/>
-</div>
+    <jsp:include page="main-header.jspx"/>
 
 
-<div id="content">
-    <!--<decorator:body/>-->
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span2">
-
-                <div class="well sidebar-nav">
-                    <jsp:text>side bar content from main template</jsp:text>
-                    <ul class="nav nav-list">
-                        <li class="nav-header">Sidebar</li>
-                        <li class="active"><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li class="nav-header">Sidebar</li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li class="nav-header">Sidebar</li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                    </ul>
-                </div><![CDATA[<!--/.well -->]]>
-
-
-            </div>
-            <div class="span10">
-            <decorator:body/>
-            </div>
-        </div>
+    <div class="hero-unit">
+        <jsp:include page="banner.jspx"/>
     </div>
 
-    <!--<div class="span10">-->
+
+    <div id="content">
         <!--<decorator:body/>-->
-    <!--</div>-->
-</div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span2">
 
-<jsp:include page="footer.jspx"/>
+                    <div class="well sidebar-nav">
+                        <jsp:text>Administrative Operations</jsp:text>
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Cv Template</li>
+                            <li class="active"><a href="http://localhost:8080/recruitment-admin/user/cv_section/registration_view">CV Sections</a></li>
+                            <li><a href="#">Cv Template</a></li>
+                            <li><a href="#">CV Template Fields</a></li>
+                            <li class="nav-header">Cv Field Dictionary</li>
+                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_text_field/registration_view">TextBox</a></li>
+                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_text_area/registration_view">TextArea</a></li>
+                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropdown/registration_view">DropDown</a></li>
+                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropdown-options/registration_view">DropDown Options</a></li>
+                        </ul>
+                    </div><![CDATA[<!--/.well -->]]>
 
-<![CDATA[<!-- Placed at the end of the document so the pages load faster -->]]>
-<script type="text/javascript" src="../resources/js/jquery-1.8.0-min.js"><jsp:text/></script>
-<script type="text/javascript" src="../resources/js/bootstrap.min.js"><![CDATA[<!---->]]></script>
-<script type="text/javascript" src="../resources/js/demo.js"><![CDATA[<!---->]]></script>
-<script type="text/javascript" src="../resources/js/json2.js"><![CDATA[<!---->]]></script>
-<script type="text/javascript" src="../resources/js/date.format.js"><![CDATA[<!---->]]></script>
+
+                </div>
+                <div class="span10">
+                    <decorator:body/>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="span10">-->
+        <!--<decorator:body/>-->
+        <!--</div>-->
+    </div>
+
+    <jsp:include page="footer.jspx"/>
+
+    <![CDATA[<!-- Placed at the end of the document so the pages load faster -->]]>
+    <script type="text/javascript" src="../resources/js/jquery-1.8.0-min.js"><jsp:text/></script>
+    <script type="text/javascript" src="../resources/js/bootstrap.min.js"><![CDATA[<!---->]]></script>
+    <script type="text/javascript" src="../resources/js/demo.js"><![CDATA[<!---->]]></script>
+    <script type="text/javascript" src="../resources/js/json2.js"><![CDATA[<!---->]]></script>
+    <script type="text/javascript" src="../resources/js/date.format.js"><![CDATA[<!---->]]></script>
 
 
-</body>
-</html></jsp:root>
+    </body>
+    </html></jsp:root>

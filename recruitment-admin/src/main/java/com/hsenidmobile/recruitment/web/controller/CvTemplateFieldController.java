@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +51,7 @@ public class CvTemplateFieldController {
             return this.initializeCvTemplateFieldRegistrationView(cvApplicationTemplate);
         }
         else{
-            //cv template instance cannot be found
+            //given cv template id does not associate with cv template instance
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("error");
             return modelAndView;
@@ -59,33 +61,39 @@ public class CvTemplateFieldController {
 
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/registration",method = RequestMethod.POST)
-    public ModelAndView  cvTemplateFieldRegistration(@Valid CvApplicationTemplate cvApplicationTemplate,BindingResult bindingResult){
-        logger.info(" cv template field registration process start for template  [{}]",cvApplicationTemplate.getCvHeaderEn());
+    public ModelAndView  cvTemplateFieldRegistration(@Valid CvApplicationTemplate cvApplicationTemplate,BindingResult bindingResult,HttpSession session){
+        logger.info(" cv field(s) registration/update request for cv template  [{}]",cvApplicationTemplate.getCvHeaderEn());
         Map<String,String> errorMessages =  this.validateCvTemplate(cvApplicationTemplate);
+        ModelAndView modelAndView = new ModelAndView();
         if(errorMessages!=null && errorMessages.size()!=0){
             for(Map.Entry<String,String> entry: errorMessages.entrySet()){
                 logger.info(" error key [{}] and value [{}]",entry.getKey(),entry.getValue());
                 bindingResult.addError(new FieldError("cvApplicationTemplate",entry.getKey(),entry.getValue()));
             }
         }
-        ModelAndView modelAndView = new ModelAndView();
         if(bindingResult.hasErrors()){
             logger.info(" submitted form contains errors");
-            Map<String,Object> modelsObjects = new HashMap<String, Object>();
-
-            List<ApplicationFieldDictionary> masterApplicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
-            List<Integer> priorityList = this.createPriorityLit(masterApplicationFieldDictionaryList);
-
-            modelsObjects.put("cvApplicationTemplate",cvApplicationTemplate);
-            modelsObjects.put("priorityList", priorityList);
-            modelsObjects.put("masterApplicationFieldDictionaryList", masterApplicationFieldDictionaryList);
-            modelAndView.addAllObjects(modelsObjects);
+            modelAndView = this.initializeCvTemplateFieldRegistrationView(cvApplicationTemplate);
         }
-        cvApplicationTemplateService.update(cvApplicationTemplate);
-        modelAndView.setViewName("cv-template/cv-template-field-register");
+        else{
+            cvApplicationTemplateService.update(cvApplicationTemplate);
+            modelAndView.setViewName("redirect:cv-template-field-registration-success");
+            session.setAttribute("last-created-cv-template-id",cvApplicationTemplate.getId());
+        }
         return modelAndView;
     }
 
+
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/cv-template-field-registration-success")
+    public ModelAndView displayCvTemplateFieldRegistrationSuccessPage(HttpSession session){
+        ModelAndView modelAndView =  new ModelAndView();
+        String cvApplicationTemplateId = (String) session.getAttribute("last-created-cv-template-id");
+        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById(cvApplicationTemplateId);
+        modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+        modelAndView.setViewName("cv-template/cv-template-field-registration-success");
+        return modelAndView;
+    }
 
 
     /**
@@ -154,6 +162,10 @@ public class CvTemplateFieldController {
                     }
                     //adding the cv application field for submitted field list
                     submittedFieldList.add(applicationField);
+                }
+                else{
+                    //setting up the priority of the non selected fields to default priority if they have changed the priority
+                    applicationField.setPriority(-1);
                 }
             }
             //now checking whether user has selected at least one cv field for the current section
