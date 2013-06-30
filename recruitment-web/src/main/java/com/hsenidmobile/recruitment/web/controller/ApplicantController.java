@@ -52,7 +52,7 @@ public class ApplicantController {
      */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/application_save")
-    public void submitCvApplication(HttpServletRequest request){
+    public ModelAndView submitCvApplication(HttpServletRequest request){
         String cvTemplateId = request.getParameter("id");
         logger.info(" user submitted the cv application with cvTemplateId [{}]",cvTemplateId);
         CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById(cvTemplateId);
@@ -88,6 +88,29 @@ public class ApplicantController {
         CvApplication cvApplication = new CvApplication();
         cvApplication.setCvApplicationTemplate(cvApplicationTemplate);
         applicant.submitApplication(cvApplication);
-        cvApplicationService.create(cvApplication);
+        String applicationId = cvApplicationService.create(cvApplication);
+        ModelAndView modelAndView = new ModelAndView();
+        if(applicationId!=null){
+            modelAndView.setViewName("redirect:application-save-success");
+            logger.info(" new application was saved successfully with application id [{}]",applicationId);
+        }
+        else{
+            modelAndView.setViewName("cv_generation");
+            modelAndView.addObject("error",true);
+            logger.info(" there was an error encountered with saving the application ");
+        }
+
+        return modelAndView;
+    }
+
+
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/application-save-success")
+    public ModelAndView displayApplicationSaveSuccessPage(){
+        logger.info(" displaying the application success page after application was saved successfully");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("application-save-success");
+        return modelAndView;
     }
 }
