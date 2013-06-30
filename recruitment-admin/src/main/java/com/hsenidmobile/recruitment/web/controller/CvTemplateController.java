@@ -144,23 +144,8 @@ public class CvTemplateController {
                     selectedCvApplicationSectionList.add(cvApplicationSection1);
                 }
                 logger.info(" cv section has been submitted with id [{}] and priority [{}]",cvApplicationSection.getId(),cvApplicationSection.getPriority());
-               if(cvApplicationSection.getPriority()!=-1){
-                if(!enteredPriorities.containsKey(cvApplicationSection.getPriority())){
-                    //priority is not duplicated so far
-                    logger.info(" priority is not duplicated so far");
-                    enteredPriorities.put(cvApplicationSection.getPriority(),index);
-                }
-                else {
-                    logger.info("duplicate priority was found");
-                    //error message for the current duplicate priority
-                    errorMessages.put("cvApplicationSectionList["+index+"].priority","Duplicates priorities were found ");
-                    //error message for the the already inserted duplicate priority
-                    errorMessages.put("cvApplicationSectionList["+enteredPriorities.get(cvApplicationSection.getPriority())+"].priority","Duplicates priorities were found ");
-                }
-               }
-                else{
-                   errorMessages.put("cvApplicationSectionList["+index+"].priority","Priority should be selected ");
-               }
+                //checking the validity of the submitted priority
+                this.validateSubmittedPriority(cvApplicationSection.getPriority(),index,enteredPriorities,errorMessages);
             }
             index++;
         }
@@ -169,6 +154,36 @@ public class CvTemplateController {
             //adding custom error message here
             errorMessages.put("cvApplicationSectionList","At least One CV Section should be selected ");
 
+        }
+    }
+
+
+    /**
+     * <p>
+     *     checking the validity of the submitted priority
+     * </p>
+     * @param cvSectionPriority is the priority entered by the user for the cv section
+     * @param cvSectionIndex is the index location of the cv sections that resides in the cv section list for the template. this will help to compose the validation error message if there is any
+     * @param priorityMap will contain a map of priorities inserted for the cv section list. (key->priority and value-> cvSectionIndex)
+     * @param errorMessages hold the map of error messages (if any) related to the cv section priority
+     */
+    private void validateSubmittedPriority(int cvSectionPriority,int cvSectionIndex,Map<Integer,Integer> priorityMap,Map<String,String> errorMessages){
+        if(cvSectionPriority!=-1){
+            if(!priorityMap.containsKey(cvSectionPriority)){
+                //priority is not duplicated so far
+                logger.info(" priority is not duplicated so far");
+                priorityMap.put(cvSectionPriority,cvSectionIndex);
+            }
+            else {
+                logger.info("duplicate priority was found");
+                //error message for the current duplicate priority
+                errorMessages.put("cvApplicationSectionList["+cvSectionIndex+"].priority","Duplicates priorities were found ");
+                //error message for the the already inserted duplicate priority
+                errorMessages.put("cvApplicationSectionList["+priorityMap.get(cvSectionPriority)+"].priority","Duplicates priorities were found ");
+            }
+        }
+        else{
+            errorMessages.put("cvApplicationSectionList["+cvSectionIndex+"].priority","Priority should be selected ");
         }
     }
 
