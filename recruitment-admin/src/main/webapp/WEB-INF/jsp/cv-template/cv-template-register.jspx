@@ -11,6 +11,15 @@
 
 
         <sf:form method="POST" action="register"  modelAttribute="cvApplicationTemplate" class="form-horizontal">
+            <c:if test="${error}">
+            <div class="row">
+
+                    <div class="span10 text-error">
+                       Error Occured while creating the CV Template
+                    </div>
+
+            </div>
+            </c:if>
 
             <div class="row">
                 <div class="control-group">

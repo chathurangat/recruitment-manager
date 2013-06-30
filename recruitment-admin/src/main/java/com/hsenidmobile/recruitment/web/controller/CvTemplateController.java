@@ -56,7 +56,7 @@ public class CvTemplateController {
 
     //    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public ModelAndView registerNewCvTemplate(@Valid CvApplicationTemplate cvApplicationTemplate,BindingResult bindingResult,ModelAndView modelAndView){
+    public ModelAndView registerNewCvTemplate(@Valid CvApplicationTemplate cvApplicationTemplate,BindingResult bindingResult,ModelAndView modelAndView,HttpServletRequest request){
 
         System.out.println(" size of cvApplicationSectionList size ["+cvApplicationTemplate.getCvApplicationSectionList().size()+"]");
         List<CvApplicationSection> selectedCvApplicationSectionList = new ArrayList<CvApplicationSection>();
@@ -76,32 +76,36 @@ public class CvTemplateController {
         //todo at least one section should be selected
         //creating or updating the CV Template
         if(!bindingResult.hasErrors()){
-            logger.info(" submitted form does not contain field errors ");
+            logger.info(" submitted form contains valid data ");
             cvApplicationTemplate.setCvApplicationSectionList(selectedCvApplicationSectionList);
-            modelAndView.setViewName("redirect:cv-template-register-success");
-            modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
-            if(StringUtils.hasText(cvApplicationTemplate.getId()))
-            {
-                cvApplicationTemplateService.update(cvApplicationTemplate);
-                logger.info("update the cv application template");
-            }
-            else
-            {
-                cvApplicationTemplateService.create(cvApplicationTemplate);
-                logger.info("created new cv application template");
+//            modelAndView.setViewName("redirect:cv-template-register-success");
+//            if(StringUtils.hasText(cvApplicationTemplate.getId()))
+//            {
+//                cvApplicationTemplateService.update(cvApplicationTemplate);
+//                logger.info("update the cv application template");
+//            }
+//            else
+//            {
+//                cvApplicationTemplateService.create(cvApplicationTemplate);
+//                logger.info("created new cv application template");
+//            }
+            modelAndView = createOrUpdateCvTemplate(cvApplicationTemplate);
+            if(cvApplicationTemplate.getId()!=null){
+                request.getSession().setAttribute("last-created-cv-template-id", cvApplicationTemplate.getId());
             }
         }
         else{
             logger.info(" submitted form contains field errors ");
-            //loading the UI again                                         d
-            List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();
-            Map<String,Object> modelObjects = new HashMap<String, Object>();
-
-            List<Integer> priorityList = this.createPriorityLit(cvApplicationSectionList);
-            modelAndView.setViewName("cv-template/cv-template-register");
-            modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
-            modelObjects.put("priorityList",priorityList);
-            modelAndView.addAllObjects(modelObjects);
+            //loading the UI again
+//            List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();
+//            Map<String,Object> modelObjects = new HashMap<String, Object>();
+//
+//            List<Integer> priorityList = this.createPriorityLit(cvApplicationSectionList);
+//            modelAndView.setViewName("cv-template/cv-template-register");
+//            modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
+//            modelObjects.put("priorityList",priorityList);
+//            modelAndView.addAllObjects(modelObjects);
+            modelAndView = this.initializeCvTemplateRegistrationView();
         }
         return modelAndView;
     }
@@ -117,6 +121,42 @@ public class CvTemplateController {
         return modelAndView;
     }
 
+    private ModelAndView createOrUpdateCvTemplate(CvApplicationTemplate cvApplicationTemplate){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:cv-template-register-success");
+        if(StringUtils.hasText(cvApplicationTemplate.getId()))
+        {
+            cvApplicationTemplateService.update(cvApplicationTemplate);
+            logger.info("update the cv application template");
+        }
+        else
+        {
+            cvApplicationTemplateService.create(cvApplicationTemplate);
+            if(cvApplicationTemplate.getId()==null || (cvApplicationTemplate.getId()!=null && cvApplicationTemplate.getId().trim().equals(""))){
+                logger.info(" new cv template was not created successfully ");
+                 modelAndView = this.initializeCvTemplateRegistrationView();
+                 modelAndView.addObject("error",true);
+            }
+            else{
+                logger.info("created new cv application template");
+            }
+        }
+        return modelAndView;
+    }
+
+
+    private ModelAndView initializeCvTemplateRegistrationView(){
+        ModelAndView modelAndView = new ModelAndView();
+        List<CvApplicationSection> cvApplicationSectionList = cvApplicationSectionService.findAllCvSection();
+        Map<String,Object> modelObjects = new HashMap<String, Object>();
+
+        List<Integer> priorityList = this.createPriorityLit(cvApplicationSectionList);
+        modelAndView.setViewName("cv-template/cv-template-register");
+        modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
+        modelObjects.put("priorityList",priorityList);
+        modelAndView.addAllObjects(modelObjects);
+        return modelAndView;
+    }
 
     /**
      * <P>
