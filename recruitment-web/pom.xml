@@ -178,6 +178,22 @@
             <version>2.4.2</version>
         </dependency>
 
+        <!--&lt;!&ndash;Java Mail API dependency start &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>javax.mail</groupId>-->
+            <!--<artifactId>mail</artifactId>-->
+            <!--<version>1.4.3</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash;for JavaMailSender API&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-context-support</artifactId>-->
+            <!--<version>3.2.0.RELEASE</version>-->
+        <!--</dependency>-->
+
+        <!--Java Mail API dependency ends -->
+
     </dependencies>
 
     <build>

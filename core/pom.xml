@@ -54,6 +54,22 @@
         </dependency>
 
 
+        <!--Java Mail API dependency start -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.3</version>
+        </dependency>
+
+        <!--for JavaMailSender API-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>3.2.0.RELEASE</version>
+        </dependency>
+
+        <!--Java Mail API dependency ends -->
+
     </dependencies>
 
 </project>

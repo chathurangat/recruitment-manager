@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "/register")
+@RequestMapping(value = "/cv_field_dictionary")
 public class CvFieldDictionaryController {
 
     private static final Logger logger = LoggerFactory.getLogger(CvFieldDictionaryController.class);

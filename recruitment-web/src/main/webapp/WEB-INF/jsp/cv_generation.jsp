@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<sf:form method="POST" action="applicationSubmit"  modelAttribute="cvApplicationTemplate" class="form-horizontal">
+<sf:form method="POST" action="application_save"  modelAttribute="cvApplicationTemplate" class="form-horizontal">
 
     <sf:hidden path="id" />
     ${cvApplicationTemplate.cvHeaderEn}

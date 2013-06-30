@@ -1,6 +1,5 @@
 package com.hsenidmobile.recruitment.web.controller;
 
-import com.hsenidmobile.recruitment.model.ApplicationFieldDictionary;
 import com.hsenidmobile.recruitment.model.CvApplicationSection;
 import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
 import com.hsenidmobile.recruitment.service.CvApplicationFieldDictionaryService;
@@ -9,7 +8,6 @@ import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -17,9 +15,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.RedirectView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;

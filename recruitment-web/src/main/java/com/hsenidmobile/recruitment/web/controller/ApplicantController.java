@@ -1,31 +1,32 @@
 package com.hsenidmobile.recruitment.web.controller;
 
-import com.hsenidmobile.recruitment.dao.CvApplicationDao;
 import com.hsenidmobile.recruitment.model.*;
 import com.hsenidmobile.recruitment.service.ApplicantService;
+import com.hsenidmobile.recruitment.service.CvApplicationService;
 import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
 import java.util.List;
 
 @Controller
+@RequestMapping(value = "/applicant/")
 public class ApplicantController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ApplicantController.class);
 
     @Autowired
     private CvApplicationTemplateService cvApplicationTemplateService;
     @Autowired
     private ApplicantService applicantService;
-    //todo migrate to service layer
     @Autowired
-    private CvApplicationDao cvApplicationDao;
+    private CvApplicationService cvApplicationService;
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/apply")
@@ -49,61 +50,44 @@ public class ApplicantController {
      * </p>
      * @return
      */
-    @RequestMapping(value = "/applicationSubmit")
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/application_save")
     public void submitCvApplication(HttpServletRequest request){
-        System.out.println(" user submitted the cv application ");
-//        Enumeration enumeration = request.getParameterNames();
-//        while (enumeration.hasMoreElements()){
-//            String paramName = enumeration.nextElement().toString();
-//            String paramValue = request.getParameter(paramName);
-//            System.out.println(" parameter name ["+paramName+"] and value ["+paramValue+"]");
-//        }
-       CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById(request.getParameter("id"));
-
+        String cvTemplateId = request.getParameter("id");
+        logger.info(" user submitted the cv application with cvTemplateId [{}]",cvTemplateId);
+        CvApplicationTemplate cvApplicationTemplate = cvApplicationTemplateService.findCvTemplateById(cvTemplateId);
         //setting up the data submitted trough the form
         if(cvApplicationTemplate!=null){
-         List<CvApplicationSection> cvApplicationSectionList =  cvApplicationTemplate.getCvApplicationSectionList();
-
+            //getting the sections list of the application template
+            List<CvApplicationSection> cvApplicationSectionList =  cvApplicationTemplate.getCvApplicationSectionList();
             if(cvApplicationSectionList!=null){
-
+                //iterating though each section
                 for(CvApplicationSection cvApplicationSection:cvApplicationSectionList){
-
                     if(cvApplicationSection!=null){
-
+                        //getting the application field list assigned under the given section
                         List<CvApplicationField> applicationFieldList = cvApplicationSection.getCvApplicationFieldList();
-
                         if(applicationFieldList!=null){
-
                             for(CvApplicationField cvApplicationField:applicationFieldList){
                                 if(cvApplicationField.getId()!=null){
-                                System.out.println(" getting the value of the CV application field ["+cvApplicationField.getId()+"] ");
-
-                                String paramValue = request.getParameter(cvApplicationField.getId());
-                                cvApplicationField.setFieldValue(paramValue);
+                                    logger.info(" getting the value of the CV application field [{}] ",cvApplicationField.getId());
+                                    //getting the submitted value from the request
+                                    String paramValue = request.getParameter(cvApplicationField.getId());
+                                    cvApplicationField.setFieldValue(paramValue);
                                 }
                             }
                         }
-
                     }
                 }
-
             }
         }
-
         //todo move session key to common key class
         //saving the application submitted
         String userId = request.getSession().getAttribute("user-id").toString();
-       Applicant applicant = applicantService.findApplicantById(userId);
-
+        Applicant applicant = applicantService.findApplicantById(userId);
         //create CV application
         CvApplication cvApplication = new CvApplication();
-
         cvApplication.setCvApplicationTemplate(cvApplicationTemplate);
-
         applicant.submitApplication(cvApplication);
-
-        cvApplicationDao.create(cvApplication);
-
-
+        cvApplicationService.create(cvApplication);
     }
 }
