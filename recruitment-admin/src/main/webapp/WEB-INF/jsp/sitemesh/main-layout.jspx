@@ -17,10 +17,15 @@
 
     <jsp:include page="main-header.jspx"/>
 
-
-    <div class="hero-unit">
-        <jsp:include page="banner.jspx"/>
+    <div class="container">
+       <div class="row">
+           <div class="span12">
+                <jsp:include page="banner.jspx"/>
+           </div>
+       </div>
     </div>
+
+
 
 
     <div id="content">

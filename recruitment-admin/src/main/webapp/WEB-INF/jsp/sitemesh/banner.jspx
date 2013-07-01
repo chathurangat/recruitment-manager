@@ -1,4 +1,24 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags"><h3><spring:message code="header.application.name"/> </h3>
-<p> App Version 1.0.0 </p>
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags">
+     <html>
+     <head>
+         <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+         <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+         <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/custom-hms.css" rel="stylesheet" type="text/css"/>
+     </head>
+     <body>
+     <div class="container">
+         <div class="row">
+             <div class="span10">
+                 <div style="background-image: url(http://fwallpapers.com/files/images/green-rays-abstract-background.jpg); height: 175px; width: 1200px; border: 1px solid black;"> </div>
+
+                 <img class="pull-right" alt="logo" src="http://www.srilankaictelectronics.com/register/logo_image/logo_hSenid%20Mobile%20(Pvt)%20Ltd.jpg"/>
+                 <h6>App Version 1.0.0</h6>
+             </div>
+         </div>
+     </div>
+
+     </body>
+     </html>
+
 
 </jsp:root>
