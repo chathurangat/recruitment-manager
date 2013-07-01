@@ -17,10 +17,15 @@
 
     <jsp:include page="main-header.jspx"/>
 
-
-    <div class="hero-unit">
-        <jsp:include page="banner.jspx"/>
+    <div class="container">
+       <div class="row">
+           <div class="span12">
+                <jsp:include page="banner.jspx"/>
+           </div>
+       </div>
     </div>
+
+
 
 
     <div id="content">
@@ -37,8 +42,8 @@
                             <li><a href="#">Cv Template</a></li>
                             <li><a href="#">CV Template Fields</a></li>
                             <li class="nav-header">Cv Field Dictionary</li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_text_field/registration_view">TextBox</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_text_area/registration_view">TextArea</a></li>
+                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_textfield/registration_view">TextBox</a></li>
+                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_textarea/registration_view">TextArea</a></li>
                             <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropdown/registration_view">DropDown</a></li>
                             <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropdown-options/registration_view">DropDown Options</a></li>
                         </ul>

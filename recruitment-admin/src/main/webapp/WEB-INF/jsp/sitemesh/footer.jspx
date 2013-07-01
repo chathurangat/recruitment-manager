@@ -1,7 +1,7 @@
 <jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page"><footer class="footer">
 <div id="footer">
     <div class="container">
-        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p class="pull-right"><a href="#"><img class="googlebutton" src="http://findicons.com/files/icons/694/longhorn_r2/128/back_button.png"/></a></p>
         <p align="center">Copyrights <a href="http://www.hsenidmobile.com" target="_blank"> hSenid Mobile Solutions</a> </p>
     </div>
 </div>

@@ -18,9 +18,9 @@
 <jsp:include page="login-page-header.jspx"/>
 
 
-<div class="hero-unit">
+
     <jsp:include page="banner.jspx"/>
-</div>
+
 
 
 <div id="content">
