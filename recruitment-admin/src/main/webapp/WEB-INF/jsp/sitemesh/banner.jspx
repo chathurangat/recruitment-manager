@@ -8,11 +8,11 @@
      <body>
      <div class="container">
          <div class="row">
-             <div class="span10">
-                 <div style="background-image: url(http://fwallpapers.com/files/images/green-rays-abstract-background.jpg); height: 175px; width: 1200px; border: 1px solid black;"> </div>
-
-                 <img class="pull-right" alt="logo" src="http://www.srilankaictelectronics.com/register/logo_image/logo_hSenid%20Mobile%20(Pvt)%20Ltd.jpg"/>
-                 <h6>App Version 1.0.0</h6>
+             <div class="span12">
+                 <!--<div style="background-image: url(http://fwallpapers.com/files/images/green-rays-abstract-background.jpg); height: 175px; width: 1200px; border: 1px solid black;"> </div>-->
+                 <!--<img src="http://fwallpapers.com/files/images/green-rays-abstract-background.jpg"/>-->
+                 <img class="pull-right logo-hsenid" alt="logo" src="http://www.srilankaictelectronics.com/register/logo_image/logo_hSenid%20Mobile%20(Pvt)%20Ltd.jpg"/>
+                 <!--<h6>App Version 1.0.0</h6>-->
              </div>
          </div>
      </div>

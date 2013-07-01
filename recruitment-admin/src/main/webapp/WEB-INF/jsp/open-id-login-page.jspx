@@ -8,10 +8,10 @@
 
 <div id="login-error">${error}</div>
 
-<jsp:text>Please Login with your Google</jsp:text>
+<div class="txt-login"><jsp:text>Please Login with</jsp:text></div>
 
 
- <a href="${googleLoginUrl}"><img class="googlebutton" src="http://www.hongkiat.com/blog/wp-content/uploads/google/logo.png"/></a>
+ <a href="${googleLoginUrl}" class="btn-google"><img src="../../resources/img/google.png"/>  Google account</a>
 
 </body>
 </html></jsp:root>
