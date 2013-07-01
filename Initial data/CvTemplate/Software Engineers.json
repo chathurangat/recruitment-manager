@@ -1,0 +1,192 @@
+{
+    "cvHeaderEn" : " Software Engineers",
+    "cvHeaderSi" : "Software Engineers Si",
+    "cvHeaderTa" : "Software Engineers Ta",
+    "cvApplicationSectionList" : [
+        {
+            "sectionNameEn" : "Personal Details",
+            "sectionNameSi" : "Personal Details Si",
+            "sectionNameTa" : "Personal Details Ta",
+            "status" : false,
+            "cvApplicationFieldList" : [
+                { 	"priority" : 1,
+                    "applicationFieldDictionary" :
+                    { 	"size" : 25,
+                        "labelEn" : "First Name",
+                        "labelSi" : "First Name Si",
+                        "labelTa" : "First Name Ta",
+                        "htmlComponent" : "TextField",
+                        "status" : false
+                    },
+                    "status" : false
+                },
+                {  	"priority" : 2,
+                    "applicationFieldDictionary" :
+                    { 	"size" : 25,
+                        "labelEn" : "Last  Name",
+                        "labelSi" : "Last  Name Si",
+                        "labelTa" : "Last  Name Ta",
+                        "htmlComponent" : "TextField",
+                        "status" : false
+                    },
+                    "status" : false
+                },
+                { 	 	"priority" : 4,
+                    "applicationFieldDictionary" :
+                    { 	"size" : 25,
+                        "labelEn" : "E-mail",
+                        "labelSi" : "E-mail Si",
+                        "labelTa" : "E-mail Ta",
+                        "htmlComponent" : "TextField",
+                        "status" : false
+                    }, 	"status" : false
+                },
+                { 	"priority" : 5,
+                    "applicationFieldDictionary" :
+                    { 	"size" : 25,
+                        "labelEn" : "Contact Number",
+                        "labelSi" : "Contact Number Si",
+                        "labelTa" : "Contact Number Ta",
+                        "htmlComponent" : "TextField",
+                        "status" : false
+                    },
+                    "status" : false
+                },
+                {
+                    "priority" : 3,
+                    "applicationFieldDictionary" :
+                    {  	"rows" : 25,
+                        "cols" : 25,
+                        "labelEn" : "Address",
+                        "labelSi" : "Address Si",
+                        "labelTa" : "Address Ta",
+                        "htmlComponent" : "TextArea",
+                        "status" : false
+                    },
+                    "status" : false
+                }
+            ]
+        },
+        {
+            "sectionNameEn" : "Educational Qualifications ",
+            "sectionNameSi" : "Educational Qualifications Si",
+            "sectionNameTa" : "Educational Qualifications Ta",
+            "status" : false,
+            "cvApplicationFieldList" : [
+                {
+                    "priority" : 1,
+                    "applicationFieldDictionary" :
+                    { 	"rows" : 20,
+                        "cols" : 25,
+                        "labelEn" : "Advanced level (A/L)",
+                        "labelSi" : "Advanced level (A/L) Si",
+                        "labelTa" : "Advanced level (A/L) Ta",
+                        "htmlComponent" : "TextArea",
+                        "status" : false
+                    },
+                    "status" : false
+                },
+                { 	"priority" : 2,
+                    "applicationFieldDictionary" :
+                    { 	"rows" : 25,
+                        "cols" : 25,
+                        "labelEn" : "Diploma / Degree",
+                        "labelSi" : "Diploma / Degree Si",
+                        "labelTa" : "Diploma / Degree Ta",
+                        "htmlComponent" : "TextArea",
+                        "status" : false
+                    },
+                    "status" : false
+                },
+                { 	"priority" : 3,
+                    "applicationFieldDictionary" :
+                    { 	"rows" : 25,
+                        "cols" : 25,
+                        "labelEn" : "professional certificates",
+                        "labelSi" : "professional certificates Si",
+                        "labelTa" : "professional certificates Ta",
+                        "htmlComponent" : "TextArea",
+                        "status" : false
+                    },
+                    "status" : false
+                }
+            ]
+        },
+        {
+            "sectionNameEn" : "Work Experiences",
+            "sectionNameSi" : "Work Experiences Si",
+            "sectionNameTa" : "Work Experiences Ta",
+            "status" : false,
+            "cvApplicationFieldList" : [
+                { 	"priority" : 1,
+                    "applicationFieldDictionary" :
+                    {
+                        "rows" : 40,
+                        "cols" : 25,
+                        "labelEn" : "Employment History",
+                        "labelSi" : "Employment History Si",
+                        "labelTa" : "Employment History Ta",
+                        "htmlComponent" : "TextArea",
+                        "status" : false
+                    },
+                    "status" : false
+                },
+                { 	"priority" : 2,
+                    "applicationFieldDictionary" :
+                    {  	"rows" : 40,
+                        "cols" : 25,
+                        "labelEn" : "Achievements",
+                        "labelSi" : "Achievements Si",
+                        "labelTa" : "Achievements Ta",
+                        "htmlComponent" : "TextArea",
+                        "status" : false
+                    },
+                    "status" : false
+                }
+            ]
+        },
+        {
+            "sectionNameEn" : "Technical Summary",
+            "sectionNameSi" : "Technical Summary Si",
+            "sectionNameTa" : "Technical Summary Ta",
+            "status" : false,
+            "cvApplicationFieldList" : [
+                { 	 	"priority" : 2,
+                    "applicationFieldDictionary" :
+                    {  	"rows" : 25,
+                        "cols" : 25,
+                        "labelEn" : "Programming Languages",
+                        "labelSi" : "Programming Languages Si",
+                        "labelTa" : "Programming Languages Ta",
+                        "htmlComponent" : "TextArea",
+                        "status" : false
+                    },
+                    "status" : false
+                },
+                { 		"priority" : 1,
+                    "applicationFieldDictionary" :
+                    { 	"rows" : 25,
+                        "cols" : 25,
+                        "labelEn" : "Operating systems ",
+                        "labelSi" : "Operating systems Si",
+                        "labelTa" : "Operating systems Ta",
+                        "htmlComponent" : "TextArea",
+                        "status" : false
+                    },
+                    "status" : false
+                },
+                { 	"priority" : 3,
+                    "applicationFieldDictionary" :
+                    { 	"rows" : 25,
+                        "cols" : 25,
+                        "labelEn" : "Database Management System",
+                        "labelSi" : "Database Management System Si",
+                        "labelTa" : "Database Management System Ta",
+                        "htmlComponent" : "TextArea",
+                        "status" : false
+                    },
+                    "status" : false
+                }
+            ]
+        }
+    ], "status" : false }
