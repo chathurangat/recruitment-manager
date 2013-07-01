@@ -37,7 +37,7 @@ public class CvFieldDictionaryController {
      * </p>
      * @return "textfield-dictionary-register" logical name encapsulated in {@link ModelAndView}
      */
-//    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_textfield/registration_view",method = RequestMethod.GET)
     public ModelAndView cvFieldTextFieldRegisterView(ModelAndView modelAndView){
         logger.info(" display cv template section textfield field dictionary  registration view ");
@@ -55,7 +55,7 @@ public class CvFieldDictionaryController {
      * </p>
      * @return "textfield-dictionary-register" logical name encapsulated in {@link ModelAndView}
      */
-//    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_textfield/register",method = RequestMethod.POST)
     public ModelAndView registerNewTextFieldDictionary(@Valid TextFieldDictionary textFieldDictionary,BindingResult bindingResult,ModelAndView modelAndView){
         System.out.println(" registering new cv template section textfield field dictionary ");
@@ -88,7 +88,7 @@ public class CvFieldDictionaryController {
      * </p>
      * @return "textarea-dictionary-register" logical name encapsulated in {@link ModelAndView}
      */
-  //  @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_textarea/registration_view",method = RequestMethod.GET)
     public ModelAndView cvFieldTextAreaRegisterView(ModelAndView modelAndView){
         logger.info(" display cv template section textarea field dictionary registration view ");
@@ -106,7 +106,7 @@ public class CvFieldDictionaryController {
      * </p>
      * @return "textarea-dictionary-register" logical name encapsulated in {@link ModelAndView}
      */
-   // @Secured("ROLE_ADMIN")
+   @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_textarea/register",method = RequestMethod.POST)
     public ModelAndView registerNewTextAreaDictionary(@Valid TextAreaDictionary textAreaDictionary,BindingResult bindingResult,ModelAndView modelAndView){
         System.out.println(" registering new cv template section textarea field dictionary");

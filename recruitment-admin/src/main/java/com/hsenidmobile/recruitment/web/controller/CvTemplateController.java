@@ -84,13 +84,14 @@ public class CvTemplateController {
         Map<String,String> errorMessages = new HashMap<String,String>();
         //getting the current user locale
         Locale currentUserLocale = this.getUserLocale(session);
-        this.findSelectedCvApplicationListForCvTemplate(cvApplicationTemplate, selectedCvApplicationSectionList, errorMessages,currentUserLocale);
+        this.findSelectedCvApplicationListForCvTemplate(cvApplicationTemplate, selectedCvApplicationSectionList, errorMessages);
         logger.info(" user has selected [{}] cv sections for this template out of [{}] sections", selectedCvApplicationSectionList.size(), cvApplicationTemplate.getCvApplicationSectionList().size());
         if(errorMessages.size()>0){
             logger.info(" [{}] number of errors found with the submitted form",errorMessages.size());
             //binding each error message to the relevant field
             for(Map.Entry<String,String> entry:errorMessages.entrySet()){
-                bindingResult.addError(new FieldError("cvApplicationTemplate",entry.getKey(),entry.getValue()));
+                String message = messageSource.getMessage(entry.getValue(),null,currentUserLocale);
+                bindingResult.addError(new FieldError("cvApplicationTemplate",entry.getKey(),message));
             }
         }
         //creating or updating the CV Template
@@ -187,9 +188,8 @@ public class CvTemplateController {
      * @param cvApplicationTemplate will be the model object that encapsulates all the submitted cv template data by the user
      * @param selectedCvApplicationSectionList will be modified inside the method to hold the list of {@link CvApplicationSection} instances selected by the user for the CvTemplate being created
      * @param errorMessages  will be modified inside the method to hold the error messages related to the cv sections and their priories
-     * @param locale as {@link Locale}  current user locale
      */
-    private void findSelectedCvApplicationListForCvTemplate(CvApplicationTemplate cvApplicationTemplate,List<CvApplicationSection> selectedCvApplicationSectionList,Map<String,String> errorMessages,Locale locale){
+    private void findSelectedCvApplicationListForCvTemplate(CvApplicationTemplate cvApplicationTemplate,List<CvApplicationSection> selectedCvApplicationSectionList,Map<String,String> errorMessages){
         //this map will hold a set of entered priorities for each cv application section
         Map<Integer,Integer> enteredPriorities = new HashMap<Integer, Integer>();
         for(int index=0;index<cvApplicationTemplate.getCvApplicationSectionList().size();index++){
@@ -205,13 +205,13 @@ public class CvTemplateController {
                 }
                 logger.info(" cv section has been submitted with id [{}] and priority [{}]",cvApplicationSection.getId(),cvApplicationSection.getPriority());
                 //checking the validity of the submitted priority
-                this.validateSubmittedPriority(cvApplicationSection.getPriority(),index,enteredPriorities,errorMessages,locale);
+                this.validateSubmittedPriority(cvApplicationSection.getPriority(),index,enteredPriorities,errorMessages);
             }
         }
         //check whether user has selected at least one cv section fr the cv template
         if(selectedCvApplicationSectionList.size()==0){
             //adding custom error message here
-            errorMessages.put("cvApplicationSectionList","At least One CV Section should be selected ");
+            errorMessages.put("cvApplicationSectionList","error.cv_template_registration.cv.section.should.be.selected");
         }
     }
 
@@ -224,9 +224,8 @@ public class CvTemplateController {
      * @param cvSectionIndex is the index location of the cv sections that resides in the cv section list for the template. this will help to compose the validation error message if there is any
      * @param priorityMap will contain a map of priorities inserted for the cv section list. (key->priority and value-> cvSectionIndex)
      * @param errorMessages hold the map of error messages (if any) related to the cv section priority
-     * @param locale as {@link Locale} current user locale
      */
-    private void validateSubmittedPriority(int cvSectionPriority,int cvSectionIndex,Map<Integer,Integer> priorityMap,Map<String,String> errorMessages,Locale locale){
+    private void validateSubmittedPriority(int cvSectionPriority,int cvSectionIndex,Map<Integer,Integer> priorityMap,Map<String,String> errorMessages){
         if(cvSectionPriority!=-1){
             if(!priorityMap.containsKey(cvSectionPriority)){
                 //priority is not duplicated so far
@@ -236,15 +235,13 @@ public class CvTemplateController {
             else {
                 logger.info("duplicate priority was found");
                 //error message for the current duplicate priority
-                String priorityDuplicateErrorMessage =   messageSource.getMessage("error.cv.template.registration.duplicate.priority",null,locale);
-                errorMessages.put("cvApplicationSectionList["+cvSectionIndex+"].priority",priorityDuplicateErrorMessage);
+                errorMessages.put("cvApplicationSectionList["+cvSectionIndex+"].priority","error.cv.template.registration.duplicate.priority");
                 //error message for the the already inserted duplicate priority
-                errorMessages.put("cvApplicationSectionList["+priorityMap.get(cvSectionPriority)+"].priority",priorityDuplicateErrorMessage);
+                errorMessages.put("cvApplicationSectionList["+priorityMap.get(cvSectionPriority)+"].priority","error.cv.template.registration.duplicate.priority");
             }
         }
         else{
-            String priorityRequiredErrorMessage =   messageSource.getMessage("error.cv.template.registration.priority.required",null,locale);
-            errorMessages.put("cvApplicationSectionList["+cvSectionIndex+"].priority",priorityRequiredErrorMessage);
+            errorMessages.put("cvApplicationSectionList["+cvSectionIndex+"].priority","error.cv.template.registration.priority.required");
         }
     }
 
