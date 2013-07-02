@@ -5,16 +5,50 @@
 
 <html>
 <head>
+    <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet"  type="text/css" />
+    <link href="<c:url value="/resources/css/bootstrap-responsive.min.css" />" rel="stylesheet"  type="text/css" />
     <title></title>
     <style type="text/css">
         .formfield * {
             vertical-align: middle;
         }
     </style>
-</head>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $("#registerHere").validate({
+                rules:{
+                    First_Name : {
+                        minlength: 2,
+                        required: true
+                    },
+                    Last_Name : {
+                        minlength: 2,
+                        required: true
+                    }
+                },
+                messages:{
+
+                    First_Name:"Enter your first name",
+                    Last_Name:"Enter your last name"
+                },
+                errorClass: "help-inline",
+                errorElement: "span",
+                highlight:function(element, errorClass, validClass) {
+                    $(element).parents('.control-group').addClass('error');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).parents('.control-group').removeClass('error');
+                    $(element).parents('.control-group').addClass('success');
+                }
+            });
+        });
+    </script>
+   </head>
 <body>
 
-<sf:form method="POST" action="application_save"  modelAttribute="cvApplicationTemplate" class="form-horizontal">
+<sf:form method="POST"  id="registerHere" action="application_save"  modelAttribute="cvApplicationTemplate" class="form-horizontal">
 
     <sf:hidden path="id" />
     ${cvApplicationTemplate.cvHeaderEn}
@@ -35,7 +69,7 @@
                     <label for="${applicationField.applicationFieldDictionary.id}">
                             ${applicationField.applicationFieldDictionary.labelEn}
                     </label>
-                    <input id="${applicationField.id}" name="${applicationField.id}" type="text" size="${applicationField.applicationFieldDictionary.size}"/>
+                    <input id="${applicationField.applicationFieldDictionary.labelEn}" name="${applicationField.applicationFieldDictionary.labelEn}" type="text" size="${applicationField.applicationFieldDictionary.size}"/>
                     <br/>
                     <br/>
                 </c:if>
@@ -46,7 +80,7 @@
                         <label for="${applicationField.applicationFieldDictionary.id}">
                                 ${applicationField.applicationFieldDictionary.labelEn}
                         </label>
-                        <textarea name="${applicationField.id}" cols="${applicationField.applicationFieldDictionary.cols}" rows="${applicationField.applicationFieldDictionary.rows}"></textarea>
+                        <textarea name="${applicationField.applicationFieldDictionary.labelEn}" id="${applicationField.applicationFieldDictionary.labelEn}" cols="${applicationField.applicationFieldDictionary.cols}" rows="${applicationField.applicationFieldDictionary.rows}"></textarea>
                     </p>
                     <br/>
                     <br/>
@@ -100,6 +134,14 @@
 <%--</c:forEach>--%>
 <%--</fieldset>--%>
 <%--</c:forEach>--%>
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.8.0-min.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/demo.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/json2.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/date.format.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery.validate.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery.validate.min.js" />"></script>
 
 </body>
 </html>

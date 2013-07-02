@@ -70,6 +70,8 @@
     <script type="text/javascript" src="<c:url value="/resources/js/demo.js" />"></script>
     <script type="text/javascript" src="<c:url value="/resources/js/json2.js" />"></script>
     <script type="text/javascript" src="<c:url value="/resources/js/date.format.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/jquery.validate.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/jquery.validate.min.js" />"></script>
 
 </body>
 </html>
