@@ -13,9 +13,7 @@
             "status": false,
             "cvApplicationFieldList": [
                 {
-                    "_id": {
-                        "$oid": "51d139a2e4b01f56a2730bf0"
-                    },
+                    "_id": "firstname",
                     "priority": 1,
                     "applicationFieldDictionary": {
                         "_class": "com.hsenidmobile.recruitment.model.TextFieldDictionary",
@@ -32,9 +30,7 @@
                     "status": false
                 },
                 {
-                    "_id": {
-                        "$oid": "51d139b3e4b01f56a2730bf1"
-                    },
+                    "_id": "lastname",
                     "priority": 2,
                     "applicationFieldDictionary": {
                         "_class": "com.hsenidmobile.recruitment.model.TextFieldDictionary",
@@ -51,9 +47,7 @@
                     "status": false
                 },
                 {
-                    "_id": {
-                        "$oid": "51d139fde4b01f56a2730bf2"
-                    },
+                    "_id": "email",
                     "priority": 5,
                     "applicationFieldDictionary": {
                         "_class": "com.hsenidmobile.recruitment.model.TextFieldDictionary",
@@ -70,9 +64,7 @@
                     "status": false
                 },
                 {
-                    "_id": {
-                        "$oid": "51d13a21e4b01f56a2730bf3"
-                    },
+                    "_id": "contact_no",
                     "priority": 4,
                     "applicationFieldDictionary": {
                         "_class": "com.hsenidmobile.recruitment.model.TextFieldDictionary",
@@ -89,9 +81,7 @@
                     "status": false
                 },
                 {
-                    "_id": {
-                        "$oid": "51d13a7ee4b01f56a2730bf4"
-                    },
+                    "_id": "address",
                     "priority": 3,
                     "applicationFieldDictionary": {
                         "_class": "com.hsenidmobile.recruitment.model.TextAreaDictionary",
@@ -121,9 +111,7 @@
             "cvApplicationFieldList": [
 
                 {
-                    "_id": {
-                        "$oid": "51d13aece4b01f56a2730bf5"
-                    },
+                    "_id": "ordinary_level",
                     "priority": 1,
                     "applicationFieldDictionary": {
                         "_class": "com.hsenidmobile.recruitment.model.TextAreaDictionary",
@@ -141,9 +129,7 @@
                     "status": false
                 },
                 {
-                    "_id": {
-                        "$oid": "51d13b15e4b01f56a2730bf6"
-                    },
+                    "_id": "advanced_level",
                     "priority": 2,
                     "applicationFieldDictionary": {
                         "_class": "com.hsenidmobile.recruitment.model.TextAreaDictionary",
@@ -161,9 +147,7 @@
                     "status": false
                 },
                 {
-                    "_id": {
-                        "$oid": "51d13b51e4b01f56a2730bf7"
-                    },
+                    "_id": "diploma_degree",
                     "priority": 3,
                     "applicationFieldDictionary": {
                         "_class": "com.hsenidmobile.recruitment.model.TextAreaDictionary",
@@ -181,9 +165,7 @@
                     "status": false
                 },
                 {
-                    "_id": {
-                        "$oid": "51d13bcbe4b01f56a2730bf8"
-                    },
+                    "_id": "professional_certificates",
                     "priority": 4,
                     "applicationFieldDictionary": {
                         "_class": "com.hsenidmobile.recruitment.model.TextAreaDictionary",
@@ -214,9 +196,7 @@
             "cvApplicationFieldList": [
 
                 {
-                    "_id": {
-                        "$oid": "51d13c0be4b01f56a2730bf9"
-                    },
+                    "_id": "language_proficiency",
                     "priority": 1,
                     "applicationFieldDictionary": {
                         "_class": "com.hsenidmobile.recruitment.model.TextAreaDictionary",
@@ -234,9 +214,7 @@
                     "status": false
                 },
                 {
-                    "_id": {
-                        "$oid": "51d13c26e4b01f56a2730bfa"
-                    },
+                    "_id": "sprots_activity",
                     "priority": 2,
                     "applicationFieldDictionary": {
                         "_class": "com.hsenidmobile.recruitment.model.TextAreaDictionary",
@@ -254,9 +232,7 @@
                     "status": false
                 },
                 {
-                    "_id": {
-                        "$oid": "51d13c79e4b01f56a2730bfb"
-                    },
+                    "_id": "blogger_website",
                     "priority": 4,
                     "applicationFieldDictionary": {
                         "_class": "com.hsenidmobile.recruitment.model.TextAreaDictionary",
@@ -274,9 +250,7 @@
                     "status": false
                 },
                 {
-                    "_id": {
-                        "$oid": "51d13c8ce4b01f56a2730bfc"
-                    },
+                    "_id": "hobbies",
                     "priority": 3,
                     "applicationFieldDictionary": {
                         "_class": "com.hsenidmobile.recruitment.model.TextAreaDictionary",
