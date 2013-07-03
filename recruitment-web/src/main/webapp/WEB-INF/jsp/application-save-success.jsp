@@ -21,24 +21,17 @@
     <h5>you have successfully applied to the ${cvApplication.applicationName} with following Values.</h5>
 </div>
 
-
-  <fieldset name="${cvApplication.applicationName}">
-      <legend>
-          ${cvApplication.applicationName}
-
       <table>
-          <tr><td>Your Name : </td><td>${cvApplication.userApplied.applicantName}</td></tr>
-          <tr><td>Applied Possition : </td><td>${cvApplication.cvApplicationTemplate.cvHeaderEn} </td></tr>
+          <tr><td><label>Your Name :</label></td><td><label for="${cvApplication.userApplied.applicantName}">${cvApplication.userApplied.applicantName}</label></td></tr>
+          <tr><td><label>Applied Possition : </label></td><td><label for="${cvApplication.cvApplicationTemplate.cvHeaderEn}">${cvApplication.cvApplicationTemplate.cvHeaderEn}</label></td></tr>
 
           <c:forEach items="${cvApplication.cvApplicationTemplate.cvApplicationSectionList}" var="cvApplicationSectionList">
-          <tr><td colspan="2">${cvApplicationSectionList.sectionNameEn}</td></tr>
+          <tr><td colspan="2"><label for="${cvApplicationSectionList.sectionNameEn}"><b>${cvApplicationSectionList.sectionNameEn}</b></label></td></tr>
 
               <c:forEach var="cvApplicationFieldList" items="${cvApplicationSectionList.cvApplicationFieldList}">
-             <tr><td> ${cvApplicationFieldList.applicationFieldDictionary.labelEn}</td><td>  ${cvApplicationFieldList.fieldValue}</td></tr>
+             <tr><td><label for="${cvApplicationFieldList.applicationFieldDictionary.labelEn}">${cvApplicationFieldList.applicationFieldDictionary.labelEn}     :       </label></td><td><label for="${cvApplicationFieldList.fieldValue}">${cvApplicationFieldList.fieldValue}</label></td></tr>
            </c:forEach>
        </c:forEach>
       </table>
-      </legend>
-   </fieldset>
 </body>
 </html>

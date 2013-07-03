@@ -35,4 +35,12 @@ public interface CvApplicationService {
      */
     List<CvApplication> findCvApplicationsByApplicant(Applicant applicant);
 
+    /**
+     * <p>
+     *     find all cv applications
+     * </p>
+     *
+     */
+    List<CvApplication> findAllCvApplications();
+
 }

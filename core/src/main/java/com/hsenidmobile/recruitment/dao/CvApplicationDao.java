@@ -41,4 +41,12 @@ public interface CvApplicationDao {
      * @return  list of {@link List<CvApplication>} applied by the given applicant
      */
     List<CvApplication> findCvApplicationsByApplicant(Applicant applicant);
+
+    /**
+     * <P>
+     *     find a list of cv applications applied by applicant
+     * </P>
+     * @return  list of {@link List<CvApplication>} applied by the given applicant
+     */
+    List<CvApplication> findAllCvApplications();
 }

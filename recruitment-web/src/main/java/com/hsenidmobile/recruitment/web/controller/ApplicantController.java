@@ -30,6 +30,34 @@ public class ApplicantController {
     @Autowired
     private CvApplicationService cvApplicationService;
 
+    /**
+     * <p>
+     *     display all available cv application for a vacancy
+     * </p>
+     * @return
+     */
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/show")
+    public ModelAndView showAvailableCV(){
+        List<CvApplicationTemplate> cvApplicationTemplate = cvApplicationTemplateService.findAllCvTemplate();
+        ModelAndView modelAndView = new ModelAndView();
+        System.out.println(" application cv template ["+cvApplicationTemplate+"]");
+        if (cvApplicationTemplate!=null){
+            modelAndView.setViewName("available_cv");
+            modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+        }
+        else {
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
+
+    /**
+     * <p>
+     *     display relevant cv application for a vacancy
+     * </p>
+     * @return
+     */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/apply")
     public ModelAndView generateCV(@RequestParam("id")String cvTemplateId){

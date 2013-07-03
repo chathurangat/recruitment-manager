@@ -84,4 +84,15 @@ public class CvApplicationServiceImpl implements CvApplicationService{
         return cvApplicationDao.findCvApplicationsByApplicant(applicant);
     }
 
+    /**
+     * <p>
+     *     find all cv applications
+     * </p>
+     *
+     */
+    @Override
+    public List<CvApplication> findAllCvApplications(){
+        return cvApplicationDao.findAllCvApplications();
+    }
+
 }

@@ -48,4 +48,10 @@ public class CvApplicationDaoImpl implements CvApplicationDao{
         query.addCriteria(Criteria.where("userApplied._id").is(applicant.getId()));
         return mongoTemplate.find(query, CvApplication.class);
     }
+
+    /** {@inheritDoc} */
+    @Override
+    public List<CvApplication> findAllCvApplications() {
+         return mongoTemplate.findAll(CvApplication.class);
+    }
 }
