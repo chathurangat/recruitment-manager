@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -72,6 +74,7 @@ public class ApplicantController {
                                     logger.info(" getting the value of the CV application field [{}] ",cvApplicationField.getId());
                                     //getting the submitted value from the request
                                     String paramValue = request.getParameter(cvApplicationField.getId());
+                                    logger.info("ParamValue"+paramValue);
                                     cvApplicationField.setFieldValue(paramValue);
                                 }
                             }
@@ -80,19 +83,31 @@ public class ApplicantController {
                 }
             }
         }
+        logger.info("start to get Session");
         //todo move session key to common key class
         //saving the application submitted
         String userId = request.getSession().getAttribute("user-id").toString();
+        logger.info("UserId"+userId);
         Applicant applicant = applicantService.findApplicantById(userId);
+     //   Applicant applicant = new Applicant();
+     //   applicant.setApplicantName("Nilaxan");
+        logger.info("Applicant"+applicant);
         //create CV application
         CvApplication cvApplication = new CvApplication();
+        //setting cv application name
+        cvApplication.setApplicationName(cvApplicationTemplate.getCvHeaderEn());
+        //adding current date and time
+        Date date = new Date();
+        cvApplication.setDateApplied(date);
+
         cvApplication.setCvApplicationTemplate(cvApplicationTemplate);
         applicant.submitApplication(cvApplication);
         String applicationId = cvApplicationService.create(cvApplication);
+        logger.info("ApplicationId"+applicationId);
         ModelAndView modelAndView = new ModelAndView();
         if(applicationId!=null){
-            modelAndView.setViewName("redirect:application-save-success");
-            logger.info(" new application was saved successfully with application id [{}]",applicationId);
+            modelAndView.setViewName("redirect:application-save-success?id="+applicationId);
+            logger.info(" new application was saved successfully with application id [{}]", applicationId);
         }
         else{
             modelAndView.setViewName("cv_generation");
@@ -107,10 +122,16 @@ public class ApplicantController {
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/application-save-success")
-    public ModelAndView displayApplicationSaveSuccessPage(){
+    public ModelAndView displayApplicationSaveSuccessPage(@RequestParam("id")String cvTemplateId){
         logger.info(" displaying the application success page after application was saved successfully");
+        CvApplication cvApplication = cvApplicationService.findById(cvTemplateId);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("application-save-success");
+        System.out.println(" application cv template ["+cvApplication+"]");
+        if (cvApplication!=null){
+            modelAndView.setViewName("application-save-success");
+            modelAndView.addObject("cvApplication", cvApplication);
+        }
+
         return modelAndView;
     }
 }

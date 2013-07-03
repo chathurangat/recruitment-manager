@@ -6,6 +6,8 @@ import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("cvApplicationTemplateService")
 public class CvApplicationTemplateServiceImpl implements CvApplicationTemplateService{
 
@@ -30,5 +32,9 @@ public class CvApplicationTemplateServiceImpl implements CvApplicationTemplateSe
     @Override
     public CvApplicationTemplate findCvTemplateById(String id) {
         return cvApplicationTemplateDao.findCvTemplateById(id);
+    }
+    @Override
+    public List<CvApplicationTemplate> findAllCvTemplate(){
+        return cvApplicationTemplateDao.findAllCvTemplate();
     }
 }

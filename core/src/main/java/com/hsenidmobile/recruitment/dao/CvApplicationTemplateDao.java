@@ -2,6 +2,8 @@ package com.hsenidmobile.recruitment.dao;
 
 import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
 
+import java.util.List;
+
 public interface CvApplicationTemplateDao {
 
     /**
@@ -37,4 +39,12 @@ public interface CvApplicationTemplateDao {
      * @return instance of {@link CvApplicationTemplate}
      */
     CvApplicationTemplate findCvTemplateById(String id);
+
+    /**
+     * <p>
+     *     find all cv template
+     * </p>
+     * @return instance of {@link List<CvApplicationTemplate>}
+     */
+    List<CvApplicationTemplate> findAllCvTemplate();
 }

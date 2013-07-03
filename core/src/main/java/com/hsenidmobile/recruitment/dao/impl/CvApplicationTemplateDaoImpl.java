@@ -4,12 +4,9 @@ import com.hsenidmobile.recruitment.dao.CvApplicationTemplateDao;
 import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
-import static org.springframework.data.mongodb.core.query.Criteria.where;
+import java.util.List;
 
 @Repository("cvApplicationTemplateDao")
 public class CvApplicationTemplateDaoImpl implements CvApplicationTemplateDao{
@@ -53,5 +50,13 @@ public class CvApplicationTemplateDaoImpl implements CvApplicationTemplateDao{
     @Override
     public CvApplicationTemplate findCvTemplateById(String id) {
         return mongoTemplate.findById(id,CvApplicationTemplate.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<CvApplicationTemplate> findAllCvTemplate() {
+        return mongoTemplate.findAll(CvApplicationTemplate.class);
     }
 }

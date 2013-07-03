@@ -1,6 +1,7 @@
 package com.hsenidmobile.recruitment.service.impl;
 
 import com.hsenidmobile.recruitment.dao.CvApplicationDao;
+import com.hsenidmobile.recruitment.model.Applicant;
 import com.hsenidmobile.recruitment.model.CvApplication;
 import com.hsenidmobile.recruitment.model.EmailMessage;
 import com.hsenidmobile.recruitment.model.EmailTemplate;
@@ -9,6 +10,8 @@ import com.hsenidmobile.recruitment.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service("cvApplicationService")
 public class CvApplicationServiceImpl implements CvApplicationService{
@@ -39,4 +42,40 @@ public class CvApplicationServiceImpl implements CvApplicationService{
         }
       return persistedId;
     }
+
+    /**
+     * <p>
+     *     remove the given cv application section
+     * </p>
+     * @param cvApplication as {@link CvApplication}
+     */
+    @Override
+    public void remove(CvApplication cvApplication) {
+        cvApplicationDao.remove(cvApplication);
+    }
+
+
+    /**
+     * <p>
+     *     find cv section with given id
+     * </p>
+     * @param applicationId as {@link String}
+     * @return instance of {@link CvApplication}
+     */
+    @Override
+    public CvApplication findById(String applicationId){
+        return cvApplicationDao.findById(applicationId);
+    }
+
+    /**
+     * <p>
+     *     find all cv applications by applicant id
+     * </p>
+     *
+     */
+    @Override
+    public List<CvApplication> findCvApplicationsByApplicant(Applicant applicant){
+        return cvApplicationDao.findCvApplicationsByApplicant(applicant);
+    }
+
 }

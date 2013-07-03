@@ -2,6 +2,8 @@ package com.hsenidmobile.recruitment.service;
 
 import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
 
+import java.util.List;
+
 public interface CvApplicationTemplateService {
 
     /**
@@ -37,4 +39,12 @@ public interface CvApplicationTemplateService {
      * @return instance of {@link CvApplicationTemplate}
      */
     CvApplicationTemplate findCvTemplateById(String id);
+
+    /**
+     * <p>
+     *     find all available cv template
+     * </p>
+     * @return instance of {@link List<CvApplicationTemplate>}
+     */
+    List<CvApplicationTemplate> findAllCvTemplate();
 }
