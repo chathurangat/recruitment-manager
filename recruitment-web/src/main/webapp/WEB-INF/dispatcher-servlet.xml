@@ -9,7 +9,7 @@
 
     <bean name="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jspx"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 
     <!--&lt;!&ndash;localization and internationalization starts here &ndash;&gt;-->

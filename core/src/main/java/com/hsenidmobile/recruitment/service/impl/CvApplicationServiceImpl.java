@@ -6,7 +6,6 @@ import com.hsenidmobile.recruitment.model.CvApplication;
 import com.hsenidmobile.recruitment.model.EmailMessage;
 import com.hsenidmobile.recruitment.model.EmailTemplate;
 import com.hsenidmobile.recruitment.service.CvApplicationService;
-import com.hsenidmobile.recruitment.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Service;
@@ -17,8 +16,6 @@ import java.util.List;
 @Service("cvApplicationService")
 public class CvApplicationServiceImpl implements CvApplicationService{
 
-    @Autowired
-    private EmailService emailService;
     @Autowired
     private MailSender mailSender;
 
@@ -42,7 +39,7 @@ public class CvApplicationServiceImpl implements CvApplicationService{
             emailMessage.setEmailTemplate(emailTemplate);
 //
 //            emailService.sendEmail(emailMessage);
-            Thread thread = new EmailThread(emailMessage,mailSender);
+            Thread thread = new EmailService(emailMessage,mailSender);
             thread.start();
 
         }

@@ -1,23 +1,26 @@
 package com.hsenidmobile.recruitment.service.impl;
 
 import com.hsenidmobile.recruitment.model.EmailMessage;
-import com.hsenidmobile.recruitment.service.EmailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.stereotype.Service;
 
-@Service("emailService")
-public class EmailServiceImpl implements EmailService{
+public class EmailService extends Thread {
 
-    @Autowired
+    private EmailMessage emailMessage;
     private MailSender mailSender;
 
-    public void sendEmail(EmailMessage emailMessage){
+    public EmailService(){
+
+    }
+
+    public EmailService(EmailMessage emailMessage, MailSender mailSender){
+        this.emailMessage=emailMessage;
+        this.mailSender = mailSender;
+    }
+
+    public void run(){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(emailMessage.getToAddress());
-//        message.setBcc(emailMessage.getBccAddress());
-//        message.setCc(emailMessage.getCcAddress());
         message.setSubject(emailMessage.getEmailTemplate().getSubject());
         message.setText(emailMessage.getEmailTemplate().getBody());
         message.setFrom(emailMessage.getFrom());
