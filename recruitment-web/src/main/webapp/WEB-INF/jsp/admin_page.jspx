@@ -1,0 +1,22 @@
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8" language="java"/>
+    <html>
+    <head>
+        <title>Insert title here</title>
+        <style type="text/css">
+            .formfield * {
+                vertical-align: middle;
+            }
+        </style>
+    </head>
+        <body>
+        <h1>Admin Page</h1>
+        <p>Welcome Admin user..... Only admins have access to this page.</p>
+
+        <jsp:text>sitemesh</jsp:text>
+        </body>
+
+    </html>
+</jsp:root>

@@ -1,0 +1,11 @@
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page">
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <footer class="footer">
+    <div id="footer">
+        <div class="container">
+           <p class="pull-right"><a href="#">Back to top</a></p>
+           <p align="center">Copyrights <a href="http://www.hsenidmobile.com" target="_blank"> hSenid Mobile Solutions</a> </p>
+        </div>
+    </div>
+</footer>
+</jsp:root>

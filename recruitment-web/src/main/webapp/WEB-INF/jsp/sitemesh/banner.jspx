@@ -1,0 +1,25 @@
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:spring="http://www.springframework.org/tags">
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <html>
+    <head>
+        <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-web/user/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-web/user/resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+        <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-web/user/resources/css/custom-hms.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+             <img class="pull-right logo-hsenid" alt="logo" src="http://www.srilankaictelectronics.com/register/logo_image/logo_hSenid%20Mobile%20(Pvt)%20Ltd.jpg"/>
+                <!--<h6>App Version 1.0.0</h6>-->
+            </div>
+        </div>
+    </div>
+
+    </body>
+    </html>
+
+
+</jsp:root>
+

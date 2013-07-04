@@ -1,0 +1,19 @@
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" language="java"/>
+    <html>
+    <head>
+        <title><![CDATA[<!---->]]></title>
+        <meta name="decorator" content="default"/>
+    </head>
+    <body>
+
+    <div id="login-error">${error}</div>
+
+    <jsp:text>Please Login with your facebook</jsp:text>
+
+
+    <a href="${facebookLoginUrl}"> Login with Facebook </a>
+
+    </body>
+    </html></jsp:root>
+
