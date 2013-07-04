@@ -29,7 +29,8 @@
                         <input type="text"  id="templateType" name="templateType" size="100">
 
                     </div>
-                </div>
+
+
 
                 <div class="control-group">
                     <label class="control-label" for="subject">Subject</label>
@@ -38,24 +39,54 @@
 
                     </div>
                 </div>
-
-                <div class="control-group">
-                    <label class="control-label" for="receiver">Receiver</label>
-                    <div class="controls">
-                        <input type="text"  id="receiver" name="receiver" size="100">
-
-                    </div>
                 </div>
 
 
                 <div class="control-group">
                     <label class="control-label" for="body">Message Content</label>
                     <div class="controls">
-                        <input type="text"  id="body" name="body" size="500">
+                        <textarea  id="body" name="body" rows="15" cols="40" > </textarea>
 
                     </div>
                 </div>
 
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="receiver">Receiver</label>
+                    <div class="controls">
+                        <input type="checkbox"  id="receiver" name="receiver" >
+
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="date">Date</label>
+                    <div class="controls">
+                        <input type="checkbox"  id="date" name="date" >
+
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="time">Time</label>
+                    <div class="controls">
+                        <input type="checkbox"  id="time" name="time" >
+
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="venue">Venue</label>
+                    <div class="controls">
+                        <input type="checkbox"  id="venue" name="body" >
+
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="map">Map</label>
+                    <div class="controls">
+                        <input type="checkbox"  id="map" name="map" >
+
+                    </div>
+                </div>
 
 
                 <div class="control-group">

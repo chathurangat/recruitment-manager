@@ -67,9 +67,10 @@ public class EmailTemplateController {
         }
 
     }
+    //to get the list in to emai-template-collection.jsp
     //@Secured("ROLE_ADMIN")
     @RequestMapping(value = "/emailTemplate_Retrive",method = RequestMethod.GET)
-    private ModelAndView initializeCvTemplateRegistrationView(){
+    private ModelAndView initializeEmailTemplateView(){
         ModelAndView modelAndView = new ModelAndView();
         List<EmailTemplate> emailTemplateList = emailTemplateService.findAllEmailTemplate();
         Map<String,Object> modelObjects = new HashMap<String, Object>();
