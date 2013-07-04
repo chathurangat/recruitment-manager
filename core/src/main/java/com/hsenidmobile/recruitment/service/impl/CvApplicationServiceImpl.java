@@ -22,12 +22,15 @@ public class CvApplicationServiceImpl implements CvApplicationService{
     @Autowired
     private CvApplicationDao cvApplicationDao;
 
+    @Autowired
+    private EmailSender emailSender;
+
     @Transactional
     public String create(CvApplication cvApplication) {
         //creating CV Application record
        String persistedId = cvApplicationDao.create(cvApplication);
         if(persistedId!=null){
-            //sending the email for user
+//            //sending the email for user
             EmailTemplate emailTemplate = new EmailTemplate();
             emailTemplate.setSubject("Thank you for Applying the Post for Software Engineer");
             emailTemplate.setBody("Your application has been successfully received");
@@ -37,11 +40,13 @@ public class CvApplicationServiceImpl implements CvApplicationService{
             emailMessage.setReplyTo("abanstest@gmail.com");
             emailMessage.setFrom("abanstest@gmail.com");
             emailMessage.setEmailTemplate(emailTemplate);
-//
-//            emailService.sendEmail(emailMessage);
-            Thread thread = new EmailService(emailMessage,mailSender);
-            thread.start();
+////
+////            emailService.sendEmail(emailMessage);
+//            Thread thread = new EmailService(emailMessage,mailSender);
+//            thread.start();
+//            emailSender.sendEmail("chathuranga.t@gmail.com","chathuranga.t@gmail.com","Application Received");
 
+            emailSender.sendEmail(emailMessage);
         }
       return persistedId;
     }
