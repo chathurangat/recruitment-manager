@@ -1,6 +1,10 @@
 package com.hsenidmobile.recruitment.model;
 
+import java.util.List;
+
 public class EmailMessage {
+
+    private String id;
 
     private EmailTemplate emailTemplate;
     private String bccAddress[];
@@ -8,6 +12,17 @@ public class EmailMessage {
     private String toAddress;
     private String from;
     private String replyTo;
+    private List<EmailTemplate> emailSectionList;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
     public EmailTemplate getEmailTemplate() {
         return emailTemplate;
@@ -55,5 +70,14 @@ public class EmailMessage {
 
     public void setReplyTo(String replyTo) {
         this.replyTo = replyTo;
+    }
+
+
+    public void setEmailSectionList(List<EmailTemplate> emailSectionList) {
+        this.emailSectionList = emailSectionList;
+    }
+
+    public List<EmailTemplate> getEmailSectionList() {
+        return emailSectionList;
     }
 }

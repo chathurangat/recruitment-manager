@@ -17,6 +17,11 @@ public class EmailTemplate implements Serializable {
     private String receiver;
     @NotBlank
     private String body;
+    private String date;
+    private String time;
+    private String venue;
+    private String map;
+
     private List<EmailTemplate> emailTemplateList;
 
     public String getId() {
@@ -58,6 +63,37 @@ public class EmailTemplate implements Serializable {
     public void setReceiver(String receiver) {
         this.receiver = receiver;
     }
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getVenue() {
+        return venue;
+    }
+
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
+    public String getMap() {
+        return map;
+    }
+
+    public void setMap(String map) {
+        this.map = map;
+    }
+
 
     public List<EmailTemplate> getEmailTemplateList() {
         return emailTemplateList;
