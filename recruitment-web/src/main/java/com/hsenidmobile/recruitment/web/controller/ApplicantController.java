@@ -118,7 +118,7 @@ public class ApplicantController {
         logger.info("UserId"+userId);
         Applicant applicant = applicantService.findApplicantById(userId);
      //   Applicant applicant = new Applicant();
-     //   applicant.setApplicantName("Nilaxan");
+        applicant.setApplicantName(applicant.getUsername());
         logger.info("Applicant"+applicant);
         //create CV application
         CvApplication cvApplication = new CvApplication();

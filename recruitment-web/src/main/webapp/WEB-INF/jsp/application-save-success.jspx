@@ -16,18 +16,60 @@
         <h5>you have successfully applied to the ${cvApplication.applicationName} with following Values.</h5>
     </div>
 
-    <table>
-        <tr><td><label>Your Name :</label></td><td><label for="${cvApplication.userApplied.applicantName}">${cvApplication.userApplied.applicantName}</label></td></tr>
-        <tr><td><label>Applied Possition : </label></td><td><label for="${cvApplication.cvApplicationTemplate.cvHeaderEn}">${cvApplication.cvApplicationTemplate.cvHeaderEn}</label></td></tr>
+    <div class="row">
+        <div class="control-group">
+                <div class="span5">
+                <label><b>Your Name :</b></label>
+                </div>
+                <div class="span5">
+                    <label for="${cvApplication.userApplied.applicantName}"><b>${cvApplication.userApplied.applicantName}</b></label>
+                </div>
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="control-group">
+            <div class="span5">
+                <label><b>Applied Possition : </b></label>
+            </div>
+            <div class="span5">
+                <label for="${cvApplication.cvApplicationTemplate.cvHeaderEn}"><b>${cvApplication.cvApplicationTemplate.cvHeaderEn}</b></label>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="control-group">
+            <div class="span10">
+                <label><b>Details you have entered !</b></label>
+            </div>
+           </div>
+    </div>
+    <br/>
 
         <c:forEach items="${cvApplication.cvApplicationTemplate.cvApplicationSectionList}" var="cvApplicationSectionList">
-            <tr><td colspan="2"><label for="${cvApplicationSectionList.sectionNameEn}"><b>${cvApplicationSectionList.sectionNameEn}</b></label></td></tr>
+            <div class="row">
+                 <div class="control-group">
+                        <div class="span10">
+                            <label for="${cvApplicationSectionList.sectionNameEn}"><b>${cvApplicationSectionList.sectionNameEn}</b></label>
+                         </div>
+                 </div>
+            </div>
 
             <c:forEach var="cvApplicationFieldList" items="${cvApplicationSectionList.cvApplicationFieldList}">
-                <tr><td><label for="${cvApplicationFieldList.applicationFieldDictionary.labelEn}">${cvApplicationFieldList.applicationFieldDictionary.labelEn}     :       </label></td><td><label for="${cvApplicationFieldList.fieldValue}">${cvApplicationFieldList.fieldValue}</label></td></tr>
+
+                <div class="row">
+                    <div class="control-group">
+                        <div class="span5">
+                            <label for="${cvApplicationFieldList.applicationFieldDictionary.labelEn}">${cvApplicationFieldList.applicationFieldDictionary.labelEn} : </label>
+                        </div>
+                        <div class="span5">
+                            <label for="${cvApplicationFieldList.fieldValue}">${cvApplicationFieldList.fieldValue}</label>
+                        </div>
+                    </div>
+                </div>
             </c:forEach>
         </c:forEach>
-    </table>
     </body>
     </html>
 </jsp:root>
