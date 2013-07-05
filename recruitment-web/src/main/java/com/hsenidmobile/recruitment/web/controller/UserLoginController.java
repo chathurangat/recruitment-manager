@@ -132,7 +132,7 @@ public class UserLoginController {
                 //todo move session keys to common class
                 request.getSession().setAttribute("username",facebookUsername);
                 request.getSession().setAttribute("user-id",applicant.getId());
-                modelAndView.setViewName("welcome-redirect");
+                modelAndView.setViewName("redirect:../welcome");
             } catch (BadCredentialsException e) {
                 logger.info("error ocured "+e);
                 logger.debug(" exception occurred while authenticating the user and exception message [{}]",e.getMessage());
