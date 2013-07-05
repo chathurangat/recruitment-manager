@@ -65,7 +65,6 @@
 
 
     <!--email sender bean declarations starts -->
-
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com" />
         <property name="port" value="587" />
@@ -78,6 +77,16 @@
                 <prop key="mail.smtp.starttls.enable">true</prop>
                 <prop key="mail.smtp.debug">true</prop>
             </props>
+        </property>
+    </bean>
+
+
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <value>
+                resource.loader=class
+                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </value>
         </property>
     </bean>
 

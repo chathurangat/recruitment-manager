@@ -157,6 +157,7 @@ public class UserLoginController {
      * @param request as {@link HttpServletRequest}
      */
     private void registerNewApplicant(Applicant applicant,HttpServletRequest request){
+        //todo check for user location, home_town , email and the birth date
         applicant.setUsername(request.getAttribute(OAuthKeyBox.USERNAME).toString());
         applicant.setFirstName(request.getAttribute(OAuthKeyBox.FIRST_NAME).toString());
         applicant.setLastName(request.getAttribute(OAuthKeyBox.LAST_NAME).toString());
