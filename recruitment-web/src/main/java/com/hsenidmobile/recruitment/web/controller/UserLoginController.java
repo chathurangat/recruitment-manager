@@ -161,10 +161,10 @@ public class UserLoginController {
         applicant.setFirstName(request.getAttribute(OAuthKeyBox.FIRST_NAME).toString());
         applicant.setLastName(request.getAttribute(OAuthKeyBox.LAST_NAME).toString());
         applicant.setOpenIdProvider("facebook");
-        applicant.setHomeTown(request.getAttribute(OAuthKeyBox.HOME_TOWN).toString());
+//        applicant.setHomeTown(request.getAttribute(OAuthKeyBox.HOME_TOWN).toString());
         applicant.setGender(request.getAttribute(OAuthKeyBox.GENDER).toString());
         applicant.setName(request.getAttribute(OAuthKeyBox.NAME).toString());
-        applicant.setLocation(request.getAttribute(OAuthKeyBox.LOCATION).toString());
+//        applicant.setLocation(request.getAttribute(OAuthKeyBox.LOCATION).toString());
         applicant.setSocialNetworkResourceId(request.getAttribute(OAuthKeyBox.ID).toString());
         applicant.setStatus(true);
         applicantService.addApplicant(applicant);

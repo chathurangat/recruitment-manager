@@ -267,8 +267,8 @@ public class FacebookProvider extends OAuth2Impl {
         facebookDataMap.put(LAST_NAME,jsonObject.get(LAST_NAME));
         facebookDataMap.put(USERNAME,jsonObject.get(USERNAME));
         facebookDataMap.put(GENDER,jsonObject.get(GENDER));
-        facebookDataMap.put(HOME_TOWN,jsonObject.getJSONObject(HOME_TOWN).get(NAME));
-        facebookDataMap.put(LOCATION,jsonObject.getJSONObject(LOCATION).get(NAME));
+//        facebookDataMap.put(HOME_TOWN,jsonObject.getJSONObject(HOME_TOWN).get(NAME));
+//        facebookDataMap.put(LOCATION,jsonObject.getJSONObject(LOCATION).get(NAME));
         return facebookDataMap;
     }
 
