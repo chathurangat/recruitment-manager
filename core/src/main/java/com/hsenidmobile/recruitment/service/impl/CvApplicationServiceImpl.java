@@ -6,7 +6,6 @@ import com.hsenidmobile.recruitment.model.CvApplication;
 import com.hsenidmobile.recruitment.model.EmailMessage;
 import com.hsenidmobile.recruitment.model.EmailTemplate;
 import com.hsenidmobile.recruitment.service.CvApplicationService;
-import com.hsenidmobile.recruitment.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Service;
@@ -18,19 +17,20 @@ import java.util.List;
 public class CvApplicationServiceImpl implements CvApplicationService{
 
     @Autowired
-    private EmailService emailService;
-    @Autowired
     private MailSender mailSender;
 
     @Autowired
     private CvApplicationDao cvApplicationDao;
+
+    @Autowired
+    private EmailSender emailSender;
 
     @Transactional
     public String create(CvApplication cvApplication) {
         //creating CV Application record
        String persistedId = cvApplicationDao.create(cvApplication);
         if(persistedId!=null){
-            //sending the email for user
+//            //sending the email for user
             EmailTemplate emailTemplate = new EmailTemplate();
             emailTemplate.setSubject("Thank you for Applying the Post for Software Engineer");
             emailTemplate.setBody("Your application has been successfully received");
@@ -40,11 +40,13 @@ public class CvApplicationServiceImpl implements CvApplicationService{
             emailMessage.setReplyTo("abanstest@gmail.com");
             emailMessage.setFrom("abanstest@gmail.com");
             emailMessage.setEmailTemplate(emailTemplate);
-//
-//            emailService.sendEmail(emailMessage);
-            Thread thread = new EmailThread(emailMessage,mailSender);
-            thread.start();
+////
+////            emailService.sendEmail(emailMessage);
+//            Thread thread = new EmailService(emailMessage,mailSender);
+//            thread.start();
+//            emailSender.sendEmail("chathuranga.t@gmail.com","chathuranga.t@gmail.com","Application Received");
 
+            emailSender.sendEmail(emailMessage);
         }
       return persistedId;
     }
