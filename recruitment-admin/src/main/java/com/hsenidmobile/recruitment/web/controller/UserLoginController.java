@@ -74,7 +74,7 @@ public class UserLoginController {
     public ModelAndView showAccessDeniedPage() {
         logger.debug("Received request to show denied page");
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("access_denied_page");
+        modelAndView.setViewName("common/access_denied_page");
         return modelAndView;
     }
 

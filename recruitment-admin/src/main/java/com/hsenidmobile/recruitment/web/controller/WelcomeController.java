@@ -23,8 +23,9 @@ public class WelcomeController {
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = {"/home","welcome"},method = RequestMethod.GET)
     public ModelAndView displayWelcomePage(){
+        System.out.println("displaying welcome page");
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("welcome");
+        modelAndView.setViewName("common/welcome");
         return modelAndView;
     }
 
@@ -40,7 +41,7 @@ public class WelcomeController {
     @RequestMapping(value = "/admin",method = RequestMethod.GET)
     public ModelAndView displayAdminPage(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("admin_page");
+        modelAndView.setViewName("common/admin_page");
         return modelAndView;
     }
 }
