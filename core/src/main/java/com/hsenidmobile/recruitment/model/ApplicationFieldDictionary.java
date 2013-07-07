@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.rmi.NotBoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -26,7 +28,7 @@ public  class ApplicationFieldDictionary implements Serializable {
     protected String labelSi;
     @NotBlank
     protected String labelTa;
-
+    protected List<ApplicationFieldDictionaryValidation> applicationFieldDictionaryValidationList = new ArrayList<ApplicationFieldDictionaryValidation>();
     protected String htmlComponent;
     protected String description;
     protected boolean status;
@@ -84,5 +86,13 @@ public  class ApplicationFieldDictionary implements Serializable {
 
     public void setLabelTa(String labelTa) {
         this.labelTa = labelTa;
+    }
+
+    public List<ApplicationFieldDictionaryValidation> getApplicationFieldDictionaryValidationList() {
+        return applicationFieldDictionaryValidationList;
+    }
+
+    public void setApplicationFieldDictionaryValidationList(List<ApplicationFieldDictionaryValidation> applicationFieldDictionaryValidationList) {
+        this.applicationFieldDictionaryValidationList = applicationFieldDictionaryValidationList;
     }
 }

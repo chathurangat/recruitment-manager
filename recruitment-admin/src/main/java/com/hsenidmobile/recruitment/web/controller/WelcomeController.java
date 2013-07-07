@@ -23,7 +23,6 @@ public class WelcomeController {
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = {"/home","welcome"},method = RequestMethod.GET)
     public ModelAndView displayWelcomePage(){
-        System.out.println("displaying welcome page");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("common/welcome");
         return modelAndView;

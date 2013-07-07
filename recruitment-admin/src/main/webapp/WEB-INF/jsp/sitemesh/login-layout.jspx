@@ -6,7 +6,7 @@
     <!--<meta name="description" content="">-->
     <!--<meta name="author" content="">-->
     <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>s
+    <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
     <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/custom-hms.css" rel="stylesheet" type="text/css"/>
 
     <!--<title><decorator:title default="Customized Title Should Goes here"/></title>-->
