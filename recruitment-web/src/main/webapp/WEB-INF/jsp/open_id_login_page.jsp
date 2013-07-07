@@ -9,10 +9,10 @@
 
 <div id="login-error">${error}</div>
 
-Please Login with your facebook
+<div class="txt-login"><jsp:text>Sign In</jsp:text></div>
 
 
- <a href="${facebookLoginUrl}"> Login with Facebook </a>
+<a href="${facebookLoginUrl}" class="btn-facebook"><img src="../../resources/img/facebook.png"/>  Facebook Account</a>
 
 </body>
 </html>
