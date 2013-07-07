@@ -4,6 +4,7 @@ import com.hsenidmobile.recruitment.model.*;
 import com.hsenidmobile.recruitment.service.ApplicantService;
 import com.hsenidmobile.recruitment.service.CvApplicationService;
 import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
+import com.hsenidmobile.recruitment.service.ValidationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class ApplicantController {
     private ApplicantService applicantService;
     @Autowired
     private CvApplicationService cvApplicationService;
+    @Autowired
+    private ValidationService validationService;
 
     /**
      * <p>
@@ -117,7 +120,7 @@ public class ApplicantController {
         String userId = request.getSession().getAttribute("user-id").toString();
         logger.info("UserId"+userId);
         Applicant applicant = applicantService.findApplicantById(userId);
-     //   Applicant applicant = new Applicant();
+        //   Applicant applicant = new Applicant();
         applicant.setApplicantName(applicant.getUsername());
         logger.info("Applicant"+applicant);
         //create CV application
@@ -161,5 +164,31 @@ public class ApplicantController {
         }
 
         return modelAndView;
+    }
+
+
+    private String validateField(CvApplicationField cvApplicationField){
+        String errorMessage = null;
+        for(ApplicationFieldDictionaryValidation validationCriteria:cvApplicationField.getApplicationFieldDictionary().getApplicationFieldDictionaryValidationList()){
+            if(validationCriteria.getValidationCriteria().equals("REQUIRED")){
+                if(!validationService.isRequiredField(cvApplicationField.getFieldValue(),cvApplicationField.getApplicationFieldDictionary().getHtmlComponent())){
+                    errorMessage =  "Required Field";
+                    break;
+                }
+            }
+            else if(validationCriteria.getValidationCriteria().equals("EMAIL")){
+                if(!validationService.isValidEmail(cvApplicationField.getFieldValue())){
+                    errorMessage = "Valid Email Required";
+                    break;
+                }
+            }
+            else if(validationCriteria.getValidationCriteria().equals("PHONE_NUMBER")){
+                if(!validationService.isValidPhoneNumber(cvApplicationField.getFieldValue())){
+                    errorMessage = "Valid Phone Number  Required";
+                    break;
+                }
+            }
+        }
+        return  errorMessage;
     }
 }
