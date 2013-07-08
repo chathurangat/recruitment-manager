@@ -4,9 +4,9 @@
         <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
         <!--<meta name="description" content="">-->
         <!--<meta name="author" content="">-->
-        <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
-        <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/resources/css/custom-hms.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/css/custom-hms.css" rel="stylesheet" type="text/css"/>
 
         <!--<title><decorator:title default="Customized Title Should Goes here"/></title>-->
         <!--<meta http-equiv="content-type" content="text/html; charset=utf-8"/>-->
@@ -38,14 +38,17 @@
                         <jsp:text>Administrative Operations</jsp:text>
                         <ul class="nav nav-list">
                             <li class="nav-header">Cv Template</li>
-                            <li class="active"><a href="http://localhost:8080/recruitment-admin/user/cv_section/registration_view">CV Sections</a></li>
-                            <li><a href="#">Cv Template</a></li>
-                            <li><a href="#">CV Template Fields</a></li>
+                            <li class="active"><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_section/registration_view">CV Sections</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_template/registration_view">Cv Template</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_template_field/display-cv-template">CV Template Fields</a></li>
                             <li class="nav-header">Cv Field Dictionary</li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_textfield/registration_view">TextBox</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_textarea/registration_view">TextArea</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropdown/registration_view">DropDown</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropdown-options/registration_view">DropDown Options</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_field_dictionary/cv_textfield/registration_view">TextBox</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_field_dictionary/cv_textarea/registration_view">TextArea</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_field_dictionary/cv_dropdown/registration_view">DropDown</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_field_dictionary/cv_dropdown-options/registration_view">DropDown Options</a></li>
+                            <li class="nav-header">Cv Applicant</li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_application/applied-applicant">Candiate List</a></li>
+
                         </ul>
                     </div><![CDATA[<!--/.well -->]]>
 

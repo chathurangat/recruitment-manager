@@ -39,6 +39,29 @@ public class CvTemplateFieldController {
      * <p>
      *     displaying the required view to assign/update cv application field for the given Cv Application Template
      * </p>
+     *
+     * @return an instance of {@link ModelAndView} containing the logical view name for the Cv Template field registration view
+     */
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/display-cv-template")
+    public ModelAndView displayCvTemplate(){
+        List<CvApplicationTemplate> cvApplicationTemplate = cvApplicationTemplateService.findAllCvTemplate();
+        ModelAndView modelAndView = new ModelAndView();
+        System.out.println(" application cv template ["+cvApplicationTemplate+"]");
+        if (cvApplicationTemplate!=null){
+            modelAndView.setViewName("cv-template/cv-template-display");
+            modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+        }
+        else {
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
+
+    /**
+     * <p>
+     *     displaying the required view to assign/update cv application field for the given Cv Application Template
+     * </p>
      * @param cvTemplateId will be the id of the cv application template
      * @return an instance of {@link ModelAndView} containing the logical view name for the Cv Template field registration view
      */

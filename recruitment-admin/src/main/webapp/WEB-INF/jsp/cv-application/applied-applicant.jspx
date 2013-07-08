@@ -16,7 +16,7 @@
                 <li class="nav-header">Applicant name !</li>
                 <c:forEach items="${cvApplication}" var="cvApplication">
 
-                    <li><label><a href="http://localhost:8080/recruitment-admin/user/cv_application/display-application?id=${cvApplication.id}">${cvApplication.userApplied.applicantName}</a></label></li>
+                    <li><label><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_application/display-application?id=${cvApplication.id}">${cvApplication.userApplied.applicantName}</a></label></li>
                 </c:forEach>
             </ul>
         </table>

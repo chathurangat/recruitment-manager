@@ -7,6 +7,6 @@
    Welcome to Recruitment Manager Web App...
    this page is visible to any authenticated user
 
-<a href="apply"> Apply for vacancy</a>
+<a href="http://rec.admin.hsenidmobile.com:8080/recruitment-web/user/applicant/show"> Apply for vacancy</a>
 </body>
 </html>
