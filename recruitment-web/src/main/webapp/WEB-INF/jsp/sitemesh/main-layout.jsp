@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet"  type="text/css" />
-    <link href="<c:url value="/resources/css/bootstrap-responsive.min.css" />" rel="stylesheet"  type="text/css" />
+    <link href="../resources/css/bootstrap.min.css" rel="stylesheet"  type="text/css" />
+    <link href="../resources/css/bootstrap-responsive.min.css" rel="stylesheet"  type="text/css" />
 
     <title><decorator:title default="Customized Title Should Goes here"/></title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
@@ -65,13 +65,13 @@
     <jsp:include page="footer.jsp"/>
 
     <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="<c:url value="/resources/js/jquery-1.8.0-min.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/resources/js/demo.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/resources/js/json2.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/resources/js/date.format.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/resources/js/jquery.validate.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/resources/js/jquery.validate.min.js" />"></script>
+    <script type="text/javascript" src="../resources/js/jquery-1.8.0-min.js" ></script>
+    <script type="text/javascript" src="../resources/js/bootstrap.min.js" ></script>
+    <script type="text/javascript" src="../resources/js/demo.js" ></script>
+    <script type="text/javascript" src="../resources/js/json2.js" ></script>
+    <script type="text/javascript" src="../resources/js/date.format.js" ></script>
+    <script type="text/javascript" src="../resources/js/jquery.validate.js" ></script>
+    <script type="text/javascript" src="../resources/js/jquery.validate.min.js" ></script>
 
 </body>
 </html>

@@ -3,9 +3,9 @@
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <html>
     <head>
-        <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-web/user/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-web/user/resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
-        <link href="http://rec.admin.hsenidmobile.com:8080/recruitment-web/user/resources/css/custom-hms.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/css/custom-hms.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
     <div class="container">

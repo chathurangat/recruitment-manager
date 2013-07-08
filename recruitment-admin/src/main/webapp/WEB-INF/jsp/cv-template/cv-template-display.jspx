@@ -1,0 +1,20 @@
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" language="java"/>
+    <fieldset>
+        <legend>
+            <jsp:text>Select the Cv Template to insert fields for cv section</jsp:text>
+
+            <table>
+                <ul class="nav nav-list">
+                    <li class="nav-header">Select the Cv Template here !</li>
+                    <c:forEach items="${cvApplicationTemplate}" var="cvApplicationTemplate">
+
+                        <li><label><a href="../cv_template_field/registration_view?id=${cvApplicationTemplate.id}">${cvApplicationTemplate.cvHeaderEn}</a></label></li>
+                    </c:forEach>
+                </ul>
+            </table>
+        </legend>
+    </fieldset>
+</jsp:root>

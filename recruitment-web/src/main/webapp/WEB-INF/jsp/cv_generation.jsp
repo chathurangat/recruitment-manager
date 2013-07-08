@@ -101,8 +101,8 @@
 <%--</fieldset>--%>
 <%--</c:forEach>--%>
 <!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" src="<c:url value="/resources/js/jquery.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery.validate.js" />"></script>
+<script type="text/javascript" src="../resources/js/jquery.js" ></script>
+<script type="text/javascript" src="../resources/js/jquery.validate.js" ></script>
 <script type="text/javascript">
     $(document).ready(function(){
 
