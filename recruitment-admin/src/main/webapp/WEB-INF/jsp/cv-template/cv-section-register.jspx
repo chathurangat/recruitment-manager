@@ -46,7 +46,11 @@
         <div class="control-group">
             <div class="controls">
                 <!--<input type="submit" class="btn btn-success"  value="<spring:message code="label.cvSection.registration.form.submit.button"/>"/>-->
+
                 <input type="submit" class="btn btn-primary"  value="Submit"/>
+
+
+
             </div>
         </div>
 

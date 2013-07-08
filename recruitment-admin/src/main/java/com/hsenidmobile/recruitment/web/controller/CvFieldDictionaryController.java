@@ -21,7 +21,6 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Controller
 @RequestMapping(value = "/cv_field_dictionary")
@@ -146,16 +145,22 @@ public class CvFieldDictionaryController {
             if(StringUtils.hasText(textAreaDictionary.getId())){
                 cvApplicationFieldDictionaryService.updateCvSectionFieldDictionary(textAreaDictionary);
                 logger.info("registering new cv template section textarea field dictionary form contains no errors (update) ");
+                modelAndView.setViewName("cv-field-dictionary/textarea-dictionary-success");
+
             }
             else
             {
                 cvApplicationFieldDictionaryService.createCvSectionFieldDictionary(textAreaDictionary);
                 logger.info("registering new cv template section textarea field dictionary form contains no errors (create) ");
+                modelAndView.setViewName("cv-field-dictionary/textarea-dictionary-success");
+
             }
             return modelAndView;
         }
         else {
             logger.info("registering new cv template section textarea field dictionary form contains errors ");
+            modelAndView.setViewName("cv-field-dictionary/textarea-dictionary-failed");
+
             return modelAndView;
         }
 
@@ -241,10 +246,13 @@ public class CvFieldDictionaryController {
 
         if(StringUtils.hasText(dropDownOption.getId())){
             dropdownOptionsService.insertDropDownOption(dropDownOption);
+            //modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-options-register-success");
         }
         else
         {
             dropdownOptionsService.createDropDownOption(dropDownOption);
+           // modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-options-register-success");
+
         }
         return modelAndView;
     }

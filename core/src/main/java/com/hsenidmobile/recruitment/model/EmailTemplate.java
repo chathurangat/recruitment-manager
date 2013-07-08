@@ -24,6 +24,7 @@ public class EmailTemplate implements Serializable {
 
     private List<EmailTemplate> emailTemplateList;
 
+
     public String getId() {
         return id;
     }
@@ -103,5 +104,4 @@ public class EmailTemplate implements Serializable {
         this.emailTemplateList = emailTemplateList;
     }
 
-
-}
+   }

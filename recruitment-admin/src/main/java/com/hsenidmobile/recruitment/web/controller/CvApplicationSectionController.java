@@ -61,18 +61,23 @@ public class CvApplicationSectionController {
                 cvApplicationSectionService.update(cvApplicationSection);
                 logger.info("registering new cv template section form contains no errors (update) ");
                 System.out.println(" there are no errors (update)");
+                modelAndView.setViewName("cv-template/cv-section-register-success");
             }
             else
             {
                 cvApplicationSectionService.create(cvApplicationSection);
                 logger.info("registering new cv template section form contains no errors (create) ");
                 System.out.println(" there are no errors (create)");
+                modelAndView.setViewName("cv-template/cv-section-register-success");
+
             }
             return modelAndView;
         }
         else {
 
             logger.info("registering new cv template section form contains errors ");
+           // modelAndView.setViewName("cv-template/cv-section-register-failed");
+
             return modelAndView;
         }
 
