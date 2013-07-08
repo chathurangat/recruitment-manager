@@ -19,7 +19,7 @@ public class CvApplicationDaoImplTest extends CommonDaoTest{
     public void testCreateCvApplication(){
 
         CvApplication cvApplication = new CvApplication();
-        cvApplication.setApplicationName(" Application submitted for post of Software Engineer");
+        cvApplication.setApplicationName("Application submitted for post of Software Engineer");
 
         Applicant applicant  = createApplicantUser();
         applicant.submitApplication(cvApplication);
@@ -28,20 +28,26 @@ public class CvApplicationDaoImplTest extends CommonDaoTest{
 
         //persist record
         cvApplicationDao.create(cvApplication);
+        Assert.assertNotNull(cvApplication);
         Assert.assertNotNull(cvApplication.getId());
+        Assert.assertEquals(cvApplication.getApplicationName(),"Application submitted for post of Software Engineer");
+        Assert.assertNotNull(cvApplication.getCvApplicationTemplate());
+        Assert.assertEquals(cvApplication.getCvApplicationTemplate().getCvHeaderEn(),"Application for Trainee Software Engineer");
+        Assert.assertEquals(cvApplication.getCvApplicationTemplate().getCvHeaderSi(),"Application for Trainee Software Engineer_SI");
+        Assert.assertEquals(cvApplication.getCvApplicationTemplate().getCvHeaderTa(),"Application for Trainee Software Engineer_TA");
 
         //removing the inserted record
         cvApplicationDao.remove(cvApplication);
         CvApplication cvApplication1 = cvApplicationDao.findById(cvApplication.getId());
         Assert.assertNull(cvApplication1);
-    }
+      }
 
 
     @Test
     public void testFindCvApplicationOfUser(){
 
         CvApplication cvApplication = new CvApplication();
-        cvApplication.setApplicationName(" Application submitted for post of Software Engineer");
+        cvApplication.setApplicationName("Application submitted for post of Software Engineer");
 
         Applicant applicant  = createApplicantUser();
         applicant.submitApplication(cvApplication);
@@ -50,7 +56,14 @@ public class CvApplicationDaoImplTest extends CommonDaoTest{
 
         //persist record
         cvApplicationDao.create(cvApplication);
+        Assert.assertNotNull(cvApplication);
         Assert.assertNotNull(cvApplication.getId());
+        Assert.assertEquals(cvApplication.getApplicationName(),"Application submitted for post of Software Engineer");
+        Assert.assertNotNull(cvApplication.getCvApplicationTemplate());
+        Assert.assertEquals(cvApplication.getCvApplicationTemplate().getCvHeaderEn(),"Application for Trainee Software Engineer");
+        Assert.assertEquals(cvApplication.getCvApplicationTemplate().getCvHeaderSi(),"Application for Trainee Software Engineer_SI");
+        Assert.assertEquals(cvApplication.getCvApplicationTemplate().getCvHeaderTa(),"Application for Trainee Software Engineer_TA");
+
 
         List<CvApplication> cvApplicationList = cvApplicationDao.findCvApplicationsByApplicant(applicant);
         Assert.assertNotNull(cvApplicationList);
@@ -60,7 +73,7 @@ public class CvApplicationDaoImplTest extends CommonDaoTest{
         cvApplicationDao.remove(cvApplication);
         CvApplication cvApplication1 = cvApplicationDao.findById(cvApplication.getId());
         Assert.assertNull(cvApplication1);
-    }
+     }
 
 
 
