@@ -19,7 +19,7 @@
                 <li class="nav-header">Select the Cv Application here !</li>
             <c:forEach items="${cvApplicationTemplate}" var="cvApplicationTemplate">
 
-                    <li><label><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-web/user/applicant/apply?id=${cvApplicationTemplate.id}">${cvApplicationTemplate.cvHeaderEn}</a></label></li>
+                    <li><label><a href="http://localhost:8080/recruitment-web/user/applicant/apply?id=${cvApplicationTemplate.id}">${cvApplicationTemplate.cvHeaderEn}</a></label></li>
             </c:forEach>
             </ul>
         </table>
