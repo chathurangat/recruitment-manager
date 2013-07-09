@@ -46,6 +46,10 @@
                             <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_textarea/registration_view">TextArea</a></li>
                             <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropdown/registration_view">DropDown</a></li>
                             <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropdown-options/registration_view">DropDown Options</a></li>
+                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_checkbox/registration_view">CheckBox</a></li>
+                            <li><a href="#">CheckBox Values</a></li>
+                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_radiobutton/registration_view">RadioButton</a></li>
+                            <li><a href="#">RadioButton Values</a></li>
                             <li class="nav-header">Cv Applicant</li>
                             <li><a href="http://localhost:8080/recruitment-admin/user/cv_application/applied-applicant">Candiate List</a></li>
 

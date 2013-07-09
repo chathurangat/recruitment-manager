@@ -21,6 +21,17 @@
             </div>
         </div>
         -->
+        <div class="control-group">
+            <div class="controls">
+                <sf:label path= "">
+                <spring:message code="label.form.select.cvDropDown.dictionary.field.registration" />
+                </sf:label>
+                <sf:select path="" cssClass="width-150">
+                    <sf:option value="-1" label="--- Select ---"/>
+                    <!--          <sf:options items=""/> -->
+                </sf:select>
+            </div>
+        </div>
 
         <div class="control-group">
             <div class="controls">

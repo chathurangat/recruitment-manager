@@ -36,6 +36,9 @@ public class CvFieldDictionaryController {
     @Autowired
     private ApplicationFieldDictionaryValidationDao applicationFieldDictionaryValidationDao;
 
+    @Autowired
+    private DropdownOptionsService dropdownOptionsService;
+
     /**
      * <p>
      *     display the TextField Dictionary Registration page of the recruitment admin application
@@ -122,8 +125,12 @@ public class CvFieldDictionaryController {
     @RequestMapping(value = "/cv_textarea/registration_view",method = RequestMethod.GET)
     public ModelAndView cvFieldTextAreaRegisterView(ModelAndView modelAndView){
         logger.info(" display cv template section textarea field dictionary registration view ");
+        Map<String,Object> modelsMap =  new HashMap<String, Object>();
+        List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
+        modelsMap.put("textAreaDictionary",new TextAreaDictionary());
+        modelsMap.put("validationList",validationList);
+        modelAndView.addAllObjects(modelsMap);
         modelAndView.setViewName("cv-field-dictionary/textarea-dictionary-register");
-        modelAndView.addObject(new TextAreaDictionary());
         return modelAndView;
     }
 
@@ -138,9 +145,27 @@ public class CvFieldDictionaryController {
      */
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_textarea/register",method = RequestMethod.POST)
-    public ModelAndView registerNewTextAreaDictionary(@Valid TextAreaDictionary textAreaDictionary,BindingResult bindingResult,ModelAndView modelAndView){
+    public ModelAndView registerNewTextAreaDictionary(@Valid TextAreaDictionary textAreaDictionary,BindingResult bindingResult,ModelAndView modelAndView,HttpSession httpSession){
         System.out.println(" registering new cv template section textarea field dictionary");
         modelAndView.setViewName("cv-field-dictionary/textarea-dictionary-register");
+        modelAndView.addObject("validationList",this.getValidationCriteriaList());
+
+        List<ApplicationFieldDictionaryValidation> userSelectedValidations = this.getUserSubmittedValidations(textAreaDictionary.getApplicationFieldDictionaryValidationList());
+        logger.info(" size of user  selected validations [{}]",userSelectedValidations.size());
+
+        List<String> errorMessages = this.validateAppliedValidations(userSelectedValidations);
+
+        if(errorMessages!=null && errorMessages.size()>0){
+            logger.info("size of error messages [{}]",errorMessages.size());
+            Locale userLocale = this.getUserLocale(httpSession);
+            for(String errorKey:errorMessages){
+                bindingResult.addError(new FieldError("cvApplicationTemplate","applicationFieldDictionaryValidationList",messageSource.getMessage(errorKey,null,userLocale)));
+            }
+        }
+        else {
+            textAreaDictionary.setApplicationFieldDictionaryValidationList(userSelectedValidations);
+        }
+
         if(!bindingResult.hasErrors()){
             if(StringUtils.hasText(textAreaDictionary.getId())){
                 cvApplicationFieldDictionaryService.updateCvSectionFieldDictionary(textAreaDictionary);
@@ -178,10 +203,16 @@ public class CvFieldDictionaryController {
     @RequestMapping(value = "/cv_dropdown/registration_view",method = RequestMethod.GET)
     public ModelAndView cvFieldDropdownRegisterView(ModelAndView modelAndView){
         logger.info(" display cv template section dropdown field dictionary registration view ");
+        Map<String,Object> modelsMap =  new HashMap<String, Object>();
+        modelsMap.put("dropDownDictionary",new DropDownDictionary());
+        List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
+        modelsMap.put("validationList",validationList);
+        modelAndView.addAllObjects(modelsMap);
         modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-register");
         modelAndView.addObject(new DropDownDictionary());
         return modelAndView;
     }
+
 
     /**
      * <p>
@@ -194,21 +225,41 @@ public class CvFieldDictionaryController {
      */
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/cv_dropdown/register",method = RequestMethod.POST)
-    public ModelAndView registerNewDropDownDictionary(@Valid DropDownDictionary dropDownDictionary,BindingResult bindingResult,ModelAndView modelAndView){
+    public ModelAndView registerNewDropDownDictionary(@Valid DropDownDictionary dropDownDictionary,BindingResult bindingResult,ModelAndView modelAndView,HttpSession httpSession){
         System.out.println(" registering new cv template section dropdown field dictionary");
         modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-register");
-        if(StringUtils.hasText(dropDownDictionary.getId())){
-            cvApplicationFieldDictionaryService.updateCvSectionFieldDictionary(dropDownDictionary);
-        }
-        else
-        {
-            cvApplicationFieldDictionaryService.createCvSectionFieldDictionary(dropDownDictionary);
-        }
-        return modelAndView;
-    }
+        modelAndView.addObject("validationList",this.getValidationCriteriaList());
 
-    @Autowired
-    private DropdownOptionsService dropdownOptionsService;
+        List<ApplicationFieldDictionaryValidation> userSelectedValidations = this.getUserSubmittedValidations(dropDownDictionary.getApplicationFieldDictionaryValidationList());
+        logger.info(" size of user  selected validations [{}]",userSelectedValidations.size());
+
+        List<String> errorMessages = this.validateAppliedValidations(userSelectedValidations);
+
+        if(errorMessages!=null && errorMessages.size()>0){
+            logger.info("size of error messages [{}]",errorMessages.size());
+            Locale userLocale = this.getUserLocale(httpSession);
+            for(String errorKey:errorMessages){
+                bindingResult.addError(new FieldError("cvApplicationTemplate","applicationFieldDictionaryValidationList",messageSource.getMessage(errorKey,null,userLocale)));
+            }
+        }
+        else {
+            dropDownDictionary.setApplicationFieldDictionaryValidationList(userSelectedValidations);
+        }
+
+        if(!bindingResult.hasErrors()){
+             if(StringUtils.hasText(dropDownDictionary.getId())){
+            cvApplicationFieldDictionaryService.updateCvSectionFieldDictionary(dropDownDictionary);
+             }
+             else {
+            cvApplicationFieldDictionaryService.createCvSectionFieldDictionary(dropDownDictionary);
+             }
+        return modelAndView;
+        }
+        else {
+            logger.info("registering new cv template section dropdown field dictionary form contains errors ");
+            return modelAndView;
+    }
+}
 
     /**
      * <p>
@@ -223,7 +274,8 @@ public class CvFieldDictionaryController {
     public ModelAndView cvFieldDropdownOptionsRegisterView(ModelAndView modelAndView){
         logger.info(" display cv template section dropdown field options registration view ");
         modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-options-register");
-        modelAndView.addObject("optionsList", dropdownOptionsService.findAllDropDownOption());
+        List<ApplicationFieldDictionary> applicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
+        modelAndView.addObject("applicationFieldDictionaryList",applicationFieldDictionaryList );
         modelAndView.addObject(new DropDownOption());
         return modelAndView;
     }
@@ -245,6 +297,7 @@ public class CvFieldDictionaryController {
         modelAndView.addObject("optionsList", dropdownOptionsService.findAllDropDownOption());
 
         if(StringUtils.hasText(dropDownOption.getId())){
+
             dropdownOptionsService.insertDropDownOption(dropDownOption);
             //modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-options-register-success");
         }
@@ -270,6 +323,144 @@ public class CvFieldDictionaryController {
     }
 
 
+    /**
+     * <p>
+     *     display the RadioButton Dictionary Registration page of the recruitment admin application
+     *     this method will only support for HTTP GET requests
+     *     the access will be granted for the authenticated users with ROLE_ADMIN
+     * </p>
+     * @return "radiobutton-dictionary-register" logical name encapsulated in {@link ModelAndView}
+     */
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/cv_radiobutton/registration_view",method = RequestMethod.GET)
+    public ModelAndView cvFieldRadioButtonRegisterView(ModelAndView modelAndView){
+        logger.info(" display cv template section RadioButton field dictionary registration view ");
+        Map<String,Object> modelsMap =  new HashMap<String, Object>();
+        modelsMap.put("radioButtonDictionary",new RadioButtonDictionary());
+        List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
+        modelsMap.put("validationList",validationList);
+        modelAndView.addAllObjects(modelsMap);
+
+        modelAndView.setViewName("cv-field-dictionary/radiobutton-dictionary-register");
+        return modelAndView;
+    }
+
+    /**
+     * <p>
+     *     Insert the RadioButton Dictionary items into ApplicationFieldDictionary collections
+     *     Then display the RadioButton Dictionary Registration page of the recruitment admin application
+     *     this method will only support for HTTP GET requests
+     *     the access will be granted for the authenticated users with ROLE_ADMIN
+     * </p>
+     * @return "radiobutton-dictionary-register" logical name encapsulated in {@link ModelAndView}
+     */
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/cv_radiobutton/register",method = RequestMethod.POST)
+    public ModelAndView registerNewRadioButtonDictionary(@Valid RadioButtonDictionary radioButtonDictionary,BindingResult bindingResult,ModelAndView modelAndView,HttpSession httpSession){
+        System.out.println(" registering new cv template section radiobutton field dictionary");
+        modelAndView.setViewName("cv-field-dictionary/radiobutton-dictionary-register");
+        modelAndView.addObject("validationList",this.getValidationCriteriaList());
+        List<ApplicationFieldDictionaryValidation> userSelectedValidations = this.getUserSubmittedValidations(radioButtonDictionary.getApplicationFieldDictionaryValidationList());
+        logger.info(" size of user  selected validations [{}]",userSelectedValidations.size());
+
+        List<String> errorMessages = this.validateAppliedValidations(userSelectedValidations);
+
+        if(errorMessages!=null && errorMessages.size()>0){
+            logger.info("size of error messages [{}]",errorMessages.size());
+            Locale userLocale = this.getUserLocale(httpSession);
+            for(String errorKey:errorMessages){
+                bindingResult.addError(new FieldError("cvApplicationTemplate","applicationFieldDictionaryValidationList",messageSource.getMessage(errorKey,null,userLocale)));
+            }
+        }
+        else {
+            radioButtonDictionary.setApplicationFieldDictionaryValidationList(userSelectedValidations);
+        }
+
+        if(!bindingResult.hasErrors()){
+            if(StringUtils.hasText(radioButtonDictionary.getId())){
+                cvApplicationFieldDictionaryService.updateCvSectionFieldDictionary(radioButtonDictionary);
+            }
+            else
+            {
+                cvApplicationFieldDictionaryService.createCvSectionFieldDictionary(radioButtonDictionary);
+            }
+            return modelAndView;
+        }
+        else {
+            logger.info("registering new cv template section radio button field dictionary form contains errors ");
+            return modelAndView;
+        }
+    }
+
+    /**
+     * <p>
+     *     display the CheckBox Dictionary Registration page of the recruitment admin application
+     *     this method will only support for HTTP GET requests
+     *     the access will be granted for the authenticated users with ROLE_ADMIN
+     * </p>
+     * @return "checkbox-dictionary-register" logical name encapsulated in {@link ModelAndView}
+     */
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/cv_checkbox/registration_view",method = RequestMethod.GET)
+    public ModelAndView cvFieldCheckBoxRegisterView(ModelAndView modelAndView){
+        logger.info(" display cv template section CheckBox field dictionary registration view ");
+        Map<String,Object> modelsMap =  new HashMap<String, Object>();
+        modelsMap.put("checkBoxDictionary",new CheckBoxDictionary());
+        List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
+        modelsMap.put("validationList",validationList);
+        modelAndView.addObject(new TextFieldDictionary());
+        modelAndView.addAllObjects(modelsMap);
+
+        modelAndView.setViewName("cv-field-dictionary/checkbox-dictionary-register");
+        return modelAndView;
+    }
+
+    /**
+     * <p>
+     *     Insert the CheckBox Dictionary items into ApplicationFieldDictionary collections
+     *     Then display the CheckBox Dictionary Registration page of the recruitment admin application
+     *     this method will only support for HTTP GET requests
+     *     the access will be granted for the authenticated users with ROLE_ADMIN
+     * </p>
+     * @return "checkbox-dictionary-register" logical name encapsulated in {@link ModelAndView}
+     */
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/cv_checkbox/register",method = RequestMethod.POST)
+    public ModelAndView registerNewCheckBoxDictionary(@Valid CheckBoxDictionary checkBoxDictionary,BindingResult bindingResult,ModelAndView modelAndView,HttpSession httpSession){
+        System.out.println(" registering new cv template section checkbox field dictionary");
+        modelAndView.setViewName("cv-field-dictionary/checkbox-dictionary-register");
+        modelAndView.addObject("validationList",this.getValidationCriteriaList());
+
+        List<ApplicationFieldDictionaryValidation> userSelectedValidations = this.getUserSubmittedValidations(checkBoxDictionary.getApplicationFieldDictionaryValidationList());
+        logger.info(" size of user  selected validations [{}]",userSelectedValidations.size());
+
+        List<String> errorMessages = this.validateAppliedValidations(userSelectedValidations);
+
+        if(errorMessages!=null && errorMessages.size()>0){
+            logger.info("size of error messages [{}]",errorMessages.size());
+            Locale userLocale = this.getUserLocale(httpSession);
+            for(String errorKey:errorMessages){
+                bindingResult.addError(new FieldError("cvApplicationTemplate","applicationFieldDictionaryValidationList",messageSource.getMessage(errorKey,null,userLocale)));
+            }
+        }
+        else {
+            checkBoxDictionary.setApplicationFieldDictionaryValidationList(userSelectedValidations);
+        }
+        if(!bindingResult.hasErrors()){
+            if(StringUtils.hasText(checkBoxDictionary.getId())){
+                cvApplicationFieldDictionaryService.updateCvSectionFieldDictionary(checkBoxDictionary);
+            }
+            else
+            {
+                cvApplicationFieldDictionaryService.createCvSectionFieldDictionary(checkBoxDictionary);
+            }
+            return modelAndView;
+        }
+        else {
+            logger.info("registering new cv template section check box field dictionary form contains errors ");
+            return modelAndView;
+        }
+    }
 
     private List<ApplicationFieldDictionaryValidation> getValidationCriteriaList(){
 //        List<ApplicationFieldDictionaryValidation> validationList =new ArrayList<ApplicationFieldDictionaryValidation>();
