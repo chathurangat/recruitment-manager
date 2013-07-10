@@ -394,6 +394,28 @@ public class CvFieldDictionaryController {
 
     /**
      * <p>
+     *     display the radiobutton value Dictionary Registration page of the recruitment admin application
+     *     this method will only support for HTTP GET requests
+     *     the access will be granted for the authenticated users with ROLE_ADMIN
+     * </p>
+     * @return "radiobutton-dictionary-values-register" logical name encapsulated in {@link ModelAndView}
+     */
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/cv_radiobutton-values/registration_view",method = RequestMethod.GET)
+    public ModelAndView cvFieldRadioButtonValuesRegisterView(ModelAndView modelAndView){
+        logger.info(" display cv template section radio button values registration view ");
+        Map<String,Object> modelsMap =  new HashMap<String, Object>();
+        modelsMap.put("radioButtonValue",new RadioButtonValue());
+        List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
+        modelsMap.put("validationList",validationList);
+        modelAndView.addAllObjects(modelsMap);
+
+        modelAndView.setViewName("cv-field-dictionary/radiobutton-dictionary-values-register");
+        return modelAndView;
+    }
+
+    /**
+     * <p>
      *     display the CheckBox Dictionary Registration page of the recruitment admin application
      *     this method will only support for HTTP GET requests
      *     the access will be granted for the authenticated users with ROLE_ADMIN
@@ -408,7 +430,6 @@ public class CvFieldDictionaryController {
         modelsMap.put("checkBoxDictionary",new CheckBoxDictionary());
         List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
         modelsMap.put("validationList",validationList);
-        modelAndView.addObject(new TextFieldDictionary());
         modelAndView.addAllObjects(modelsMap);
 
         modelAndView.setViewName("cv-field-dictionary/checkbox-dictionary-register");
@@ -460,6 +481,28 @@ public class CvFieldDictionaryController {
             logger.info("registering new cv template section check box field dictionary form contains errors ");
             return modelAndView;
         }
+    }
+
+    /**
+     * <p>
+     *     display the checkbox value Dictionary Registration page of the recruitment admin application
+     *     this method will only support for HTTP GET requests
+     *     the access will be granted for the authenticated users with ROLE_ADMIN
+     * </p>
+     * @return "checknox-dictionary-values-register" logical name encapsulated in {@link ModelAndView}
+     */
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/cv_checkbox-values/registration_view",method = RequestMethod.GET)
+    public ModelAndView cvFieldCheckBoxValuesRegisterView(ModelAndView modelAndView){
+        logger.info(" display cv template section checkbox values registration view ");
+        Map<String,Object> modelsMap =  new HashMap<String, Object>();
+        modelsMap.put("checkBoxValue",new CheckBoxValue());
+        List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
+        modelsMap.put("validationList",validationList);
+        modelAndView.addAllObjects(modelsMap);
+
+        modelAndView.setViewName("cv-field-dictionary/checkbox-dictionary-values-register");
+        return modelAndView;
     }
 
     private List<ApplicationFieldDictionaryValidation> getValidationCriteriaList(){
@@ -560,4 +603,26 @@ public class CvFieldDictionaryController {
             return new Locale("en");
         }
     }
+
+
+    /**
+     * <p>
+     *     creating the dropdown list based on the applicationFieldDictionaryList
+     * </p>
+     * @param applicationFieldDictionaryList contains the list of {@link com.hsenidmobile.recruitment.model.ApplicationFieldDictionary} instances found
+     * @return list of priorities based on the size of the cv application section list
+     */
+    private List<String> createDropdownList(List<ApplicationFieldDictionary> applicationFieldDictionaryList){
+        List<String> dropdownList = new ArrayList<String>();
+        if(applicationFieldDictionaryList!=null){
+            for(int i=1;i<=applicationFieldDictionaryList.size();i++){
+                if(applicationFieldDictionaryList.get(i).getHtmlComponent().equalsIgnoreCase("dropdown") )
+                {
+                dropdownList.add(applicationFieldDictionaryList.get(i).getLabelEn());
+                }
+            }
+        }
+        return dropdownList;
+    }
+
 }
