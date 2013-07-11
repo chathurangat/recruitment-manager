@@ -14,54 +14,86 @@
 </head>
 <body>
 
-<sf:form method="POST" action="application_save" id="registerHere" modelAttribute="cvApplicationTemplate" class="form-horizontal">
+<div class="row">
+<div class="control-group">
+    <div class="span2">
+    </div>
+</div>
+<div class="control-group">
+    <div class="span7">
+     <sf:form method="POST" action="application_save" id="registerHere" modelAttribute="cvApplicationTemplate" class="form-horizontal">
 
-    <sf:hidden path="id" />
-    ${cvApplicationTemplate.cvHeaderEn}
+            <sf:hidden path="id" />
+            <div class="row">
+                     <div class="span10">
+                       <h3> ${cvApplicationTemplate.cvHeaderEn}</h3>
+                     </div>
+                </div>
 
-    <c:forEach items="${cvApplicationTemplate.cvApplicationSectionList}" var="applicationSection">
+     <c:forEach items="${cvApplicationTemplate.cvApplicationSectionList}" var="applicationSection">
         <fieldset name="${applicationSection.sectionNameEn}">
-            <legend>
-                    ${applicationSection.sectionNameEn}
-
-            </legend>
+            <div class="row">
+                    <div class="span10">
+                        <legend>
+                            ${applicationSection.sectionNameEn}
+                        </legend>
+                    </div>
+                </div>
 
             <c:forEach items="${applicationSection.cvApplicationFieldList}" var="applicationField">
 
                 <c:set var="htmlComponent" value="${applicationField.applicationFieldDictionary.htmlComponent}"/>
 
                 <c:if test="${fn:containsIgnoreCase(htmlComponent, 'textfield')}">
+            <div class="row">
+                    <div class="span5">
+                            <label for="${applicationField.applicationFieldDictionary.id}">
+                                    ${applicationField.applicationFieldDictionary.labelEn}
+                            </label>
+                     </div>
+                      <div class="span5">
+                        <input id="${applicationField.id}" name="${applicationField.id}" type="text" size="${applicationField.applicationFieldDictionary.size}"/>
+                    </div>
+                </div>
 
-                    <label for="${applicationField.applicationFieldDictionary.id}">
-                            ${applicationField.applicationFieldDictionary.labelEn}
-                    </label>
-                    <input id="${applicationField.id}" name="${applicationField.id}" type="text" size="${applicationField.applicationFieldDictionary.size}"/>
-                    <br/>
-                    <br/>
                 </c:if>
 
                 <c:if test="${fn:containsIgnoreCase(htmlComponent, 'textarea')}">
+            <div class="row">
 
+                    <div class="span5">
                     <p class="formfield">
                         <label for="${applicationField.applicationFieldDictionary.id}">
                                 ${applicationField.applicationFieldDictionary.labelEn}
                         </label>
+                    </div>
+                    <div class="span5">
                         <textarea name="${applicationField.id}" cols="${applicationField.applicationFieldDictionary.cols}" rows="${applicationField.applicationFieldDictionary.rows}"></textarea>
-                    </p>
-                    <br/>
-                    <br/>
+                     </p>
+                    </div>
+            </div>
+
+
                 </c:if>
             </c:forEach>
         </fieldset>
     </c:forEach>
-
-    <div class="control-group">
-        <div class="controls">
-            <!--<input type="submit" class="btn btn-success"  value="<spring:message code="label.cvSection.registration.form.submit.button"/>"/>-->
-            <input type="submit" class="btn btn-success"  value="Submit"/>
-        </div>
-    </div>
-
+     <br />
+         <fieldset>
+             <legend>
+             </legend>
+                <div class="row">
+                         <div class="span10">
+                             <div class="controls">
+                                 <!--<input type="submit" class="btn btn-success"  value="<spring:message code="label.cvSection.registration.form.submit.button"/>"/>-->
+                                <input type="submit" class="btn btn-success"  value="Submit"/>
+                             </div>
+                        </div>
+                </div>
+        </fieldset>
+</div>
+</div>
+</div>
 </sf:form>
 
 

@@ -8,11 +8,11 @@
 
     <fieldset>
         <legend>
-            <spring:message code="label.form.header.cvDropDown.dictionary.option.registration"/>
+            <spring:message code="label.form.header.cvRadioButton.dictionary.value.registration"/>
         </legend>
     </fieldset>
 
-    <sf:form method="POST" action="add"  modelAttribute="dropDownOption" class="form-horizontal">
+    <sf:form method="POST" action="add"  modelAttribute="radioButtonValue" class="form-horizontal">
 
         <!--
         <div class="control-group">
@@ -21,15 +21,14 @@
             </div>
         </div>
         -->
-
         <div class="control-group">
             <div class="controls">
                 <sf:label path= "">
-                <spring:message code="label.form.select.cvDropDown.dictionary.field.registration" />
+                    <spring:message code="label.form.select.cvRadioButton.dictionary.field.registration" />
                 </sf:label>
-                <sf:select path="${dropDownList.id}" cssClass="width-150">
+                <sf:select path="${checkboxList.id}" cssClass="width-150">
                     <sf:option value="None" label="--- Select ---"/>
-                             <sf:options items="${dropDownList}"/>
+                    <sf:options items="${checkboxList}"/>
                 </sf:select>
             </div>
         </div>
@@ -70,16 +69,5 @@
             </div>
         </div>
 
-        <!--
-        <div class="control-group">
-            <div class="controls">
-                <c:forEach var="option" items="${optionsList}">
-
-            ${option.nameEn}   <input type="button" value="delete" class="btn btn-success" onclick="window.location='delete?id=${option.id}'"/>
-
-                </c:forEach>
-            </div>
-        </div>
-        -->
     </sf:form>
 </jsp:root>

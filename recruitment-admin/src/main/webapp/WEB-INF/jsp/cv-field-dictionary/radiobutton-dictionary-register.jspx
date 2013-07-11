@@ -8,15 +8,15 @@
 
     <fieldset>
         <legend>
-            <spring:message code="label.form.header.cvDropDown.dictionary.registration"/>
+            <spring:message code="label.form.header.cvRadioButton.dictionary.registration"/>
         </legend>
     </fieldset>
 
-    <sf:form method="POST" action="register"  modelAttribute="dropDownDictionary" class="form-horizontal">
+    <sf:form method="POST" action="register" modelAttribute="radioButtonDictionary" class="form-horizontal">
 
         <div class="control-group">
             <div class="controls">
-                <sf:input path="htmlComponent" value="DropDown" type="hidden" />
+                <sf:input path="htmlComponent" value="RadioButton" type="hidden" />
             </div>
         </div>
 
@@ -49,6 +49,17 @@
                 <sf:errors path="labelTa" cssClass="text-error" />
             </div>
         </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <sf:label path="groupName">
+                    <spring:message code="label.form.header.cvRadioButton.dictionary.groupName.registration" />
+                </sf:label>
+                <sf:input path="groupName" size="100" />
+                <sf:errors path="groupName" cssClass="text-error" />
+            </div>
+        </div>
+
         <!--<div class="control-group">-->
         <!--<div class="controls">-->
         <div class="row">
