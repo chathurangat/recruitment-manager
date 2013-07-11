@@ -8,7 +8,7 @@
 
     <fieldset>
         <legend>
-            <spring:message code="label.form.header.cvDropDown.dictionary.option.registration"/>
+            <spring:message code="label.form.header.cvCheckBox.dictionary.value.registration"/>
         </legend>
     </fieldset>
 
@@ -23,12 +23,12 @@
         -->
         <div class="control-group">
             <div class="controls">
-                <sf:label path= "">
+                <sf:label path= "${radiobuttonList.id}">
                     <spring:message code="label.form.select.cvCheckbox.dictionary.field.registration" />
                 </sf:label>
                 <sf:select path="" cssClass="width-150">
-                    <sf:option value="-1" label="--- Select ---"/>
-                    <!--          <sf:options items=""/> -->
+                    <sf:option value="None" label="--- Select ---"/>
+                        <sf:options items="${radiobuttonList}"/>
                 </sf:select>
             </div>
         </div>
