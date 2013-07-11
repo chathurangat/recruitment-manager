@@ -22,6 +22,24 @@
     <!--<mvc:annotation-driven validator="validator"/>-->
     <mvc:annotation-driven />
 
+    <!-- Factory bean that creates the file upload -->
+
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="maxUploadSize" value="100000"/>
+    </bean>
+
+
+
+    <bean id="uploadDirResource"
+          class="org.springframework.core.io.FileSystemResource">
+        <constructor-arg>
+            <value>C:/test111</value>
+        </constructor-arg>
+    </bean>
+    <!-- Factory bean that creates the file upload end -->
+
 
     <!-- Factory bean that creates the Mongo instance -->
     <bean id="mongoDbFactoryBean" class="org.springframework.data.mongodb.core.MongoFactoryBean">

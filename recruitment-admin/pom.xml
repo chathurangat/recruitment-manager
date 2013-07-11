@@ -36,6 +36,7 @@
         </dependency>
 
         <!--recruitment-core dependency start-->
+
         <dependency>
             <groupId>${parent.groupId}</groupId>
             <artifactId>${parent.artifactId}-core</artifactId>
@@ -176,6 +177,18 @@
             <groupId>opensymphony</groupId>
             <artifactId>sitemesh</artifactId>
             <version>2.4.2</version>
+        </dependency>
+        <!-- Apache Commons file upload  -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <!-- Apache Commons IO -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
         </dependency>
 
     </dependencies>
