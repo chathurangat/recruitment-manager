@@ -1,9 +1,9 @@
 package com.hsenidmobile.recruitment.model;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,7 @@ public class CvApplicationTemplate implements Serializable {
     private String cvHeaderTa;
 
     private List<CvApplicationSection> cvApplicationSectionList = new ArrayList<CvApplicationSection>();
+    private List<CvApplicationTemplate> cvApplicationTemplateList = new ArrayList<CvApplicationTemplate>();
     private boolean status;
 
     public String getId() {
@@ -65,6 +66,9 @@ public class CvApplicationTemplate implements Serializable {
 
     public void add(CvApplicationSection cvApplicationSection){
         cvApplicationSectionList.add(cvApplicationSection);
+    }
+    public void add(CvApplicationTemplate cvApplicationTemplate){
+        cvApplicationTemplateList.add(cvApplicationTemplate);
     }
 
     public boolean getStatus() {
