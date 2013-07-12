@@ -1,10 +1,7 @@
 package com.hsenidmobile.recruitment.web.controller;
 
 import com.hsenidmobile.recruitment.model.*;
-import com.hsenidmobile.recruitment.service.ApplicantService;
-import com.hsenidmobile.recruitment.service.CvApplicationService;
-import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
-import com.hsenidmobile.recruitment.service.ValidationService;
+import com.hsenidmobile.recruitment.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +29,8 @@ public class ApplicantController {
     private CvApplicationService cvApplicationService;
     @Autowired
     private ValidationService validationService;
+    @Autowired
+    private VacancyService vacancyService;
 
     /**
      * <p>
@@ -46,8 +45,13 @@ public class ApplicantController {
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(" application cv template ["+cvApplicationTemplate+"]");
         if (cvApplicationTemplate!=null){
-            modelAndView.setViewName("available_cv");
-            modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+           // modelAndView.setViewName("available_cv");
+           // modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+
+            //available vacancy advertisments are displayed with link to the relevant cv
+            List<Vacancy> vacancyList = vacancyService.findAllVacancy();
+            modelAndView.setViewName("vacancy_publish");
+            modelAndView.addObject("vacancyList",vacancyList);
         }
         else {
             modelAndView.setViewName("error");
