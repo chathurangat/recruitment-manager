@@ -14,21 +14,13 @@
 
     <sf:form method="POST" action="add"  modelAttribute="dropDownOption" class="form-horizontal">
 
-        <!--
-        <div class="control-group">
-            <div class="controls">
-                <sf:input path="htmlComponent" value="Option" type="hidden" />
-            </div>
-        </div>
-        -->
-
-        <div class="control-group">
+   <div class="control-group">
             <div class="controls">
                 <sf:label path= "">
                 <spring:message code="label.form.select.cvDropDown.dictionary.field.registration" />
                 </sf:label>
-                <sf:select path="${dropDownList.id}" cssClass="width-150">
-                    <sf:option value="None" label="--- Select ---"/>
+                <sf:select path="${applicationFieldDictionary.id}" cssClass="width-150">
+                    <sf:option value="None" label="- Select -"/>
                              <sf:options items="${dropDownList}"/>
                 </sf:select>
             </div>

@@ -14,21 +14,14 @@
 
     <sf:form method="POST" action="add"  modelAttribute="checkBoxValue" class="form-horizontal">
 
-        <!--
         <div class="control-group">
             <div class="controls">
-                <sf:input path="htmlComponent" value="Option" type="hidden" />
-            </div>
-        </div>
-        -->
-        <div class="control-group">
-            <div class="controls">
-                <sf:label path= "${radiobuttonList.id}">
+                <sf:label path= "${applicationFieldDictionary.checkBoxValueList.id}">
                     <spring:message code="label.form.select.cvCheckbox.dictionary.field.registration" />
                 </sf:label>
-                <sf:select path="" cssClass="width-150">
+                <sf:select path="${applicationFieldDictionary.checkBoxValueList.id}" cssClass="width-150">
                     <sf:option value="None" label="--- Select ---"/>
-                        <sf:options items="${radiobuttonList}"/>
+                        <sf:options items="${checkboxList}"/>
                 </sf:select>
             </div>
         </div>

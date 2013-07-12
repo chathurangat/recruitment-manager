@@ -3,7 +3,6 @@ package com.hsenidmobile.recruitment.web.controller;
 import com.hsenidmobile.recruitment.dao.ApplicationFieldDictionaryValidationDao;
 import com.hsenidmobile.recruitment.model.*;
 import com.hsenidmobile.recruitment.service.CvApplicationFieldDictionaryService;
-import com.hsenidmobile.recruitment.service.DropdownOptionsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +34,6 @@ public class CvFieldDictionaryController {
     //todo move to service layer
     @Autowired
     private ApplicationFieldDictionaryValidationDao applicationFieldDictionaryValidationDao;
-
-    @Autowired
-    private DropdownOptionsService dropdownOptionsService;
 
     /**
      * <p>
@@ -207,9 +203,10 @@ public class CvFieldDictionaryController {
         modelsMap.put("dropDownDictionary",new DropDownDictionary());
         List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
         modelsMap.put("validationList",validationList);
+        modelsMap.put("applicationFieldDictionary",new ApplicationFieldDictionary());
         modelAndView.addAllObjects(modelsMap);
         modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-register");
-        modelAndView.addObject(new DropDownDictionary());
+
         return modelAndView;
     }
 
@@ -274,14 +271,15 @@ public class CvFieldDictionaryController {
     @RequestMapping(value = "/cv_dropdown-options/registration_view",method = RequestMethod.GET)
     public ModelAndView cvFieldDropdownOptionsRegisterView(ModelAndView modelAndView){
         logger.info(" display cv template section dropdown field options registration view ");
-        modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-options-register");
-
         Map<String,Object> modelsMap =  new HashMap<String, Object>();
         List<ApplicationFieldDictionary> applicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
         List<String> dropDownList = this.createDropdownList(applicationFieldDictionaryList);
         modelsMap.put("dropDownList",dropDownList);
         System.out.print("DropdownList size is : " + dropDownList.size());
-        modelAndView.addObject(new DropDownOption());
+        modelsMap.put("dropDownOption",new DropDownOption());
+        modelsMap.put("applicationFieldDictionary",new ApplicationFieldDictionary());
+        modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-options-register");
+        modelAndView.addAllObjects(modelsMap);
         return modelAndView;
     }
 
@@ -316,19 +314,6 @@ public class CvFieldDictionaryController {
         }
         return modelAndView;
     }
-
-    @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_dropdown-options/delete",method = RequestMethod.GET)
-    public ModelAndView deleteDropDownOption(@Valid DropDownOption dropDownOption,BindingResult bindingResult,ModelAndView modelAndView){
-        System.out.println(" deleting cv template section dropdown field option");
-        modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-options-register");
-        modelAndView.addObject("optionsList", dropdownOptionsService.findAllDropDownOption());
-
-        dropdownOptionsService.removeDropDownOption(dropDownOption);
-
-        return  modelAndView;
-    }
-
 
     /**
      * <p>
@@ -418,6 +403,7 @@ public class CvFieldDictionaryController {
         List<ApplicationFieldDictionary> applicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
         List<String>radiobuttonList = this.createRadiobuttonList(applicationFieldDictionaryList);
         modelsMap.put("radiobuttonList",radiobuttonList);
+        modelsMap.put("applicationFieldDictionary",new ApplicationFieldDictionary());
         modelAndView.addAllObjects(modelsMap);
         System.out.print("radio button list size : " + radiobuttonList.size());
         modelAndView.setViewName("cv-field-dictionary/radiobutton-dictionary-values-register");
@@ -543,6 +529,7 @@ public class CvFieldDictionaryController {
         List<String> checkboxList = this.createCheckboxList(applicationFieldDictionaryList);
         modelsMap.put("checkboxList",checkboxList);
         System.out.print("checkList size is : " + checkboxList.size() + checkboxList.get(0) );
+        modelsMap.put("applicationFieldDictionary",new ApplicationFieldDictionary());
         modelAndView.addAllObjects(modelsMap);
         modelAndView.setViewName("cv-field-dictionary/checkbox-dictionary-values-register");
         return modelAndView;
@@ -698,7 +685,6 @@ public class CvFieldDictionaryController {
                 }
             }
         }
-        System.out.print("dropdwon size is : "+dropdownList.size() );
         return dropdownList;
     }
 

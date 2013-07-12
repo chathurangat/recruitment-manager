@@ -8,7 +8,7 @@ public class Vacancy {
 
     @Id
     private String id;
-    private String cvTemplateId;
+    private CvApplicationTemplate cvApplicationTemplate;
  //   private MultipartFile adImage;
 
 
@@ -21,14 +21,12 @@ public class Vacancy {
         this.id = id;
     }
 
-
-    public String getCvTemplateId(CvApplicationTemplate selectedCvApplicationTemplate){
-        return cvTemplateId;
+    public CvApplicationTemplate getCvApplicationTemplate(){
+        return cvApplicationTemplate;
     }
 
-
-    public void setCvTemplateId(String cvTemplateId){
-        this.cvTemplateId=cvTemplateId;
+    public void setCvApplicationTemplate(CvApplicationTemplate cvApplicationTemplate){
+        this.cvApplicationTemplate = cvApplicationTemplate;
     }
 
    /*

@@ -23,7 +23,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-@RequestMapping(value = "/vacancy_add")
+@RequestMapping(value = "/vacancy")
 public class VacancyController {
 
 
@@ -34,8 +34,8 @@ public class VacancyController {
     private VacancyService vacancyService;
 
 
-    // @Secured("ROLE_USER")
-    @RequestMapping(value = "/vacancy_add_generate_view",method = RequestMethod.GET)
+    // @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/vacancy_generate_view",method = RequestMethod.GET)
     public ModelAndView showVacancyAddGeneration(){
         List<CvApplicationTemplate> cvApplicationTemplate = cvApplicationTemplateService.findAllCvTemplate();
         ModelAndView modelAndView = new ModelAndView();
@@ -50,13 +50,17 @@ public class VacancyController {
         return modelAndView;
     }
 
-
-    @RequestMapping(value = "/vacancy_add_generate",method = RequestMethod.POST)
-    public ModelAndView vacancyAddGenerationInsert(@Valid Vacancy vacancy,BindingResult bindingResult,ModelAndView modelAndView){
+    //@Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/vacancy_generate",method = RequestMethod.POST)
+    public ModelAndView vacancyAddGenerationInsert(@Valid Vacancy vacancy,BindingResult bindingResult,ModelAndView modelAndView)
+    {
         modelAndView.setViewName("vacancy_add_generation/vacancy_add");
         CvApplicationTemplate  selectedCvApplicationTemplate=new CvApplicationTemplate();
-        this.findSelectedCvApplicationTemplate(vacancy,selectedCvApplicationTemplate);
-        vacancy.getCvTemplateId(selectedCvApplicationTemplate);
+        this.findSelectedCvApplicationTemplate(selectedCvApplicationTemplate);
+        List<CvApplicationTemplate> cvApplicationTemplate = cvApplicationTemplateService.findAllCvTemplate();
+        modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+
+        //vacancy.getId(selectedCvApplicationTemplate);
 
         //image Upload -------------------------------------
 
@@ -105,9 +109,7 @@ public class VacancyController {
     }
 
 
-
-
-    private void findSelectedCvApplicationTemplate(Vacancy vacancy,CvApplicationTemplate selectedCvApplicationTemplate)
+    private void findSelectedCvApplicationTemplate(CvApplicationTemplate selectedCvApplicationTemplate)
     {
         List<CvApplicationTemplate> cvApplicationTemplateList =  cvApplicationTemplateService.findAllCvTemplate();
         for (int index=0;index<cvApplicationTemplateList.size();index++)
@@ -118,7 +120,7 @@ public class VacancyController {
                 CvApplicationTemplate cvApplicationTemplate1=cvApplicationTemplateService.findCvTemplateById(cvApplicationTemplate.getId());
 
                 if(cvApplicationTemplate1!=null) {
-                    selectedCvApplicationTemplate.add(cvApplicationTemplate1);
+                    selectedCvApplicationTemplate = cvApplicationTemplate1;
                 }
             }
 

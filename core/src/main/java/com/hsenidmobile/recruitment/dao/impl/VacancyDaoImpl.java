@@ -31,12 +31,12 @@ public class VacancyDaoImpl implements VacancyDao {
         }
         mongoTemplate.insert(vacancy, COLLECTION_NAME);
     }
+
+
     @Override
     public void update(Vacancy vacancy){
         mongoTemplate.save(vacancy,COLLECTION_NAME);
     }
-
-
 
     @Override
     public void removeVacancy(Vacancy vacancy) {

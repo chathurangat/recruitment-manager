@@ -13,37 +13,44 @@ import java.util.List;
  */
 public interface VacancyDao {
 
-
-    void create(Vacancy vacancy);
     /**
      * <p>
      *     create vacancy
      * </p>
-     * @param vacancy as {@link com.hsenidmobile.recruitment.model.CvApplicationSection}
+     * @param vacancy as {@link com.hsenidmobile.recruitment.model.Vacancy}
      */
+    void create(Vacancy vacancy);
 
-    void update(Vacancy vacancy);
     /**
      * <p>
      *     update vacancy
      * </p>
-     * @param vacancy as {@link com.hsenidmobile.recruitment.model.CvApplicationSection}
+     * @param vacancy as {@link com.hsenidmobile.recruitment.model.Vacancy}
      */
+    void update(Vacancy vacancy);
 
+    /**
+     * <p>
+     *    remove vacancy
+     * </p>
+     * @param vacancy as {@link com.hsenidmobile.recruitment.model.Vacancy}
+     */
+    void removeVacancy(Vacancy vacancy);
 
-
-
-    Vacancy findVacancyById(String id);
     /**
      * <p>
      *     find vacancy with given id
      * </p>
      * @return instance of {@link Vacancy}
      */
+    Vacancy findVacancyById(String id);
 
+    /**
+     * <p>
+     *     find vacancy with given id
+     * </p>
+     * @return instance of {@link Vacancy}
+     */
+     List<Vacancy> findAllVacancy();
 
-    List<Vacancy> findAllVacancy();
-
-
-    void removeVacancy(Vacancy vacancy);
 }
