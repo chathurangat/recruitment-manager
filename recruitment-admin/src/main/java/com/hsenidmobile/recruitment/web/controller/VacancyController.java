@@ -25,7 +25,9 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/vacancy")
 public class VacancyController {
+    private Integer IMAGE_MAX_SIZE = 500000;
 
+    private String uploadsDir = "/opt/tomcat/uploads";
 
     @Autowired
     private CvApplicationTemplateService cvApplicationTemplateService;
@@ -64,7 +66,7 @@ public class VacancyController {
 
         //image Upload -------------------------------------
 
-        //this.findAdvertiestmentImage(selectedAdImage);
+
      /*
        MultipartFile filea= vacancy.getAdImage();
 
@@ -72,14 +74,19 @@ public class VacancyController {
         OutputStream outputStream = null;
         if (filea.getSize() > 0) {
             inputStream = filea.getInputStream();
-            outputStream = new FileOutputStream("/resources");
+            String fileName = uploadsDir + "/" + file.getOriginalFilename();
+
+
+            outputStream = new FileOutputStream(fileName);
             int readBytes = 0;
-            byte[] buffer = new byte[8192];
+            byte[] buffer = new byte[IMAGE_MAX_SIZE];
             while ((readBytes = inputStream.read(buffer, 0, 8192)) != -1) {
                 outputStream.write(buffer, 0, readBytes);
             }
             outputStream.close();
             inputStream.close();
+           // modelAndView.setViewName("vacancy_add_generation/vacancy_add_success");
+            return modelAndView;
 
         }
         //----------------------------------------------------------      */
@@ -105,8 +112,7 @@ public class VacancyController {
             return modelAndView;
         }
 
-
-    }
+      }
 
 
     private void findSelectedCvApplicationTemplate(CvApplicationTemplate selectedCvApplicationTemplate)
@@ -126,15 +132,11 @@ public class VacancyController {
 
         }
 
-    }    /*
-
-    private void findAdvertiestmentImage(MultipartFile selectedAdImage){
-
-    code to upload image file
-
-
     }
-  */
+
+
+
+
 
 
 }
