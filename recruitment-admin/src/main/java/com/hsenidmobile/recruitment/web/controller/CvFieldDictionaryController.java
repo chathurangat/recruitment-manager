@@ -193,19 +193,19 @@ public class CvFieldDictionaryController {
      *     this method will only support for HTTP GET requests
      *     the access will be granted for the authenticated users with ROLE_ADMIN
      * </p>
-     * @return "dropdown-dictionary-register" logical name encapsulated in {@link ModelAndView}
+     * @return "dropDown-dictionary-register" logical name encapsulated in {@link ModelAndView}
      */
     @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_dropdown/registration_view",method = RequestMethod.GET)
-    public ModelAndView cvFieldDropdownRegisterView(ModelAndView modelAndView){
-        logger.info(" display cv template section dropdown field dictionary registration view ");
+    @RequestMapping(value = "/cv_dropDown/registration_view",method = RequestMethod.GET)
+    public ModelAndView cvFieldDropDownRegisterView(ModelAndView modelAndView){
+        logger.info(" display cv template section dropDown field dictionary registration view ");
         Map<String,Object> modelsMap =  new HashMap<String, Object>();
         modelsMap.put("dropDownDictionary",new DropDownDictionary());
         List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
         modelsMap.put("validationList",validationList);
         modelsMap.put("applicationFieldDictionary",new ApplicationFieldDictionary());
         modelAndView.addAllObjects(modelsMap);
-        modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-register");
+        modelAndView.setViewName("cv-field-dictionary/dropDown-dictionary-register");
 
         return modelAndView;
     }
@@ -218,13 +218,13 @@ public class CvFieldDictionaryController {
      *     this method will only support for HTTP GET requests
      *     the access will be granted for the authenticated users with ROLE_ADMIN
      * </p>
-     * @return "dropdown-dictionary-register" logical name encapsulated in {@link ModelAndView}
+     * @return "dropDown-dictionary-register" logical name encapsulated in {@link ModelAndView}
      */
     @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_dropdown/register",method = RequestMethod.POST)
+    @RequestMapping(value = "/cv_dropDown/register",method = RequestMethod.POST)
     public ModelAndView registerNewDropDownDictionary(@Valid DropDownDictionary dropDownDictionary,BindingResult bindingResult,ModelAndView modelAndView,HttpSession httpSession){
-        System.out.println(" registering new cv template section dropdown field dictionary");
-        modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-register");
+        System.out.println(" registering new cv template section dropDown field dictionary");
+        modelAndView.setViewName("cv-field-dictionary/dropDown-dictionary-register");
         modelAndView.addObject("validationList",this.getValidationCriteriaList());
 
         List<ApplicationFieldDictionaryValidation> userSelectedValidations = this.getUserSubmittedValidations(dropDownDictionary.getApplicationFieldDictionaryValidationList());
@@ -253,7 +253,7 @@ public class CvFieldDictionaryController {
         return modelAndView;
         }
         else {
-            logger.info("registering new cv template section dropdown field dictionary form contains errors ");
+            logger.info("registering new cv template section dropDown field dictionary form contains errors ");
             return modelAndView;
     }
 }
@@ -265,21 +265,20 @@ public class CvFieldDictionaryController {
      *     this method will only support for HTTP GET requests
      *     the access will be granted for the authenticated users with ROLE_ADMIN
      * </p>
-     * @return "dropdown-dictionary-options-register" logical name encapsulated in {@link ModelAndView}
+     * @return "dropDown-dictionary-options-register" logical name encapsulated in {@link ModelAndView}
      */
     @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_dropdown-options/registration_view",method = RequestMethod.GET)
-    public ModelAndView cvFieldDropdownOptionsRegisterView(ModelAndView modelAndView){
-        logger.info(" display cv template section dropdown field options registration view ");
+    @RequestMapping(value = "/cv_dropDown-options/registration_view",method = RequestMethod.GET)
+    public ModelAndView cvFieldDropDownOptionsRegisterView(ModelAndView modelAndView){
+        logger.info(" display cv template section dropDown field options registration view ");
         Map<String,Object> modelsMap =  new HashMap<String, Object>();
         List<ApplicationFieldDictionary> applicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
-        List<String> dropDownList = this.createDropdownList(applicationFieldDictionaryList);
-        modelsMap.put("dropDownList",dropDownList);
-        System.out.print("DropdownList size is : " + dropDownList.size());
-        modelsMap.put("dropDownOption",new DropDownOption());
-        modelsMap.put("applicationFieldDictionary",new ApplicationFieldDictionary());
-        modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-options-register");
+        List<String> dropDownList = this.createDropDownList(applicationFieldDictionaryList);
+        //modelAndView..put("dropDownList",dropDownList);
+        System.out.print("DropDownList size is : " + dropDownList.size());
         modelAndView.addAllObjects(modelsMap);
+        modelAndView.setViewName("cv-field-dictionary/dropDown-dictionary-options-register");
+
         return modelAndView;
     }
 
@@ -290,19 +289,19 @@ public class CvFieldDictionaryController {
      *     this method will only support for HTTP GET requests
      *     the access will be granted for the authenticated users with ROLE_ADMIN
      * </p>
-     * @return "dropdown-dictionary-options-register" logical name encapsulated in {@link ModelAndView}
+     * @return "dropDown-dictionary-options-register" logical name encapsulated in {@link ModelAndView}
      */
     @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_dropdown-options/add",method = RequestMethod.POST)
+    @RequestMapping(value = "/cv_dropDown-options/add",method = RequestMethod.POST)
     public ModelAndView registerNewDropDownOptions(@Valid DropDownOption dropDownOption,BindingResult bindingResult,ModelAndView modelAndView){
-        System.out.println(" registering new cv template section dropdown field options");
-        modelAndView.setViewName("cv-field-dictionary/dropdown-dictionary-options-register");
+        System.out.println(" registering new cv template section dropDown field options");
+        modelAndView.setViewName("cv-field-dictionary/dropDown-dictionary-options-register");
         Map<String,Object> modelsMap =  new HashMap<String, Object>();
         List<ApplicationFieldDictionary> applicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
-        List<String> dropDownList = this.createDropdownList(applicationFieldDictionaryList);
+        List<String> dropDownList = this.createDropDownList(applicationFieldDictionaryList);
         modelsMap.put("dropDownList",dropDownList);
         ApplicationFieldDictionary applicationFieldDictionary = new ApplicationFieldDictionary();
-        modelsMap.put("applicationFieldDictionary",applicationFieldDictionary);
+      //  modelsMap.put("applicationFieldDictionary",applicationFieldDictionary);
         modelAndView.addAllObjects(modelsMap);
         if(bindingResult.hasErrors()){
             logger.info(" submitted form contains errors");
@@ -310,7 +309,7 @@ public class CvFieldDictionaryController {
         }
         else{
             cvApplicationFieldDictionaryService.updateCvSectionFieldDictionary(applicationFieldDictionary);
-            modelAndView.setViewName("redirect:cv-field-dictionary/dropdown-dictionary-options-register");
+            modelAndView.setViewName("redirect:cv-field-dictionary/dropDown-dictionary-options-register");
         }
         return modelAndView;
     }
@@ -321,10 +320,10 @@ public class CvFieldDictionaryController {
      *     this method will only support for HTTP GET requests
      *     the access will be granted for the authenticated users with ROLE_ADMIN
      * </p>
-     * @return "radiobutton-dictionary-register" logical name encapsulated in {@link ModelAndView}
+     * @return "radioButton-dictionary-register" logical name encapsulated in {@link ModelAndView}
      */
     @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_radiobutton/registration_view",method = RequestMethod.GET)
+    @RequestMapping(value = "/cv_radioButton/registration_view",method = RequestMethod.GET)
     public ModelAndView cvFieldRadioButtonRegisterView(ModelAndView modelAndView){
         logger.info(" display cv template section RadioButton field dictionary registration view ");
         Map<String,Object> modelsMap =  new HashMap<String, Object>();
@@ -333,7 +332,7 @@ public class CvFieldDictionaryController {
         modelsMap.put("validationList",validationList);
         modelAndView.addAllObjects(modelsMap);
 
-        modelAndView.setViewName("cv-field-dictionary/radiobutton-dictionary-register");
+        modelAndView.setViewName("cv-field-dictionary/radioButton-dictionary-register");
         return modelAndView;
     }
 
@@ -344,13 +343,13 @@ public class CvFieldDictionaryController {
      *     this method will only support for HTTP GET requests
      *     the access will be granted for the authenticated users with ROLE_ADMIN
      * </p>
-     * @return "radiobutton-dictionary-register" logical name encapsulated in {@link ModelAndView}
+     * @return "radioButton-dictionary-register" logical name encapsulated in {@link ModelAndView}
      */
     @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_radiobutton/register",method = RequestMethod.POST)
+    @RequestMapping(value = "/cv_radioButton/register",method = RequestMethod.POST)
     public ModelAndView registerNewRadioButtonDictionary(@Valid RadioButtonDictionary radioButtonDictionary,BindingResult bindingResult,ModelAndView modelAndView,HttpSession httpSession){
-        System.out.println(" registering new cv template section radiobutton field dictionary");
-        modelAndView.setViewName("cv-field-dictionary/radiobutton-dictionary-register");
+        System.out.println(" registering new cv template section radioButton field dictionary");
+        modelAndView.setViewName("cv-field-dictionary/radioButton-dictionary-register");
         modelAndView.addObject("validationList",this.getValidationCriteriaList());
         List<ApplicationFieldDictionaryValidation> userSelectedValidations = this.getUserSubmittedValidations(radioButtonDictionary.getApplicationFieldDictionaryValidationList());
         logger.info(" size of user  selected validations [{}]",userSelectedValidations.size());
@@ -386,14 +385,14 @@ public class CvFieldDictionaryController {
 
     /**
      * <p>
-     *     display the radiobutton value Dictionary Registration page of the recruitment admin application
+     *     display the radioButton value Dictionary Registration page of the recruitment admin application
      *     this method will only support for HTTP GET requests
      *     the access will be granted for the authenticated users with ROLE_ADMIN
      * </p>
-     * @return "radiobutton-dictionary-values-register" logical name encapsulated in {@link ModelAndView}
+     * @return "radioButton-dictionary-values-register" logical name encapsulated in {@link ModelAndView}
      */
     @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_radiobutton-values/registration_view",method = RequestMethod.GET)
+    @RequestMapping(value = "/cv_radioButton-values/registration_view",method = RequestMethod.GET)
     public ModelAndView cvFieldRadioButtonValuesRegisterView(ModelAndView modelAndView){
         logger.info(" display cv template section radio button values registration view ");
         Map<String,Object> modelsMap =  new HashMap<String, Object>();
@@ -401,12 +400,12 @@ public class CvFieldDictionaryController {
         List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
         modelsMap.put("validationList",validationList);
         List<ApplicationFieldDictionary> applicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
-        List<String>radiobuttonList = this.createRadiobuttonList(applicationFieldDictionaryList);
-        modelsMap.put("radiobuttonList",radiobuttonList);
-        modelsMap.put("applicationFieldDictionary",new ApplicationFieldDictionary());
+        List<String>radioButtonList = this.createRadioButtonList(applicationFieldDictionaryList);
+        modelsMap.put("radioButtonList",radioButtonList);
+      //  modelsMap.put("applicationFieldDictionary",new ApplicationFieldDictionary());
         modelAndView.addAllObjects(modelsMap);
-        System.out.print("radio button list size : " + radiobuttonList.size());
-        modelAndView.setViewName("cv-field-dictionary/radiobutton-dictionary-values-register");
+        System.out.print("radio button list size : " + radioButtonList.size());
+        modelAndView.setViewName("cv-field-dictionary/radioButton-dictionary-values-register");
         return modelAndView;
     }
 
@@ -417,13 +416,13 @@ public class CvFieldDictionaryController {
      *     this method will only support for HTTP GET requests
      *     the access will be granted for the authenticated users with ROLE_ADMIN
      * </p>
-     * @return "radiobutton-dictionary-options-register" logical name encapsulated in {@link ModelAndView}
+     * @return "radioButton-dictionary-options-register" logical name encapsulated in {@link ModelAndView}
      */
     @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/cv_radiobutton-values/add",method = RequestMethod.POST)
+    @RequestMapping(value = "/cv_radioButton-values/add",method = RequestMethod.POST)
     public ModelAndView registerNewRadioButtonValues(@Valid RadioButtonValue radioButtonValue,BindingResult bindingResult,ModelAndView modelAndView){
-        System.out.println(" registering new cv template section radiobutton field values");
-        modelAndView.setViewName("cv-field-dictionary/radiobutton-dictionary-values-register");
+        System.out.println(" registering new cv template section radioButton field values");
+        modelAndView.setViewName("cv-field-dictionary/radioButton-dictionary-values-register");
         Map<String,Object> modelsMap =  new HashMap<String, Object>();
         ApplicationFieldDictionary applicationFieldDictionary = new ApplicationFieldDictionary();
         modelsMap.put("applicationFieldDictionary",applicationFieldDictionary);
@@ -434,7 +433,7 @@ public class CvFieldDictionaryController {
         }
         else{
             cvApplicationFieldDictionaryService.updateCvSectionFieldDictionary(applicationFieldDictionary);
-            modelAndView.setViewName("redirect:cv-field-dictionary/radiobutton-dictionary-values-register");
+            modelAndView.setViewName("redirect:cv-field-dictionary/radioButton-dictionary-values-register");
         }
         return modelAndView;
     }
@@ -670,22 +669,22 @@ public class CvFieldDictionaryController {
 
     /**
      * <p>
-     *     creating the dropdown list based on the applicationFieldDictionaryList
+     *     creating the dropDown list based on the applicationFieldDictionaryList
      * </p>
      * @param applicationFieldDictionaryList contains the list of {@link com.hsenidmobile.recruitment.model.ApplicationFieldDictionary} instances found
      * @return list of priorities based on the size of the cv application section list
      */
-    private List<String> createDropdownList(List<ApplicationFieldDictionary> applicationFieldDictionaryList){
-        List<String> dropdownList = new ArrayList<String>();
+    private List<String> createDropDownList(List<ApplicationFieldDictionary> applicationFieldDictionaryList){
+        List<String> dropDownList = new ArrayList<String>();
         if(applicationFieldDictionaryList!=null){
             for(int i=0;i<applicationFieldDictionaryList.size();i++){
                 if(applicationFieldDictionaryList.get(i).getHtmlComponent().equalsIgnoreCase("dropdown") )
                 {
-                dropdownList.add(applicationFieldDictionaryList.get(i).getLabelEn());
+                dropDownList.add(applicationFieldDictionaryList.get(i).getLabelEn());
                 }
             }
         }
-        return dropdownList;
+        return dropDownList;
     }
 
     /**
@@ -710,22 +709,22 @@ public class CvFieldDictionaryController {
 
     /**
      * <p>
-     *     creating the radiobutton list based on the applicationFieldDictionaryList
+     *     creating the radioButton list based on the applicationFieldDictionaryList
      * </p>
      * @param applicationFieldDictionaryList contains the list of {@link com.hsenidmobile.recruitment.model.ApplicationFieldDictionary} instances found
      * @return list of priorities based on the size of the cv application section list
      */
-    private List<String> createRadiobuttonList(List<ApplicationFieldDictionary> applicationFieldDictionaryList){
-        List<String> radiobuttonList = new ArrayList<String>();
+    private List<String> createRadioButtonList(List<ApplicationFieldDictionary> applicationFieldDictionaryList){
+        List<String> radioButtonList = new ArrayList<String>();
         if(applicationFieldDictionaryList!=null){
             for(int i=0;i< applicationFieldDictionaryList.size();i++){
                 if(applicationFieldDictionaryList.get(i).getHtmlComponent().equalsIgnoreCase("radiobutton") )
                 {
-                    radiobuttonList.add(applicationFieldDictionaryList.get(i).getLabelEn());
+                    radioButtonList.add(applicationFieldDictionaryList.get(i).getLabelEn());
                 }
             }
         }
-        return radiobuttonList;
+        return radioButtonList;
     }
 
 }

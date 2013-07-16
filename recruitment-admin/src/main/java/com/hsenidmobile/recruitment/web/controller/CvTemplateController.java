@@ -57,11 +57,13 @@ public class CvTemplateController {
 
         Map<String,Object> modelObjects = new HashMap<String, Object>();
         List<Integer> priorityList = this.createPriorityLit(cvApplicationSectionList);
+        List<String> cvSectionList = this.createCvSectionList(cvApplicationSectionList);
         modelAndView.setViewName("cv-template/cv-template-register");
         modelObjects.put("masterCvApplicationSectionList", cvApplicationSectionList);
         CvApplicationTemplate cvApplicationTemplate =  new CvApplicationTemplate();
         modelObjects.put("cvApplicationTemplate",cvApplicationTemplate);
         modelObjects.put("priorityList",priorityList);
+        modelObjects.put("cvSectionList",cvSectionList);
         modelAndView.addAllObjects(modelObjects);
         return modelAndView;
     }
@@ -279,5 +281,15 @@ public class CvTemplateController {
             }
         }
         return priorityList;
+    }
+
+    private List<String > createCvSectionList(List<CvApplicationSection> cvApplicationSectionList){
+        List<String> cvSectionList = new ArrayList<String>();
+        if(cvApplicationSectionList!=null){
+            for(int i=0;i<cvApplicationSectionList.size();i++){
+                cvSectionList.add(cvApplicationSectionList.get(i).getSectionNameEn());
+            }
+        }
+        return cvSectionList;
     }
 }

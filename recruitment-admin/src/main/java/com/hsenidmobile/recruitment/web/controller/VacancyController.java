@@ -58,9 +58,9 @@ public class VacancyController {
     {
         modelAndView.setViewName("vacancy_add_generation/vacancy_add");
         CvApplicationTemplate  selectedCvApplicationTemplate=new CvApplicationTemplate();
-        this.findSelectedCvApplicationTemplate(selectedCvApplicationTemplate);
-        List<CvApplicationTemplate> cvApplicationTemplate = cvApplicationTemplateService.findAllCvTemplate();
-        modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+        this.findSelectedCvApplicationTemplate(selectedCvApplicationTemplate,vacancy);
+     //   List<CvApplicationTemplate> cvApplicationTemplate = cvApplicationTemplateService.findAllCvTemplate();
+     //   modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
 
         //vacancy.getId(selectedCvApplicationTemplate);
 
@@ -103,19 +103,23 @@ public class VacancyController {
                 // logger.info("registering new cv template section form contains no errors (create) ");
                 System.out.println(" there are no errors (create)");
             }
+          List<CvApplicationTemplate> cvApplicationTemplate = cvApplicationTemplateService.findAllCvTemplate();
+          modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
             return modelAndView;
         }
         else {
 
             // logger.info("registering new cv template section form contains errors ");
             modelAndView.setViewName("error");
+             List<CvApplicationTemplate> cvApplicationTemplate = cvApplicationTemplateService.findAllCvTemplate();
+             modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
             return modelAndView;
         }
 
       }
 
 
-    private void findSelectedCvApplicationTemplate(CvApplicationTemplate selectedCvApplicationTemplate)
+    private void findSelectedCvApplicationTemplate(CvApplicationTemplate selectedCvApplicationTemplate,Vacancy vacancy)
     {
         List<CvApplicationTemplate> cvApplicationTemplateList =  cvApplicationTemplateService.findAllCvTemplate();
         for (int index=0;index<cvApplicationTemplateList.size();index++)
@@ -127,18 +131,13 @@ public class VacancyController {
 
                 if(cvApplicationTemplate1!=null) {
                     selectedCvApplicationTemplate = cvApplicationTemplate1;
+                    vacancy.setCvApplicationTemplateId(selectedCvApplicationTemplate.getId());
                 }
             }
 
         }
 
     }
-
-
-
-
-
-
 }
 
 

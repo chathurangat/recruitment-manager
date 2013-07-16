@@ -1,4 +1,7 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"><jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
+          xmlns:c="http://java.sun.com/jsp/jstl/core" >
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
     <html>
     <head>
         <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
@@ -7,6 +10,10 @@
         <link href="../resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="../resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
         <link href="../resources/css/custom-hms.css" rel="stylesheet" type="text/css"/>
+
+        <link type="text/css" href="../resources/css/common.css"  rel="stylesheet" />
+        <link type="text/css" href="../resources/css/jquery-ui.css" rel="stylesheet" />
+        <link type="text/css" href="../resources/css/ui.multiselect.css" rel="stylesheet" />
 
         <!--<title><decorator:title default="Customized Title Should Goes here"/></title>-->
         <!--<meta http-equiv="content-type" content="text/html; charset=utf-8"/>-->
@@ -44,12 +51,12 @@
                             <li class="nav-header">Cv Field Dictionary</li>
                             <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_textfield/registration_view">TextBox</a></li>
                             <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_textarea/registration_view">TextArea</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropdown/registration_view">DropDown</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropdown-options/registration_view">DropDown Options</a></li>
+                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropDown/registration_view">DropDown</a></li>
+                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropDown-options/registration_view">DropDown Options</a></li>
                             <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_checkbox/registration_view">CheckBox</a></li>
                             <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_checkbox-values/registration_view">CheckBox Values</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_radiobutton/registration_view">RadioButton</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_radiobutton-values/registration_view">RadioButton Values</a></li>
+                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_radioButton/registration_view">RadioButton</a></li>
+                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_radioButton-values/registration_view">RadioButton Values</a></li>
                             <li class="nav-header">Cv Applicant</li>
                             <li><a href="http://localhost:8080/recruitment-admin/user/cv_application/applied-applicant">Candiate List</a></li>
 
@@ -72,12 +79,25 @@
     <jsp:include page="footer.jspx"/>
 
     <![CDATA[<!-- Placed at the end of the document so the pages load faster -->]]>
-    <script type="text/javascript" src="../resources/js/jquery-1.8.0-min.js" />
-    <script type="text/javascript" src="../resources/js/bootstrap.min.js" />
-    <script type="text/javascript" src="../resources/js/demo.js" />
-    <script type="text/javascript" src="../resources/js/json2.js" />
-    <script type="text/javascript" src="../resources/js/date.format.js" />
+    <script type="text/javascript" src="../resources/js/jquery-1.8.0-min.js"><jsp:text /></script>
+    <script type="text/javascript" src="../resources/js/bootstrap.min.js"><jsp:text /></script>
+    <script type="text/javascript" src="../resources/js/demo.js"><jsp:text /></script>
+    <script type="text/javascript" src="../resources/js/json2.js"><jsp:text /></script>
+    <script type="text/javascript" src="../resources/js/date.format.js"><jsp:text /></script>
 
+    <script type="text/javascript">
+        $(function(){
+            $.localise('ui-multiselect', {/*language: 'en',*/ path: 'js/locale/'});
+            $(".multiselect").multiselect();
+            $('#switcher').themeswitcher();
+        });
+    </script>
+
+    <script type="text/javascript" src="../resources/js/jquery.min.js"><jsp:text /></script>
+    <script type="text/javascript" src="../resources/js/jquery-ui.min.js"><jsp:text /></script>
+    <script type="text/javascript" src="../resources/js/plugins/localisation/jquery.localisation-min.js"><jsp:text /></script>
+    <script type="text/javascript" src="../resources/js/plugins/scrollTo/jquery.scrollTo-min.js"><jsp:text /></script>
+    <script type="text/javascript" src="../resources/js/ui.multiselect.js"><jsp:text /></script>
 
     </body>
     </html></jsp:root>
