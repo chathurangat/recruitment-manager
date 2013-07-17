@@ -85,22 +85,23 @@
                         <sf:errors path="cvApplicationSectionList" cssClass="text-error margin-left-30"/>
                     </div>
                 </div>
-                <c:forEach items="${masterCvApplicationSectionList}" var="cvApplicationSection" varStatus="status">
-
-
-
-                                <sf:select path="cvApplicationSectionList[${status.index}].id" Class="multiselect" multiple="multiple" name="cvApplicationSection[]">
+                <div class="row">
+                    <div class="span10">
+                                <sf:select path="cvApplicationSectionList" Class="multiselect" multiple="multiple" name="cvApplicationSection[]" style="width:500px; height:200px;">
 
                                     <sf:options items="${cvSectionList}"/>
                                 </sf:select>
-                            <div class="span4">
-                                <sf:errors path="cvApplicationSectionList[${status.index}].priority" cssClass="text-error"/>
-                            </div>
 
-                </c:forEach>
+                    </div>
+                </div>
+
+                                <sf:errors path="cvApplicationSectionList" Class="text-error"/>
+
+
             </c:if>
 
-
+            <br />
+            <br />
 
             <div class="control-group">
                 <div class="controls">
@@ -116,6 +117,8 @@
             $.localise('ui-multiselect', {/*language: 'en',*/ path: 'js/locale/'});
             $(".multiselect").multiselect();
             $('#switcher').themeswitcher();
+
+            var cvApplicationSectionList = $('#cvApplicationSection').val();
         });
     </script>
     <script type="text/javascript" src="../resources/js/jquery.min.js"><jsp:text /></script>
@@ -125,6 +128,44 @@
     <script type="text/javascript" src="../resources/js/ui.multiselect.js"><jsp:text /></script>
 
 </jsp:root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -12,7 +12,8 @@
         <link href="../resources/css/custom-hms.css" rel="stylesheet" type="text/css"/>
 
         <link type="text/css" href="../resources/css/common.css"  rel="stylesheet" />
-        <link type="text/css" href="../resources/css/jquery-ui.css" rel="stylesheet" />
+        <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
+        <!-- <link type="text/css" href="../resources/css/jquery-ui.css" rel="stylesheet" /> -->
         <link type="text/css" href="../resources/css/ui.multiselect.css" rel="stylesheet" />
 
         <!--<title><decorator:title default="Customized Title Should Goes here"/></title>-->
