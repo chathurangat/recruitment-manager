@@ -272,10 +272,13 @@ public class CvFieldDictionaryController {
     public ModelAndView cvFieldDropDownOptionsRegisterView(ModelAndView modelAndView){
         logger.info(" display cv template section dropDown field options registration view ");
         Map<String,Object> modelsMap =  new HashMap<String, Object>();
+        System.out.print("After the hash map");
         List<ApplicationFieldDictionary> applicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
-        List<String> dropDownList = this.createDropDownList(applicationFieldDictionaryList);
-        //modelAndView..put("dropDownList",dropDownList);
-        System.out.print("DropDownList size is : " + dropDownList.size());
+        System.out.print("After the application field dictionary list found");
+     //   List<String> dropDownList = createDropDownList(applicationFieldDictionaryList);
+      //  System.out.print("After the dropdown list is created");
+     //   modelsMap.put("dropDownList",dropDownList);
+     //   System.out.print("DropDownList size is : " + dropDownList.size());
         modelAndView.addAllObjects(modelsMap);
         modelAndView.setViewName("cv-field-dictionary/dropDown-dictionary-options-register");
 
@@ -395,16 +398,16 @@ public class CvFieldDictionaryController {
     @RequestMapping(value = "/cv_radioButton-values/registration_view",method = RequestMethod.GET)
     public ModelAndView cvFieldRadioButtonValuesRegisterView(ModelAndView modelAndView){
         logger.info(" display cv template section radio button values registration view ");
-        Map<String,Object> modelsMap =  new HashMap<String, Object>();
-        modelsMap.put("radioButtonValue",new RadioButtonValue());
-        List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
-        modelsMap.put("validationList",validationList);
-        List<ApplicationFieldDictionary> applicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
-        List<String>radioButtonList = this.createRadioButtonList(applicationFieldDictionaryList);
-        modelsMap.put("radioButtonList",radioButtonList);
+ //       Map<String,Object> modelsMap =  new HashMap<String, Object>();
+   //     modelsMap.put("radioButtonValue",new RadioButtonValue());
+   //     List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
+  //      modelsMap.put("validationList",validationList);
+  //      List<ApplicationFieldDictionary> applicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
+   ///     List<String>radioButtonList = this.createRadioButtonList(applicationFieldDictionaryList);
+   //     modelsMap.put("radioButtonList",radioButtonList);
       //  modelsMap.put("applicationFieldDictionary",new ApplicationFieldDictionary());
-        modelAndView.addAllObjects(modelsMap);
-        System.out.print("radio button list size : " + radioButtonList.size());
+     //   modelAndView.addAllObjects(modelsMap);
+     //   System.out.print("radio button list size : " + radioButtonList.size());
         modelAndView.setViewName("cv-field-dictionary/radioButton-dictionary-values-register");
         return modelAndView;
     }
@@ -519,17 +522,17 @@ public class CvFieldDictionaryController {
     @RequestMapping(value = "/cv_checkbox-values/registration_view",method = RequestMethod.GET)
     public ModelAndView cvFieldCheckBoxValuesRegisterView(ModelAndView modelAndView){
         logger.info(" display cv template section checkbox values registration view ");
-        Map<String,Object> modelsMap =  new HashMap<String, Object>();
-        modelsMap.put("checkBoxValue",new CheckBoxValue());
-        List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
-        modelsMap.put("validationList",validationList);
-
-        List<ApplicationFieldDictionary> applicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
-        List<String> checkboxList = this.createCheckboxList(applicationFieldDictionaryList);
-        modelsMap.put("checkboxList",checkboxList);
-        System.out.print("checkList size is : " + checkboxList.size() + checkboxList.get(0) );
-        modelsMap.put("applicationFieldDictionary",new ApplicationFieldDictionary());
-        modelAndView.addAllObjects(modelsMap);
+  //      Map<String,Object> modelsMap =  new HashMap<String, Object>();
+ //       modelsMap.put("checkBoxValue",new CheckBoxValue());
+ //       List<ApplicationFieldDictionaryValidation> validationList = this.getValidationCriteriaList();
+ //       modelsMap.put("validationList",validationList);
+//
+ //       List<ApplicationFieldDictionary> applicationFieldDictionaryList = cvApplicationFieldDictionaryService.findAllCvSectionFieldDictionary();
+//        List<String> checkboxList = this.createCheckboxList(applicationFieldDictionaryList);
+ //       modelsMap.put("checkboxList",checkboxList);
+ //       System.out.print("checkList size is : " + checkboxList.size() + checkboxList.get(0) );
+ //       modelsMap.put("applicationFieldDictionary",new ApplicationFieldDictionary());
+  //      modelAndView.addAllObjects(modelsMap);
         modelAndView.setViewName("cv-field-dictionary/checkbox-dictionary-values-register");
         return modelAndView;
     }
@@ -678,7 +681,7 @@ public class CvFieldDictionaryController {
         List<String> dropDownList = new ArrayList<String>();
         if(applicationFieldDictionaryList!=null){
             for(int i=0;i<applicationFieldDictionaryList.size();i++){
-                if(applicationFieldDictionaryList.get(i).getHtmlComponent().equalsIgnoreCase("dropdown") )
+                if(applicationFieldDictionaryList.get(i).getHtmlComponent().equalsIgnoreCase("DropDown") )
                 {
                 dropDownList.add(applicationFieldDictionaryList.get(i).getLabelEn());
                 }

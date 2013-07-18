@@ -23,12 +23,12 @@
         -->
         <div class="control-group">
             <div class="controls">
-                <sf:label path= "applicationFieldDictionary.radioButtonValueList.id">
+                <sf:label path= "">
                     <spring:message code="label.form.select.cvRadioButton.dictionary.field.registration" />
                 </sf:label>
-                <sf:select path="${applicationFieldDictionary.radioButtonValueList.id}" cssClass="width-150">
+                <sf:select path="" cssClass="width-150">
                     <sf:option value="None" label="--- Select ---"/>
-                    <sf:options items="${radiobuttonList}"/>
+                    <sf:options items=""/>
                 </sf:select>
             </div>
         </div>

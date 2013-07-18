@@ -19,10 +19,10 @@
 
    <div class="control-group">
             <div class="controls">
-                <sf:label path= "${applicationFieldDictionary.id">
+                <sf:label path= "">
                 <spring:message code="label.form.select.cvDropDown.dictionary.field.registration" />
                 </sf:label>
-                <sf:select path="${applicationFieldDictionary.id" cssClass="width-150">
+                <sf:select path="" cssClass="width-150">
                     <sf:option value="None" label="- Select -"/>
                              <sf:options items="${dropDownList}"/>
                 </sf:select>

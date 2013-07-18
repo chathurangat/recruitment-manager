@@ -11,10 +11,7 @@
         <link href="../resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
         <link href="../resources/css/custom-hms.css" rel="stylesheet" type="text/css"/>
 
-        <link type="text/css" href="../resources/css/common.css"  rel="stylesheet" />
-        <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
-        <!-- <link type="text/css" href="../resources/css/jquery-ui.css" rel="stylesheet" /> -->
-        <link type="text/css" href="../resources/css/ui.multiselect.css" rel="stylesheet" />
+        <link rel="stylesheet" href="../resources/css/jquery.multiselect2side.css" type="text/css" media="screen" />
 
         <!--<title><decorator:title default="Customized Title Should Goes here"/></title>-->
         <!--<meta http-equiv="content-type" content="text/html; charset=utf-8"/>-->
@@ -86,19 +83,7 @@
     <script type="text/javascript" src="../resources/js/json2.js"><jsp:text /></script>
     <script type="text/javascript" src="../resources/js/date.format.js"><jsp:text /></script>
 
-    <script type="text/javascript">
-        $(function(){
-            $.localise('ui-multiselect', {/*language: 'en',*/ path: 'js/locale/'});
-            $(".multiselect").multiselect();
-            $('#switcher').themeswitcher();
-        });
-    </script>
-
-    <script type="text/javascript" src="../resources/js/jquery.min.js"><jsp:text /></script>
-    <script type="text/javascript" src="../resources/js/jquery-ui.min.js"><jsp:text /></script>
-    <script type="text/javascript" src="../resources/js/plugins/localisation/jquery.localisation-min.js"><jsp:text /></script>
-    <script type="text/javascript" src="../resources/js/plugins/scrollTo/jquery.scrollTo-min.js"><jsp:text /></script>
-    <script type="text/javascript" src="../resources/js/ui.multiselect.js"><jsp:text /></script>
-
+    <script type="text/javascript" src="../resources/js/jquery.js" ><jsp:text /></script>
+    <script type="text/javascript" src="../resources/js/jquery.multiselect2side.js" ><jsp:text /></script>
     </body>
     </html></jsp:root>
