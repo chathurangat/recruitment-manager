@@ -4,30 +4,28 @@ import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
 import com.hsenidmobile.recruitment.model.Vacancy;
 import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
 import com.hsenidmobile.recruitment.service.VacancyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpSession;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: tharanga
- * Date: 7/9/13
- * Time: 10:35 AM
- * To change this template use File | Settings | File Templates.
- */
 @Controller
 @RequestMapping(value = "/vacancy")
 public class VacancyController {
-    private Integer IMAGE_MAX_SIZE = 500000;
 
-    private String uploadsDir = "/opt/tomcat/uploads";
+    private static final Logger logger = LoggerFactory.getLogger(VacancyController.class);
 
     @Autowired
     private CvApplicationTemplateService cvApplicationTemplateService;
@@ -36,7 +34,7 @@ public class VacancyController {
     private VacancyService vacancyService;
 
 
-    // @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/vacancy_generate_view",method = RequestMethod.GET)
     public ModelAndView showVacancyAddGeneration(){
         List<CvApplicationTemplate> cvApplicationTemplate = cvApplicationTemplateService.findAllCvTemplate();
@@ -45,6 +43,7 @@ public class VacancyController {
         if (cvApplicationTemplate!=null){
             modelAndView.setViewName("vacancy_add_generation/vacancy_add");
             modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+            modelAndView.addObject("vacancy",new Vacancy());
         }
         else {
             modelAndView.setViewName("error");
@@ -52,48 +51,56 @@ public class VacancyController {
         return modelAndView;
     }
 
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/vacancy_generate",method = RequestMethod.POST)
-    public ModelAndView vacancyAddGenerationInsert(@Valid Vacancy vacancy,BindingResult bindingResult,ModelAndView modelAndView)
+    public ModelAndView vacancyAddGenerationInsert(Vacancy vacancy,BindingResult bindingResult,ModelAndView modelAndView,HttpSession session)
     {
-        modelAndView.setViewName("vacancy_add_generation/vacancy_add");
+ //       modelAndView.setViewName("vacancy_add_generation/vacancy_add");
         CvApplicationTemplate  selectedCvApplicationTemplate=new CvApplicationTemplate();
         this.findSelectedCvApplicationTemplate(selectedCvApplicationTemplate,vacancy);
      //   List<CvApplicationTemplate> cvApplicationTemplate = cvApplicationTemplateService.findAllCvTemplate();
      //   modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+     //   vacancy.getId(selectedCvApplicationTemplate);
+      if(!bindingResult.hasErrors()){
 
-        //vacancy.getId(selectedCvApplicationTemplate);
+        MultipartFile filea1 = vacancy.getFileData();
+        System.out.println("vacancy.getFileData()"+vacancy.getFileData());
+        System.out.println("filea.getSize()"+filea1.getSize());
+        try {
 
-        //image Upload -------------------------------------
-
-
-     /*
-       MultipartFile filea= vacancy.getAdImage();
-
-        InputStream inputStream = null;
-        OutputStream outputStream = null;
-        if (filea.getSize() > 0) {
-            inputStream = filea.getInputStream();
-            String fileName = uploadsDir + "/" + file.getOriginalFilename();
-
-
-            outputStream = new FileOutputStream(fileName);
-            int readBytes = 0;
-            byte[] buffer = new byte[IMAGE_MAX_SIZE];
-            while ((readBytes = inputStream.read(buffer, 0, 8192)) != -1) {
-                outputStream.write(buffer, 0, readBytes);
-            }
-            outputStream.close();
-            inputStream.close();
-           // modelAndView.setViewName("vacancy_add_generation/vacancy_add_success");
-            return modelAndView;
-
-        }
-        //----------------------------------------------------------      */
-       //----------------------------------------------------------
-        if(!bindingResult.hasErrors()){
-            if(StringUtils.hasText(vacancy.getId())){
-                vacancyService.update(vacancy);
+                MultipartFile filea = vacancy.getFileData();
+               System.out.print("vacancy.getFileData()"+vacancy.getFileData());
+                InputStream inputStream = null;
+                OutputStream outputStream = null;
+                System.out.print("filea.getSize()"+filea.getSize());
+                if (filea.getSize() > 0) {
+                    inputStream = filea.getInputStream();
+                    outputStream = new FileOutputStream("/home/tharanga/installs/apache-tomcat-7.0.40/webapps/image/"
+                            + filea.getOriginalFilename());
+                    vacancy.setFilename(filea.getOriginalFilename());
+                    System.out.println("================Starting to get Image================");
+                    System.out.println(filea.getOriginalFilename());
+                    System.out.println("=====================================================");
+                    int readBytes ;
+                    byte[] buffer = new byte[8192];
+                    while ((readBytes = inputStream.read(buffer, 0, 8192)) != -1) {
+                        System.out.println("================Image in saving now================");
+                        outputStream.write(buffer, 0, readBytes);
+                    }
+                    outputStream.close();
+                    inputStream.close();
+                    session.setAttribute("uploadFile", "/image/"
+                            + filea.getOriginalFilename());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                 }
+               System.out.print("End of file uploading statements");
+          /*\
+          if(StringUtils.hasText(vacancy.getId())){
+              System.out.print("Before update the vacancy");
+              vacancyService.update(vacancy);
+              System.out.print("After update the vacancy");
                 // logger.info("registering new cv template section form contains no errors (update) ");
                 System.out.println(" there are no errors (update)");
             }
@@ -103,8 +110,8 @@ public class VacancyController {
                 // logger.info("registering new cv template section form contains no errors (create) ");
                 System.out.println(" there are no errors (create)");
             }
-          List<CvApplicationTemplate> cvApplicationTemplate = cvApplicationTemplateService.findAllCvTemplate();
-          modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
+          */
+            modelAndView.setViewName("vacancy_add_generation/vacancy_add_generation_success");
             return modelAndView;
         }
         else {
@@ -118,6 +125,17 @@ public class VacancyController {
 
       }
 
+
+
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/vacancy-save-success")
+    public ModelAndView displayVacancySaveSuccessPage(){
+        logger.info(" displaying the vacancy success page after vacancy saved successfully");
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("application-save-success");
+        return modelAndView;
+    }
 
     private void findSelectedCvApplicationTemplate(CvApplicationTemplate selectedCvApplicationTemplate,Vacancy vacancy)
     {
