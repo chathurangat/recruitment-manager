@@ -24,14 +24,19 @@
         <fieldset>
             <legend></legend>
 
+            <div class="row">
+            <div class="control-group">
                 <ul class="nav nav-list">
                     <li class="nav-header">Select the Cv Application here !</li>
 
                     <c:forEach items="${cvApplicationTemplate}" var="cvApplicationTemplate">
-                        <li><input type="radio" name="CvTemplate" id="${cvApplicationTemplate.id}" value="${cvApplicationTemplate.id}"/>
-                        <label>${cvApplicationTemplate.cvHeaderEn}</label></li>
+                        <li><sf:label path="cvApplicationTemplateId">
+                            <sf:radiobutton path="cvApplicationTemplateId" value="${cvApplicationTemplate.id}"/>
+                        ${cvApplicationTemplate.cvHeaderEn}</sf:label></li>
                     </c:forEach>
                 </ul>
+            </div>
+            </div>
 
         </fieldset>
 
@@ -63,6 +68,9 @@
                     document.getElementById("fileData").focus();
                     return false;
                 }
+            }
+            if(this.files[0].size &lt; 200000){
+                alert("please enter the size less than"+this.files[0].size/1024);
             }
             return true;
         }

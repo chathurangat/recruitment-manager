@@ -22,7 +22,7 @@ public class VacancyDaoImpl implements VacancyDao {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public static final String COLLECTION_NAME = "vacancy_publish";
+    public static final String COLLECTION_NAME = "vacancy";
 
     @Override
     public void create(Vacancy vacancy){

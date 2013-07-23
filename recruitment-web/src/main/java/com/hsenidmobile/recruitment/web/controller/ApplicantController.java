@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,24 +35,27 @@ public class ApplicantController {
 
     /**
      * <p>
-     *     display all available cv application for a vacancy
+     *     display all available vacancies
      * </p>
      * @return
      */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/show")
-    public ModelAndView showAvailableCV(){
-        List<CvApplicationTemplate> cvApplicationTemplate = cvApplicationTemplateService.findAllCvTemplate();
+    public ModelAndView showAvailableVacancy(){
+        List<Vacancy> vacancyList = vacancyService.findAllVacancy();
+        List<CvApplicationTemplate> vacancies = new ArrayList<CvApplicationTemplate>();
+        for(int i=0;i < vacancyList.size();i++){
+               if(vacancyList.get(i).getCvApplicationTemplateId()!=null)
+                {
+                    vacancies.add(cvApplicationTemplateService.findCvTemplateById(vacancyList.get(i).getCvApplicationTemplateId()));
+                }
+            }
         ModelAndView modelAndView = new ModelAndView();
-        System.out.println(" application cv template ["+cvApplicationTemplate+"]");
-        if (cvApplicationTemplate!=null){
-           // modelAndView.setViewName("available_cv");
-           // modelAndView.addObject("cvApplicationTemplate",cvApplicationTemplate);
-
-            //available vacancy advertisments are displayed with link to the relevant cv
-            List<Vacancy> vacancyList = vacancyService.findAllVacancy();
+        System.out.println(" application vacancies ["+vacancies+"]");
+        if (vacancies!=null){
             modelAndView.setViewName("vacancy_publish");
-            modelAndView.addObject("vacancyList",vacancyList);
+            modelAndView.addObject("vacancyList",vacancies);
+            modelAndView.addObject("image",vacancyList);
         }
         else {
             modelAndView.setViewName("error");
