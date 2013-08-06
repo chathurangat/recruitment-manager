@@ -7,19 +7,20 @@ import com.hms.oauth.provider.FacebookProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.hms.oauth.config.OAuthKeyBox.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
 
+import static com.hms.oauth.config.OAuthKeyBox.ACCESS_TOKEN;
+
 public abstract class FaceBookExample {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FaceBookExample.class);
 
-    private static final String APPLICATION_ID = "673816255977332";
-    private static final String APPLICATION_SECRET = "1b872f85587926cdfce11200aed7c269";
-    private static final String REDIRECT_URL = "http://localhost:8080/recruitment-web/user/auth/facebook";
+    private static final String APPLICATION_ID = "430653957041487";
+    private static final String APPLICATION_SECRET = "a10cb4f5cda97cdd0df26ccd13306320";
+    private static final String REDIRECT_URL = "http://rec.admin.hsenidmobile.com:8080/recruitment-web/user/auth/facebook";
     private static final String STATE = "123";
 
 

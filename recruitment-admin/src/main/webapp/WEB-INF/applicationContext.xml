@@ -62,9 +62,9 @@
 
     <!--google oauth configuration details -->
     <bean id="googleOAuthConfig" class="com.hms.oauth.config.OAuthConfiguration">
-        <property name="applicationId" value="669970197155-7lhlm9iu7vgdv7dniif2kqs18ts5bt0h.apps.googleusercontent.com"/>
-        <property name="applicationSecret" value="C05Nugr_LKdwrq8-K2bZd7tK"/>
-        <property name="redirectUrl" value="http://localhost:8080/recruitment-admin/user/auth/google"/>
+        <property name="applicationId" value="614292503972.apps.googleusercontent.com"/>
+        <property name="applicationSecret" value="rjqE5tvFcQJA9aUmKpowsGQm"/>
+        <property name="redirectUrl" value="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/auth/google"/>
         <property name="scope" value="https://www.googleapis.com/auth/userinfo#email"/>
     </bean>
 
