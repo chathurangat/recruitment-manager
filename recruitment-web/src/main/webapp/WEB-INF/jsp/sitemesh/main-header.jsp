@@ -36,7 +36,7 @@
                     <div class="nav-collapse collapse">
                         <p class="navbar-text pull-right">
                             Welcome, <a href="#" class="navbar-link">${sessionScope['username']}</a>
-                            <a href="http://localhost:8080/recruitment-web/user/auth/logout" class="navbar-link">Logout</a>
+                            <a href="http://rec.admin.hsenidmobile.com:8080/recruitment-web/user/auth/logout" class="navbar-link">Logout</a>
                         </p>
                         <ul class="nav">
                             <li class="active"><a href="#">Home</a></li>

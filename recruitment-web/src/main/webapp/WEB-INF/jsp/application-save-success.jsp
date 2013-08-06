@@ -79,7 +79,7 @@
         <div class="row">
             <div class="control-group">
                 <div class="span5">
-                    <label for="${cvApplicationFieldList.applicationFieldDictionary.labelEn}">${cvApplicationFieldList.applicationFieldDictionary.labelEn} : </label>
+                    <label for="${cvApplicationFieldList.applicationFieldDictionary.labelEn}">${cvApplicationFieldList.applicationFieldDictionary.labelEn}  </label>
                 </div>
                 <div class="span5">
                     <label for="${cvApplicationFieldList.fieldValue}">${cvApplicationFieldList.fieldValue}</label>

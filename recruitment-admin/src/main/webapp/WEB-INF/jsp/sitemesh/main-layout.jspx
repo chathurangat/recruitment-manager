@@ -43,21 +43,22 @@
                         <jsp:text>Administrative Operations</jsp:text>
                         <ul class="nav nav-list">
                             <li class="nav-header">Cv Template</li>
-                            <li class="active"><a href="http://localhost:8080/recruitment-admin/user/cv_section/registration_view">CV Sections</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_template/registration_view">Cv Template</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_template_field/display-cv-template">CV Template Fields</a></li>
+                            <li class="active"><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_section/registration_view">CV Sections</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_template/registration_view">Cv Template</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_template_field/display-cv-template">CV Template Fields</a></li>
                             <li class="nav-header">Cv Field Dictionary</li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_textfield/registration_view">TextBox</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_textarea/registration_view">TextArea</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropDown/registration_view">DropDown</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_dropDown-options/registration_view">DropDown Options</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_checkbox/registration_view">CheckBox</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_checkbox-values/registration_view">CheckBox Values</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_radioButton/registration_view">RadioButton</a></li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_field_dictionary/cv_radioButton-values/registration_view">RadioButton Values</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_field_dictionary/cv_textfield/registration_view">TextBox</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_field_dictionary/cv_textarea/registration_view">TextArea</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_field_dictionary/cv_dropDown/registration_view">DropDown</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_field_dictionary/cv_dropDown-options/registration_view">DropDown Options</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_field_dictionary/cv_checkbox/registration_view">CheckBox</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_field_dictionary/cv_checkbox-values/registration_view">CheckBox Values</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_field_dictionary/cv_radioButton/registration_view">RadioButton</a></li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_field_dictionary/cv_radioButton-values/registration_view">RadioButton Values</a></li>
                             <li class="nav-header">Cv Applicant</li>
-                            <li><a href="http://localhost:8080/recruitment-admin/user/cv_application/applied-applicant">Candiate List</a></li>
-
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/cv_application/applied-applicant">Candiate List</a></li>
+                            <li class="nav-header">Vacancy</li>
+                            <li><a href="http://rec.admin.hsenidmobile.com:8080/recruitment-admin/user/vacancy/vacancy_generate_view">Create Vacancy</a></li>
                         </ul>
                     </div><![CDATA[<!--/.well -->]]>
 

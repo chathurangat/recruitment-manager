@@ -16,8 +16,9 @@
                    <li class="nav-header">Select the vacancy here !</li>
                        <c:forEach items="${vacancyList}" var="vacancyList">
                         <li>
+                            <img src="${vacancyList.filePath}" alt="vacancy_image"/>
                             <label>
-                                <a href="http://localhost:8080/recruitment-web/user/applicant/apply?id=${vacancyList.id}">${vacancyList.cvHeaderEn}</a>
+                                <a href="http://rec.admin.hsenidmobile.com:8080/recruitment-web/user/applicant/apply?id=${vacancyList.cvApplicationTemplateId}">apply now !</a>
                             </label>
                         </li>
                        </c:forEach>

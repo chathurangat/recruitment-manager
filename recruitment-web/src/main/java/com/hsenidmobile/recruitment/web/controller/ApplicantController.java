@@ -54,8 +54,8 @@ public class ApplicantController {
         System.out.println(" application vacancies ["+vacancies+"]");
         if (vacancies!=null){
             modelAndView.setViewName("vacancy_publish");
-            modelAndView.addObject("vacancyList",vacancies);
-            modelAndView.addObject("image",vacancyList);
+          //  modelAndView.addObject("vacancyList",vacancies);
+            modelAndView.addObject("vacancyList",vacancyList);
         }
         else {
             modelAndView.setViewName("error");
