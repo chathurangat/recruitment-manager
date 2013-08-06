@@ -12,8 +12,8 @@ public class Vacancy implements Serializable {
     @Id
     private String id;
     private String cvApplicationTemplateId;
-
     private String filename;
+    private String filePath;
     private CommonsMultipartFile fileData;
 
     public String getFilename() {
@@ -22,6 +22,14 @@ public class Vacancy implements Serializable {
 
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     public CommonsMultipartFile getFileData() {

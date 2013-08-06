@@ -4,6 +4,7 @@ import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
 import com.hsenidmobile.recruitment.model.Vacancy;
 import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
 import com.hsenidmobile.recruitment.service.VacancyService;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,7 @@ public class VacancyController {
         try {
 
                 MultipartFile filea = vacancy.getFileData();
-               System.out.print("vacancy.getFileData()"+vacancy.getFileData());
+                System.out.print("vacancy.getFileData()"+vacancy.getFileData());
 
                 String fileName = null;
                 InputStream inputStream = null;
@@ -74,11 +75,17 @@ public class VacancyController {
                 System.out.print("filea.getSize()"+filea.getSize());
                 if (filea.getSize() > 0) {
                     inputStream = filea.getInputStream();
+
+                    String extension = FilenameUtils.getExtension(filea.getOriginalFilename());
+
                     fileName = request.getRealPath("") + "/resources/img/"
-                            + filea.getOriginalFilename();
+                            + vacancy.getCvApplicationTemplateId()+"vacancy."+extension;
+
+                    System.out.println("file name is : " + fileName);
+                    vacancy.setFilePath("/recruitment-admin/resources/img/"+vacancy.getCvApplicationTemplateId()+"vacancy."+extension);
+                    vacancy.setFilename(vacancy.getCvApplicationTemplateId()+"vacancy."+extension);
 
                     outputStream = new FileOutputStream(fileName);
-                    vacancy.setFilename(filea.getOriginalFilename());
                     System.out.println("================Starting to get Image================");
                     System.out.println(filea.getOriginalFilename());
                     System.out.println("=====================================================");
@@ -91,7 +98,7 @@ public class VacancyController {
                     outputStream.close();
                     inputStream.close();
                     session.setAttribute("uploadFile", "../resources/img/"
-                            + filea.getOriginalFilename());
+                            + vacancy.getCvApplicationTemplateId()+"vacancy."+extension);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
