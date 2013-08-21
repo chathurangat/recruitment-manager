@@ -1,9 +1,12 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:spring="http://www.springframework.org/tags"
-          xmlns:sf="http://www.springframework.org/tags/form">
+          xmlns:sf="http://www.springframework.org/tags/form"
+          xmlns:security="http://www.springframework.org/security/tags">
+
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
 
+    <security:authorize access="hasRole('ROLE_CREATE_CV_DROPDOWN_OPTIONS')">
     <fieldset>
         <legend>
             Dropdown Dictionary Options Registration
@@ -16,5 +19,11 @@
 
 
     </fieldset>
+    </security:authorize>
 
+    <security:authorize access="!hasRole('ROLE_CREATE_CV_DROPDOWN_OPTIONS')">
+        <div style="text-align:center;">
+            <img class="logo-hsenid" alt="logo" src="../resources/img/access_denied.jpeg" />
+        </div>
+    </security:authorize>
 </jsp:root>

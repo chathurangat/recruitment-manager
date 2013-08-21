@@ -1,8 +1,5 @@
 package com.hsenidmobile.recruitment.web.controller;
 
-import com.hsenidmobile.recruitment.model.CvApplicationTemplate;
-import com.hsenidmobile.recruitment.service.CvApplicationTemplateService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +38,21 @@ public class WelcomeController {
     public ModelAndView displayAdminPage(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("common/admin_page");
+        return modelAndView;
+    }
+
+    /**
+     * <p>
+     *     this is to check whether the spring security works as expected....
+     *     this method is only accessible for the admin users
+     * </p>
+     * @return "access_denied_page" logical name encapsulated in {@link ModelAndView}
+     */
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/denied",method = RequestMethod.GET)
+    public ModelAndView displayAccessDeniedPage(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("common/access_denied_page");
         return modelAndView;
     }
 }

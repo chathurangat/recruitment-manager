@@ -6,8 +6,8 @@
 </head>
 <body>
 
-<div id="login-error">${error}</div>
-
+<div id="login-error" style="text-align:center;" >${error}</div>
+<br/><br/><br/>
 <div class="txt-login"><jsp:text>Sign In</jsp:text></div>
 
 

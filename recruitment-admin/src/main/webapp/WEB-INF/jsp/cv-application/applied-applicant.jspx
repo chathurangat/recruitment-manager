@@ -1,5 +1,6 @@
 <jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:sf="http://www.springframework.org/tags/form"
-          xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+          xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:security="http://www.springframework.org/security/tags">
     <jsp:directive.page contentType="text/html;charset=UTF-8" language="java"/>
   <html>
     <head>
@@ -7,7 +8,8 @@
         <meta name="decorator" content="default"/>
     </head>
     <body>
-<fieldset>
+    <security:authorize access="hasRole('ROLE_VIEW_CANDIDATE_LIST')">
+    <fieldset>
     <legend>
         Cv Application applied applicant details
 
@@ -22,6 +24,21 @@
         </table>
     </legend>
 </fieldset>
+</security:authorize>
+
+        <security:authorize access="!hasRole('ROLE_VIEW_CANDIDATE_LIST')">
+            <div style="text-align:center;">
+                <img class="logo-hsenid" alt="logo" src="../resources/img/access_denied.jpeg" />
+            </div>
+
+        </security:authorize>
+
+    <security:authorize access="!hasRole('ROLE_VIEW_CANDIDATE_LIST')">
+        <div style="text-align:center;">
+            <img class="logo-hsenid" alt="logo" src="../resources/img/access_denied.jpeg" />
+        </div>
+    </security:authorize>
+
     </body>
     </html>
 </jsp:root>
