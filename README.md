@@ -1,7 +1,7 @@
 recruitment-manager
 ===================
 
-this application will automate the whole HR recruitment process from application submission to employee recruitment.
+This application will automate the whole HR recruitment process from application submission to employee recruitment.
 
 Enter the dns entry into your hosts file
 sudo vi /etc/hosts
